@@ -19,5 +19,6 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 /nbproject/private/
- .DS_Store
+.DS_Store
+/.DS_Store/*
 

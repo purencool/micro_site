@@ -1,5 +1,5 @@
 {
-    "name": "Single column layout",
+    "name": "Single column test layout",
     "description": "Single column twig template",
     "@type": "twig",
     "@creation": "index.html.twig",

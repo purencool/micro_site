@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\Twig\TwigExpressionEngine;
 
 class AdminInstallController extends AbstractController
 {
@@ -46,6 +47,7 @@ class AdminInstallController extends AbstractController
         $path . 'templates'. $ds . 'layouts'
       );
 
+      TwigExpressionEngine::create();
      
       $websiteConfigPath = $path . $ds ."..". $ds. 'website_configuration'. $ds . 'layouts' . $ds;
       if(is_dir($websiteConfigPath)){

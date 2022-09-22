@@ -54,15 +54,15 @@ class Update {
     while (( $items = readdir($dir))) {
       if (( $items != '.' ) && ( $items != '..' )) {
         if (\is_dir($src . self::$ds . $items)) {
-          self::installTwigConfigurationTemplating($src . self::$ds . $items);
+          self::createTwigConfigurationTemplating($src . self::$ds . $items);
         }
         else {
           $contents = json_decode(file_get_contents($src . self::$ds . $items), true);
           if (isset($contents['@type']) && $contents['@type'] === 'twig' && isset($contents['@config'])) {
-           print_r($contents);
-           print "<br>";
-           print "<br>";
-           // ExpressionEngine::renderConfiguration($contents, $src);
+            print_r($contents);
+            print "<br>";
+            print "<br>";
+            // ExpressionEngine::renderConfiguration($contents, $src);
           }
         }
       }
@@ -75,13 +75,17 @@ class Update {
    * 
    * @param type $path
    *    Path to directory that has Json configuration.
+   *
+   * @return array
+   *    Lets the user know the results of the process. 
    */
-  public static function update() {
+  public static function update() : array {
     self::$ds = DIRECTORY_SEPARATOR;
     self::$path = __DIR__ . self::$ds . ".." . self::$ds . ".." . self::$ds . ".." . self::$ds;
     self::moveCustomLayoutConfiguration();
     $src = self::$path . 'templates' . self::$ds . 'layouts';
-    self::creatingTwigConfigurationTemplating($src);
+    self::createTwigConfigurationTemplating($src);
+    return [ 'result' => 'System was updated' ];
   }
 
 }

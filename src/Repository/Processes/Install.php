@@ -55,12 +55,16 @@ class Install {
    * 
    * @param type $path
    *    Path to directory that has Json configuration.
+   * 
+   * @return array
+   *    Lets the user know the results of the process.
    */
-  public static function create() {
+  public static function create() : array {
     self::$ds = DIRECTORY_SEPARATOR;
     self::$path = __DIR__ . self::$ds . ".." . self::$ds . ".." . self::$ds . ".." . self::$ds;
     self::installDefaultLayouts();
     self::installCustomWebsite();
+    return [ 'result' => 'Your installation was completed' ];
   }
 
 }

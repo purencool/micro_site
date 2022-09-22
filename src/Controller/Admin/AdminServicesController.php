@@ -13,11 +13,28 @@ class AdminServicesController extends AbstractController {
   /**
    * @inheritDoc
    */
-  #[Route('/admin/processes', name: 'app_admin_layout')]
-  public function index(): Response {
-    Install::create();
-    Update::update();
-    return new Response('<html><body>Installed</body></html>');
+  #[Route('/admin/processes/{request}', name: 'app_admin_layout')]
+  public function index(string $request): Response {
+
+    $return = ['result' => 'Request is not valid'];
+
+    switch ($request) {
+      case 'install':
+        $return = Install::create();
+        break;
+
+      case 'update':
+        $return = Update::update();
+        break;
+
+      default:
+        break;
+    }
+
+    return $this->render('core/admin_services/index.html.twig', [
+      'title' => 'Admin Services',
+      'result' => $return['result'],
+    ]);
   }
 
 }

@@ -8,14 +8,15 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\Processes\Install;
 use App\Repository\Processes\Update;
 
-class AdminServicesController extends AbstractController {
+class AdminStyleGuideController extends AbstractController {
 
   /**
    * @inheritDoc
    */
-  #[Route('/admin/processes/{request}', name: 'app_admin_layout')]
-  public function index(string $request): Response {
+  #[Route('/admin/style-guide', name: 'app_admin_layout')]
+  public function index(): Response {
 
+    $request ="";
     $return = ['result' => 'Request is not valid'];
 
     switch ($request) {
@@ -31,8 +32,8 @@ class AdminServicesController extends AbstractController {
         break;
     }
 
-    return $this->render('core/admin_services/index.html.twig', [
-      'title' => 'Admin Services',
+    return $this->render('core/admin_style_guide/index.html.twig', [
+      'title' => 'Style Guide',
       'result' => $return['result'],
     ]);
   }

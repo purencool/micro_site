@@ -17,15 +17,26 @@ elif [[ "$REQUEST" = "update" ]]
 then
   ./bin/console si:se update
 
+elif [[ "$REQUEST" = "server:start" ]]
+then
+  cd ./public
+  php -S localhost:8000 index.php
+
+elif [[ "$REQUEST" = "server:stop" ]]
+then
+  kill $(ps aux | grep 'php -S localhost:8000 index.php' | awk '{print $2}') 
+
 else
   echo ""
-  echo "==================================================="
+  echo "======================================================="
   echo " Commands"
-  echo "==================================================="
-  echo " Install latest core release     'site core:update'"
-  echo " Site installation                   'site install'"
-  echo " Update custom site configuration     'site update'"
-  echo "==================================================="
+  echo "======================================================="
+  echo " Install latest core release         'site core:update'"
+  echo " Site installation                       'site install'"
+  echo " Start simple testing web server    'site server:start'"
+  echo " Stop simple testing web server     'site server:start'"
+  echo " Update custom site configuration         'site update'"
+  echo "======================================================="
   echo ""
 fi
 

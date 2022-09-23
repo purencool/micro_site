@@ -59,10 +59,8 @@ class Update {
         else {
           $contents = json_decode(file_get_contents($src . self::$ds . $items), true);
           if (isset($contents['@type']) && $contents['@type'] === 'twig' && isset($contents['@config'])) {
-            print_r($contents);
-            print "<br>";
-            print "<br>";
-            // ExpressionEngine::renderConfiguration($contents, $src);
+             // print $src . self::$ds . $items;
+              ExpressionEngine::renderConfiguration($contents, $src . self::$ds);
           }
         }
       }
@@ -85,7 +83,7 @@ class Update {
     self::moveCustomLayoutConfiguration();
     $src = self::$path . 'templates' . self::$ds . 'layouts';
     self::createTwigConfigurationTemplating($src);
-    return [ 'response' => 'System was updated' ];
+    return [ 'response' => 'Updated sites custom configuration' ];
   }
 
 }

@@ -29,15 +29,17 @@ class ExpressionEngine {
    * @param type $path
    *    Path to add configuration.
    */
-  public static function renderConfiguration($contents, $path) {
+  public static function renderConfiguration($contents,$path) {
+    $ds = DIRECTORY_SEPARATOR;
     $filesystem = new Filesystem();
-    $filesystem->dumpFile($path . $contents['@creation'], '{# Created by Twig Expresion Engine #}');
+    @mkdir($path.'templates');
+    $filesystem->dumpFile($path . $ds . 'templates'. $ds . $contents['@creation'], '{# Created by Twig Expresion Engine #}');
     foreach ($contents['@config'] as $config_key => $config_value) {
       if (!is_array($config_value)) {
         if ($config_key == '@extend') {
           $stringToReplace = self::$expression['@extend'];
           $twig = str_replace(self::$expression['@string'], $config_value, $stringToReplace);
-          $filesystem->appendToFile($path . $contents['@creation'], $twig, true);
+          $filesystem->appendToFile($path . $ds . 'templates'. $ds . $contents['@creation'], $twig, true);
         }
       }
     }

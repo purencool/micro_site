@@ -85,7 +85,7 @@ class Update {
     self::moveCustomLayoutConfiguration();
     $src = self::$path . 'templates' . self::$ds . 'layouts';
     self::createTwigConfigurationTemplating($src);
-    return [ 'result' => 'System was updated' ];
+    return [ 'response' => 'System was updated' ];
   }
 
 }

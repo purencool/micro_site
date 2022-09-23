@@ -7,6 +7,9 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
+use App\Repository\Processes\Install;
+use App\Repository\Processes\Update;
+
 
 
 #[AsCommand(
@@ -44,17 +47,33 @@ class SiteServices extends Command {
    */
   protected function execute(InputInterface $input, OutputInterface $output): int {
 
+   $return = ['response' => 'Request is not valid']; 
+   switch ($input->getArgument('request')) {
+      case 'install':
+        $return = Install::create();
+        $output->writeln($return);
+        return Command::SUCCESS;
+      
+      case 'update':
+        $return = Update::update();
+        $output->writeln($return);
+        return Command::SUCCESS;
+
+      default:
     $output->writeln([
       '',
-      '=====================================',
+      '=================================================',
       ' Services',
-      '=====================================',
-    ]);
-    $output->writeln(' setting: ' . $input->getArgument('request'));
-    $output->writeln([
-      '=====================================',
+      '=================================================',
+      ' Website installation command `si:se install`',
+      ' Update custom site configuration `si:s e update`',
+      '=================================================',
       '',
     ]);
+        break;
+    }
+
+
     return Command::SUCCESS;
   }
 

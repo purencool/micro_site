@@ -64,7 +64,7 @@ class Install {
     self::$path = __DIR__ . self::$ds . ".." . self::$ds . ".." . self::$ds . ".." . self::$ds;
     self::installDefaultLayouts();
     self::installCustomWebsite();
-    return [ 'result' => 'Your installation was completed' ];
+    return [ 'response' => 'Your installation was completed' ];
   }
 
 }

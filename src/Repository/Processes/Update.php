@@ -31,15 +31,25 @@ class Update {
   /**
    * Move custom layout configuration into the templates directory. 
    * 
+   * @param type $src
+   *   Source path for the layout directories.
    */
-  protected static function moveCustomLayoutConfiguration() {
-    $moveCustomConfig = self::$path . ".." . self::$ds . 'website_configuration' . self::$ds . 'layouts' . self::$ds;
-    if (is_dir($moveCustomConfig)) {
-      MoveDirectoryAndFiles::copySD(
-        $moveCustomConfig,
-        self::$path . 'templates' . self::$ds . 'layouts' . self::$ds,
-      );
+  protected static function moveCustomLayoutConfiguration($src) {
+    $dir = opendir($src);
+    while (( $items = readdir($dir))) {
+      if (( $items != '.' ) && ( $items != '..' )) {
+        if (\is_dir($src . self::$ds . $items)) {
+          if ($items == 'layouts') {
+            MoveDirectoryAndFiles::copySD(
+              $src . self::$ds . $items,
+              self::$path . 'templates' . self::$ds . 'layouts' . self::$ds,
+            );
+          }
+          self::moveCustomLayoutConfiguration($src . self::$ds . $items);
+        }
+      }
     }
+    closedir($dir);
   }
 
   /**
@@ -59,8 +69,8 @@ class Update {
         else {
           $contents = json_decode(file_get_contents($src . self::$ds . $items), true);
           if (isset($contents['@type']) && $contents['@type'] === 'twig' && isset($contents['@config'])) {
-             // print $src . self::$ds . $items;
-              ExpressionEngine::renderConfiguration($contents, $src . self::$ds);
+            // print $src . self::$ds . $items;
+            ExpressionEngine::renderConfiguration($contents, $src . self::$ds);
           }
         }
       }
@@ -77,13 +87,15 @@ class Update {
    * @return array
    *    Lets the user know the results of the process. 
    */
-  public static function update() : array {
+  public static function update(): array {
     self::$ds = DIRECTORY_SEPARATOR;
     self::$path = __DIR__ . self::$ds . ".." . self::$ds . ".." . self::$ds . ".." . self::$ds;
-    self::moveCustomLayoutConfiguration();
+    self::moveCustomLayoutConfiguration(
+      self::$path . ".." . self::$ds . 'websites' . self::$ds
+    );
     $src = self::$path . 'templates' . self::$ds . 'layouts';
     self::createTwigConfigurationTemplating($src);
-    return [ 'response' => 'Updated sites custom configuration' ];
+    return ['response' => 'Updated sites custom configuration'];
   }
 
 }

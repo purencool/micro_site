@@ -7,6 +7,10 @@ then
   git pull origin main
   composer update
 
+elif [[ "$REQUEST" = "c:c" ]]
+then
+  ./bin/console cache:clear
+
 elif [[ "$REQUEST" = "install" ]]
 then
   echo "Site installation";
@@ -17,6 +21,8 @@ then
   if [ ! -f ".env.local" ]
   then
 echo 'APP_ENV=prod
+APP_ENABLED_SITE=example_com
+APP_STYLE_GUIDE=true
 APP_SECRET="Add 32 characters without spaces"
 
 APP_REST_API="Rest URL without HTTP"
@@ -28,12 +34,12 @@ elif [[ "$REQUEST" = "update" ]]
 then
   ./bin/console si:se update
 
-elif [[ "$REQUEST" = "server:start" ]]
+elif [[ "$REQUEST" = "start" ]]
 then
   cd ./public
   php -S localhost:8000 index.php
 
-elif [[ "$REQUEST" = "server:stop" ]]
+elif [[ "$REQUEST" = "stop" ]]
 then
   kill $(ps aux | grep 'php -S localhost:8000 index.php' | awk '{print $2}') 
 
@@ -42,12 +48,12 @@ else
   echo " =============================================================="
   echo " Commands"
   echo " =============================================================="
+  echo " Clear caches alias                                  'site c:c'"
   echo " Install latest core release                 'site core:update'"
   echo " Site installation                               'site install'"
-  echo " Start testing web server                   'site server:start'"
-  echo " Stop testing web server           Ctrl C or 'site server:stop'"
+  echo " Start testing web server                          'site start'"
+  echo " Stop testing web server                  Ctrl C or 'site stop'"
   echo " Update custom site configuration                 'site update'"
   echo " =============================================================="
   echo ""
 fi
-

@@ -41,10 +41,10 @@ class Install {
    * Installs custom layouts out of core.
    */
   protected static function installCustomWebsite() {
-    $webCustomPath = self::$path . ".." . self::$ds . 'website_configuration';
+    $webCustomPath = self::$path . ".." . self::$ds . 'websites';
     if (!is_dir($webCustomPath)) {
       MoveDirectoryAndFiles::copySD(
-        self::$path . 'core' . self::$ds . 'website_configuration' . self::$ds,
+        self::$path . 'core' . self::$ds . 'websites' . self::$ds,
         $webCustomPath,
       );
     }

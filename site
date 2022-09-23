@@ -1,0 +1,31 @@
+#!/usr/bin/env php
+
+REQUEST=$1
+if [[ "$REQUEST" = "core:update" ]]
+then
+  git pull origin main
+  composer update
+
+elif [[ "$REQUEST" = "install" ]]
+then
+  echo "Site installation";
+  composer update;
+  ./bin/console si:se install
+  ./bin/console si:se update
+
+elif [[ "$REQUEST" = "update" ]]
+then
+  ./bin/console si:se update
+
+else
+  echo ""
+  echo "==================================================="
+  echo " Commands"
+  echo "==================================================="
+  echo " Install latest core release     'site core:update'"
+  echo " Site installation                   'site install'"
+  echo " Update custom site configuration     'site update'"
+  echo "==================================================="
+  echo ""
+fi
+

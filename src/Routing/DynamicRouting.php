@@ -15,7 +15,7 @@ class DynamicRouting extends Loader {
    * @var type
    */
   private static $routeArr = [
-    '', 
+    '',
     'intro',
     'install',
   ];

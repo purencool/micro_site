@@ -11,6 +11,10 @@ elif [[ "$REQUEST" = "c:c" ]]
 then
   ./bin/console cache:clear
 
+elif [[ "$REQUEST" = "d:r" ]]
+then
+  ./bin/console debug:router
+
 elif [[ "$REQUEST" = "install" ]]
 then
   echo "Site installation";
@@ -49,6 +53,7 @@ else
   echo " Commands"
   echo " =============================================================="
   echo " Clear caches alias                                  'site c:c'"
+  echo " Debug route alias                                   'site d:r'"
   echo " Install latest core release                 'site core:update'"
   echo " Site installation                               'site install'"
   echo " Start testing web server                          'site start'"

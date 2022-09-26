@@ -1,0 +1,13 @@
+{
+    "@branding_commication": {},
+    "communication": {
+        "@communication_global": {},
+        "@communication_site": {}
+    },
+    "@introduction": {},
+    "content": {
+        "@content_right_side": {},
+        "@content_center": {},
+        "@content_left_side": {}
+    }
+}

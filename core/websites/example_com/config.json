@@ -1,3 +1,8 @@
 {
-    "name": "example.com"
+    "name": "example.com",
+    "block_bots" : "",
+    "block_ips" : "",
+    "block_methods" : "",
+    "sites_data_directory" : "./data/",
+    "sites_assets_directory" : "./assets/"
 }

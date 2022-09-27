@@ -28,15 +28,7 @@ class Install {
    */
   protected static $path;
 
-  /**
-   * Installs default layouts out of core.
-   */
-  protected static function installDefaultLayouts() {
-    MoveDirectoryAndFiles::copySD(
-      self::$path . 'core' . self::$ds . 'layouts' . self::$ds,
-      self::$path . 'templates' . self::$ds . 'layouts'
-    );
-  }
+
 
   /**
    * Installs custom layouts out of core.
@@ -76,7 +68,6 @@ class Install {
   public static function create(): array {
     self::$ds = DIRECTORY_SEPARATOR;
     self::$path = __DIR__ . self::$ds . ".." . self::$ds . ".." . self::$ds . ".." . self::$ds;
-    self::installDefaultLayouts();
     self::installCustomWebsite();
     self::installWebsiteDataDirectory();
     return ['response' => 'Your installation was completed'];

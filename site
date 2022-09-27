@@ -7,11 +7,11 @@ then
   git pull origin main
   composer update
 
-elif [[ "$REQUEST" = "c:c" ]]
+elif [[ "$REQUEST" = "cc" ]]
 then
   ./bin/console cache:clear
 
-elif [[ "$REQUEST" = "d:r" ]]
+elif [[ "$REQUEST" = "dr" ]]
 then
   ./bin/console debug:router
 
@@ -25,7 +25,8 @@ then
   if [ ! -f ".env.local" ]
   then
 echo 'APP_ENV=prod
-APP_ENABLED_SITE=example_com
+APP_SITE=example_com
+APP_LAYOUT=example_com
 APP_STYLE_GUIDE=true
 APP_SECRET="Add 32 characters without spaces"
 
@@ -52,8 +53,8 @@ else
   echo " =============================================================="
   echo " Commands"
   echo " =============================================================="
-  echo " Clear caches alias                                  'site c:c'"
-  echo " Debug route alias                                   'site d:r'"
+  echo " Clear caches alias                                  'site cc'"
+  echo " Debug route alias                                   'site dr'"
   echo " Install latest core release                 'site core:update'"
   echo " Site installation                               'site install'"
   echo " Start testing web server                          'site start'"

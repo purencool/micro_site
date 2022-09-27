@@ -80,9 +80,6 @@ class Update {
 
   /**
    * Create twig from Json object.
-   * 
-   * @param type $path
-   *    Path to directory that has Json configuration.
    *
    * @return array
    *    Lets the user know the results of the process. 
@@ -90,11 +87,22 @@ class Update {
   public static function update(): array {
     self::$ds = DIRECTORY_SEPARATOR;
     self::$path = __DIR__ . self::$ds . ".." . self::$ds . ".." . self::$ds . ".." . self::$ds;
+
+    // Move twig template configuration to working directory
     self::moveCustomLayoutConfiguration(
       self::$path . ".." . self::$ds . 'websites' . self::$ds
     );
+    
+    // Caching being destroyed so application can be rebuilt including twig.
+    Caches::destroy();
+    
+    // Recreating the templating system.
     $src = self::$path . 'templates' . self::$ds . 'layouts';
     self::createTwigConfigurationTemplating($src);
+
+    // Created caching for routes and content.
+    Caches::create();
+
     return ['response' => 'Updated sites custom configuration'];
   }
 

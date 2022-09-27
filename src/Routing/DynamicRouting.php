@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Routing;
 
 use Symfony\Component\Config\Loader\Loader;
@@ -37,6 +38,7 @@ class DynamicRouting extends Loader {
    * @param type $styleGuide
    */
   public function __construct($styleGuide) {
+    parent::__construct();
     self::$styleGuide = $styleGuide;
   }
 
@@ -52,7 +54,7 @@ class DynamicRouting extends Loader {
    * 
    * @param type $resource
    * @param string $type
-   * @return type
+   * @return string
    */
   public function supports($resource, string $type = null) {
     return 'extra' === $type;
@@ -80,7 +82,7 @@ class DynamicRouting extends Loader {
       $routeName = 'dr_' . str_replace(['-', '/'], '_', $route);
       $collection->add($routeName, $createdRoute);
     }
-    
+
     // Adds style guides for development reasons
     if (self::$styleGuide === 'true') {
       $styleRoute = 'site-style-guide';

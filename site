@@ -17,10 +17,6 @@ then
 
 elif [[ "$REQUEST" = "install" ]]
 then
-  echo "Site installation";
-  composer update;
-  ./bin/console si:se install
-  ./bin/console si:se update
 
   if [ ! -f ".env.local" ]
   then
@@ -34,6 +30,12 @@ APP_REST_API="Rest URL without HTTP"
 APP_REST_CLIENT_DOMAIN="Username"
 APP_REST_CLIENT_KEY="Rest API"' > .env.local
   fi
+
+  composer update;
+  ./bin/console si:se install
+  ./bin/console si:se update
+
+
 
 elif [[ "$REQUEST" = "update" ]]
 then

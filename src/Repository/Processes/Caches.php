@@ -41,9 +41,8 @@ class Caches {
    * @return array
    *    Lets the user know the results of the process.
    */
-  public static function destroy(): array {
-    $path = $this->path.'var' . $this->ds . 'cache';
-
+  public function destroy(): array {
+    $path = $this->path .'var' . $this->ds . 'cache';
     RemoveDirectoryAndFiles::deleteSD($path);
     print_r(scandir($path));
     
@@ -59,7 +58,7 @@ class Caches {
    * @return array
    *    Lets the user know the results of the process.
    */
-  public static function create(): array {
+  public function create(): array {
     
     return ['response' => 'Caches have been created'];
   }

@@ -15,7 +15,7 @@ class RemoveDirectoryAndFiles {
         foreach ( $iterator as $fileinfo ) {
           if($fileinfo->isDot())continue;
           if($fileinfo->isDir()){
-            if(deleteSD($fileinfo->getPathname()))
+            if(self::deleteSD($fileinfo->getPathname()))
               @rmdir($fileinfo->getPathname());
           }
           if($fileinfo->isFile()){

@@ -86,7 +86,10 @@ class Update {
    */
   public static function update(): array {
     self::$ds = DIRECTORY_SEPARATOR;
-    self::$path = __DIR__ . self::$ds . ".." . self::$ds . ".." . self::$ds . ".." . self::$ds;
+    self::$path = __DIR__ . self::$ds . ".." . 
+          self::$ds . ".." . self::$ds . ".." . self::$ds;
+
+    $accessingCaches = new Caches();
 
     // Move twig template configuration to working directory
     self::moveCustomLayoutConfiguration(
@@ -94,14 +97,14 @@ class Update {
     );
     
     // Caching being destroyed so application can be rebuilt including twig.
-    Caches::destroy();
+    $accessingCaches->destroy();
     
     // Recreating the templating system.
     $src = self::$path . 'templates' . self::$ds . 'layouts';
     self::createTwigConfigurationTemplating($src);
 
     // Created caching for routes and content.
-    Caches::create();
+    $accessingCaches->create();
 
     return ['response' => 'Updated sites custom configuration'];
   }

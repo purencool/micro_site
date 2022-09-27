@@ -18,14 +18,20 @@ class Caches {
    * 
    * @var string
    */
-  protected static $ds;
+  protected $ds;
 
   /**
    * Sets the real path to that applications root.
    * 
    * @var string
    */
-  protected static $path;
+  protected $path;
+
+  public function __construct() {
+    $this->ds = DIRECTORY_SEPARATOR;
+    $this->path =  __DIR__ . $this->ds . ".." . 
+           $this->ds . ".." . $this->ds . ".." . $this->ds;
+  }
   
 
   /**
@@ -36,11 +42,10 @@ class Caches {
    *    Lets the user know the results of the process.
    */
   public static function destroy(): array {
-    self::$ds = DIRECTORY_SEPARATOR;
-    self::$path = __DIR__ . self::$ds . ".." . self::$ds . ".." . self::$ds . ".." . self::$ds.'var';
+    $path = $this->path.'var' . $this->ds . 'cache';
 
-    RemoveDirectoryAndFiles::deleteSD(self::$path);
-    print_r(scandir(self::$path));
+    RemoveDirectoryAndFiles::deleteSD($path);
+    print_r(scandir($path));
     
     echo "destroyed"; exit;
     return ['response' => 'Caches have been destroyed'];
@@ -55,8 +60,7 @@ class Caches {
    *    Lets the user know the results of the process.
    */
   public static function create(): array {
-    self::$ds = DIRECTORY_SEPARATOR;
-    self::$path = __DIR__ . self::$ds . ".." . self::$ds . ".." . self::$ds . ".." . self::$ds;
+    
     return ['response' => 'Caches have been created'];
   }
 

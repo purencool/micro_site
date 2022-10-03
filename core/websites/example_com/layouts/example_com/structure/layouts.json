@@ -1,9 +1,15 @@
 {
     "default": {
-        "@route": "all"
+        "@route": "all",
+        "@structure": {
+            "header" : "universal/header.json",
+            "navigation" : "universal/navagation.json",
+            "home" : "content/page.json",
+            "footer" : "universal/footer.json"
+        }
     },
     "home": {
-        "@route": "",
+        "@route": "/",
         "@structure": {
             "header" : "universal/header.json",
             "navigation" : "universal/navagation.json",
@@ -12,6 +18,21 @@
         }
     },
     "articles": {
-        "@route": "/articles"
+        "@route": "/articles",
+        "@structure": {
+            "header" : "universal/header.json",
+            "navigation" : "universal/navagation.json",
+            "home" : "content/article_list.json",
+            "footer" : "universal/footer.json"
+        }
+    },
+    "article": {
+        "@route": "/articles/*",
+        "@structure": {
+            "header" : "universal/header.json",
+            "navigation" : "universal/navagation.json",
+            "home" : "content/article.json",
+            "footer" : "universal/footer.json"
+        }
     }
 }

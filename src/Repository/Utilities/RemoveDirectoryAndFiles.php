@@ -19,7 +19,7 @@ class RemoveDirectoryAndFiles {
               @rmdir($fileinfo->getPathname());
           }
           if($fileinfo->isFile()){
-            @unlink($fileinfo->getPathname());
+             @unlink($fileinfo->getPathname());
           }
         }
       } catch ( \Exception $e ){

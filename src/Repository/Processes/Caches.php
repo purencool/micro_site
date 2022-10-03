@@ -42,11 +42,12 @@ class Caches {
    *    Lets the user know the results of the process.
    */
   public function destroy(): array {
-    $path = $this->path .'var' . $this->ds . 'cache';
-    RemoveDirectoryAndFiles::deleteSD($path);
-    print_r(scandir($path));
+
+    $pathProd = $this->path .'var' . $this->ds . 'cache'. $this->ds .'site';
+    if(is_dir($pathProd)){
+     RemoveDirectoryAndFiles::deleteSD($pathProd);
+    }
     
-    echo "destroyed"; exit;
     return ['response' => 'Caches have been destroyed'];
   }
 

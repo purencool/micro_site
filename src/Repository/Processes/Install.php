@@ -57,6 +57,16 @@ class Install {
   }
 
   /**
+   * Sets up cache directory for application.
+   */
+  protected static function installCacheDirectory() {
+    $dataPathProd = self::$path .'var' . self::$ds . 'cache'. self::$ds .'site';
+    if (!is_dir($dataPathProd)) {
+      mkdir($dataPathProd);
+    }
+  }
+
+  /**
    * Create twig from Json object.
    * 
    * @param type $path
@@ -70,6 +80,7 @@ class Install {
     self::$path = __DIR__ . self::$ds . ".." . self::$ds . ".." . self::$ds . ".." . self::$ds;
     self::installCustomWebsite();
     self::installWebsiteDataDirectory();
+    self::installCacheDirectory();
     return ['response' => 'Your installation was completed'];
   }
 

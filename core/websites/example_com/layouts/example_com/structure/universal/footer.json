@@ -1,5 +1,6 @@
 {
     "footer": {
+        "@route":"all",
         "@footer_one": {},
         "@footer_two": {},
         "@footer_three": {},

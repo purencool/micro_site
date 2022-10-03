@@ -1,0 +1,17 @@
+{
+    "default": {
+        "@route": "all"
+    },
+    "home": {
+        "@route": "",
+        "@structure": {
+            "header" : "universal/header.json",
+            "navigation" : "universal/navagation.json",
+            "home" : "content/home.json",
+            "footer" : "universal/footer.json"
+        }
+    },
+    "articles": {
+        "@route": "/articles"
+    }
+}

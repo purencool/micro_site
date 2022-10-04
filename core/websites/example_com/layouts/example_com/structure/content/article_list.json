@@ -1,5 +1,6 @@
 {
-    "content": {
-        "@content_center": {}
+    "article_list": {
+        "@route":"/articles",
+        "@list_of_type":"article"
     }
 }

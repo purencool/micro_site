@@ -1,0 +1,7 @@
+{
+    "@title": "Welcome to this website",
+    "@route": "/about-us",
+    "@type": "page",
+    "@layout": "default",
+    "@content_center": "Welcome to this website"
+}

@@ -1,0 +1,7 @@
+{
+    "@title": "Welcome to this website",
+    "@route": "/articles/why-use-this-sytem",
+    "@layout": "article",
+    "@type": "article",
+    "@content_center": "Welcome to this website"
+}

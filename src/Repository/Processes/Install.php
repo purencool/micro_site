@@ -8,7 +8,7 @@ use App\Repository\Utilities\MoveDirectoryAndFiles;
  * The Install class completes the following functions.
  *  1. Installs the default layouts out of core.
  *  2. Creates and installs the custom configuration for the development team.
- *  3. Setups data directory that's used for storing content before deployment.
+ *  3. Setups data directories that's used for caching.
  *
  * @author purencool
  */
@@ -19,7 +19,7 @@ class Install {
    * 
    * @var string
    */
-  protected static $ds;
+  protected static $ds = DIRECTORY_SEPARATOR;
 
   /**
    * Sets the real path to that applications root.
@@ -27,8 +27,6 @@ class Install {
    * @var string
    */
   protected static $path;
-
-
 
   /**
    * Installs custom layouts out of core.
@@ -57,22 +55,22 @@ class Install {
   }
 
   /**
-   * Sets up cache directory for application.
+   * Sets up cache directories for applications.
    */
   protected static function installCacheDirectory() {
-    $dataCache = self::$path .'var' . self::$ds . 'cache'. self::$ds .'site';
+    $dataCache = self::$path . 'var' . self::$ds . 'cache' . self::$ds . 'site';
     if (!is_dir($dataCache)) {
       mkdir($dataCache);
     }
 
-    $dataCacheLayouts = self::$path .'var' .
-         self::$ds . 'cache'. self::$ds .'site'. self::$ds .'layouts';
+    $dataCacheLayouts = self::$path . 'var' .
+      self::$ds . 'cache' . self::$ds . 'site' . self::$ds . 'layouts';
     if (!is_dir($dataCacheLayouts)) {
       mkdir($dataCacheLayouts);
     }
 
-    $dataCacheContent = self::$path .'var' .
-         self::$ds . 'cache'. self::$ds .'site' .self::$ds .'content';
+    $dataCacheContent = self::$path . 'var' .
+      self::$ds . 'cache' . self::$ds . 'site' . self::$ds . 'content';
     if (!is_dir($dataCacheContent)) {
       mkdir($dataCacheContent);
     }
@@ -88,8 +86,9 @@ class Install {
    *    Lets the user know the results of the process.
    */
   public static function create(): array {
-    self::$ds = DIRECTORY_SEPARATOR;
-    self::$path = __DIR__ . self::$ds . ".." . self::$ds . ".." . self::$ds . ".." . self::$ds;
+    self::$path = __DIR__ . self::$ds . ".." .
+      self::$ds . ".." . self::$ds . ".." . self::$ds;
+
     self::installCustomWebsite();
     self::installWebsiteDataDirectory();
     self::installCacheDirectory();

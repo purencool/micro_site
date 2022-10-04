@@ -12,6 +12,10 @@ then
   ./bin/console cache:clear
   ./bin/console si:se layout:cache
 
+elif [[ "$REQUEST" = "services" ]]
+then
+  ./bin/console si:se
+
 elif [[ "$REQUEST" = "dr" ]]
 then
   ./bin/console debug:router
@@ -55,7 +59,7 @@ then
 else
   echo ""
   echo " =============================================================="
-  echo " Status"
+  echo " General Information"
   echo " =============================================================="
   echo " Version                                                  alpha"
   echo " Dependencies                     PHP 8.1 and up, composer, git"
@@ -63,8 +67,9 @@ else
   echo ""
   echo ""
   echo " =============================================================="
-  echo " Commands"
+  echo " Site Commands"
   echo " =============================================================="
+  echo " Services offered by system                     'site services'"
   echo " Clear caches alias                                   'site cc'"
   echo " Debug route alias                                    'site dr'"
   echo " Install latest core release                 'site core:update'"

@@ -10,14 +10,14 @@ namespace App\Repository\Layouts;
  *
  * @author purencool
  */
-class LayoutArrayBuilder implements LayoutArrayBuilderInterface {
-  
-  /**
-   * @inheritDoc
-   */
-  public function getLayoutArray(String $path): array {
-    $path;
-    return [];
-  }
-
+interface LayoutArrayBuilderInterface {
+   
+   /**
+    * Implements data array for the layout format array
+    * 
+    * @param String $path
+    * @return array
+    */
+   public function getLayoutArray(String $path) : array ;
 }
+

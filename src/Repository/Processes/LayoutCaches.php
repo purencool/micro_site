@@ -6,8 +6,8 @@ use App\Repository\Utilities\RemoveDirectoryAndFiles;
 
 /**
  * The LayoutCaches class completes the following functions.
- *  1. Delete caches.
- *  2. Destroy caches.
+ *  1. Destroy caches for layout array.
+ *  2. Creates caches for the layout array.
  *
  * @author purencool
  */
@@ -48,7 +48,7 @@ class LayoutCaches {
     self::globalPath();
     
     $pathProd = self::$path . 'var' . self::$ds . 
-            'cache' . self::$ds . 'site'. self::$ds . 'layout';
+            'cache' . self::$ds . 'site'. self::$ds . 'layouts';
 
     if (is_dir($pathProd)) {
       RemoveDirectoryAndFiles::deleteSD($pathProd);
@@ -65,6 +65,8 @@ class LayoutCaches {
    *    Lets the user know the results of the process.
    */
   public static function create(): array {
+     
+
 
     return ['response' => 'Caches have been created'];
   }

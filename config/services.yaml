@@ -6,7 +6,7 @@
 parameters:
     app.style_guide: '%env(APP_STYLE_GUIDE)%'
     app.site: '%env(APP_SITE)%'
-    app.layout: '%env(APP_LAYOUT)%'
+    app.layout_env_variable: '%env(APP_LAYOUT)%'
 
 services:
     # default configuration for services in *this* file
@@ -29,3 +29,6 @@ services:
         tags: [routing.loader]
         arguments:
             $styleGuide: '%app.style_guide%'
+    App\Commands\SiteServices:
+        arguments:
+            $layoutEnvVariable: '%app.layout_env_variable%'

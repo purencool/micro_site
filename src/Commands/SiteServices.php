@@ -9,10 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use App\Repository\Processes\Install;
 use App\Repository\Processes\Update;
-use App\Repository\Processes\Caches;
-
-
-
+use App\Repository\Processes\LayoutCaches;
 
 #[AsCommand(
     name: 'site:services',
@@ -28,6 +25,21 @@ use App\Repository\Processes\Caches;
  *  3. .
  */
 class SiteServices extends Command {
+
+  /**
+   * 
+   * @var type
+   */
+  private $layoutEnvVariable;
+
+  /**
+   * 
+   * @param string $layoutEnvVariable
+   */
+  public function __construct(string $layoutEnvVariable) {
+    parent::__construct();
+    $this->layoutEnvVariable = $layoutEnvVariable;
+  }
 
   /**
    * @inheritDoc
@@ -49,38 +61,40 @@ class SiteServices extends Command {
    */
   protected function execute(InputInterface $input, OutputInterface $output): int {
 
-   $return = ['response' => 'Request is not valid']; 
-   switch ($input->getArgument('request')) {
+    //echo $this->layoutEnvVariable; exit;
+
+
+    $return = ['response' => 'Request is not valid'];
+    switch ($input->getArgument('request')) {
       case 'install':
         $return = Install::create();
         $output->writeln($return);
         return Command::SUCCESS;
-      
+
       case 'update':
         $return = Update::update();
         $output->writeln($return);
         return Command::SUCCESS;
 
       case 'layout:cache':
-        Caches::destroy();
-        $return = Caches::create();
+        LayoutCaches::destroy();
+        $return = LayoutCaches::create();
         $output->writeln($return);
         return Command::SUCCESS;
 
       default:
-    $output->writeln([
-      '',
-      '=================================================',
-      ' Services',
-      '=================================================',
-      ' Website installation command `si:se install`',
-      ' Update custom site configuration `si:s e update`',
-      '=================================================',
-      '',
-    ]);
+        $output->writeln([
+          '',
+          ' ==============================================================',
+          ' Services offered by system',
+          ' ==============================================================',
+          ' Website installation             `./bin/console si:se install`',
+          ' Update custom website             `./bin/console si:se update`',
+          ' ==============================================================',
+          '',
+        ]);
         break;
     }
-
 
     return Command::SUCCESS;
   }

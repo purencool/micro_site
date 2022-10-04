@@ -10,6 +10,7 @@ then
 elif [[ "$REQUEST" = "cc" ]]
 then
   ./bin/console cache:clear
+  ./bin/console si:se layout:cache
 
 elif [[ "$REQUEST" = "dr" ]]
 then
@@ -39,6 +40,7 @@ APP_REST_CLIENT_KEY="Rest API"' > .env.local
 elif [[ "$REQUEST" = "update" ]]
 then
   ./bin/console cache:clear
+  ./bin/console si:se layout:cache
   ./bin/console si:se update
 
 elif [[ "$REQUEST" = "start" ]]
@@ -56,7 +58,7 @@ else
   echo " Status"
   echo " =============================================================="
   echo " Version                                                  alpha"
-  echo " Dependencies                     PHP 7.4 and up, composer, git"
+  echo " Dependencies                     PHP 8.1 and up, composer, git"
   echo " =============================================================="
   echo ""
   echo ""

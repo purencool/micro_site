@@ -9,6 +9,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use App\Repository\Processes\Install;
 use App\Repository\Processes\Update;
+use App\Repository\Processes\Caches;
+
 
 
 
@@ -56,6 +58,12 @@ class SiteServices extends Command {
       
       case 'update':
         $return = Update::update();
+        $output->writeln($return);
+        return Command::SUCCESS;
+
+      case 'layout:cache':
+        Caches::destroy();
+        $return = Caches::create();
         $output->writeln($return);
         return Command::SUCCESS;
 

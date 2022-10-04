@@ -5,32 +5,35 @@ namespace App\Repository\Processes;
 use App\Repository\Utilities\RemoveDirectoryAndFiles;
 
 /**
- * The Caches class completes the following functions.
+ * The LayoutCaches class completes the following functions.
  *  1. Delete caches.
  *  2. Destroy caches.
  *
  * @author purencool
  */
-class Caches {
+class LayoutCaches {
 
   /**
    * Sets directory separator.
    * 
    * @var string
    */
-  protected $ds;
+  private static $ds = DIRECTORY_SEPARATOR;
 
   /**
    * Sets the real path to that applications root.
    * 
    * @var string
    */
-  protected $path;
+  private static $path;
 
-  public function __construct() {
-    $this->ds = DIRECTORY_SEPARATOR;
-    $this->path =  __DIR__ . $this->ds . ".." . 
-           $this->ds . ".." . $this->ds . ".." . $this->ds;
+
+  /**
+   *  Setup paths needed for this class to run relevant tasks.
+   */
+  public static function globalPath() {
+    self::$path =  __DIR__ . self::$ds . ".." . 
+           self::$ds . ".." . self::$ds . ".." . self::$ds;
   }
   
 
@@ -41,16 +44,18 @@ class Caches {
    * @return array
    *    Lets the user know the results of the process.
    */
-  public function destroy(): array {
-
-    $pathProd = $this->path .'var' . $this->ds . 'cache'. $this->ds .'site';
-    if(is_dir($pathProd)){
-     RemoveDirectoryAndFiles::deleteSD($pathProd);
-    }
+  public static function destroy(): array {
+    self::globalPath();
     
+    $pathProd = self::$path . 'var' . self::$ds . 
+            'cache' . self::$ds . 'site'. self::$ds . 'layout';
+
+    if (is_dir($pathProd)) {
+      RemoveDirectoryAndFiles::deleteSD($pathProd);
+    }
+
     return ['response' => 'Caches have been destroyed'];
   }
-
 
   /**
    * Create caches.
@@ -59,8 +64,8 @@ class Caches {
    * @return array
    *    Lets the user know the results of the process.
    */
-  public function create(): array {
-    
+  public static function create(): array {
+
     return ['response' => 'Caches have been created'];
   }
 

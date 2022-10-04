@@ -60,9 +60,21 @@ class Install {
    * Sets up cache directory for application.
    */
   protected static function installCacheDirectory() {
-    $dataPathProd = self::$path .'var' . self::$ds . 'cache'. self::$ds .'site';
-    if (!is_dir($dataPathProd)) {
-      mkdir($dataPathProd);
+    $dataCache = self::$path .'var' . self::$ds . 'cache'. self::$ds .'site';
+    if (!is_dir($dataCache)) {
+      mkdir($dataCache);
+    }
+
+    $dataCacheLayouts = self::$path .'var' .
+         self::$ds . 'cache'. self::$ds .'site'. self::$ds .'layouts';
+    if (!is_dir($dataCacheLayouts)) {
+      mkdir($dataCacheLayouts);
+    }
+
+    $dataCacheContent = self::$path .'var' .
+         self::$ds . 'cache'. self::$ds .'site' .self::$ds .'content';
+    if (!is_dir($dataCacheContent)) {
+      mkdir($dataCacheContent);
     }
   }
 

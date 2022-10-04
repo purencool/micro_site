@@ -10,7 +10,7 @@ then
 elif [[ "$REQUEST" = "cc" ]]
 then
   ./bin/console cache:clear
-  ./bin/console si:se layout:cache
+  ./bin/console si:se layout:reset
 
 elif [[ "$REQUEST" = "services" ]]
 then
@@ -38,13 +38,12 @@ APP_REST_CLIENT_KEY="Rest API"' > .env.local
 
   composer update;
   ./bin/console si:se install
-  ./bin/console cache:clear
   ./bin/console si:se update
+  ./bin/console cache:clear
 
 elif [[ "$REQUEST" = "update" ]]
 then
   ./bin/console cache:clear
-  ./bin/console si:se layout:cache
   ./bin/console si:se update
 
 elif [[ "$REQUEST" = "start" ]]
@@ -59,7 +58,7 @@ then
 else
   echo ""
   echo " =============================================================="
-  echo " General Information"
+  echo " General Information."
   echo " =============================================================="
   echo " Version                                                  alpha"
   echo " Dependencies                     PHP 8.1 and up, composer, git"
@@ -67,7 +66,7 @@ else
   echo ""
   echo ""
   echo " =============================================================="
-  echo " Site Commands"
+  echo " Site Commands."
   echo " =============================================================="
   echo " Services offered by system                     'site services'"
   echo " Clear caches alias                                   'site cc'"

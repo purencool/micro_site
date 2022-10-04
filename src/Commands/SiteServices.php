@@ -61,34 +61,56 @@ class SiteServices extends Command {
    */
   protected function execute(InputInterface $input, OutputInterface $output): int {
 
-    //echo $this->layoutEnvVariable; exit;
-
-
-    $return = ['response' => 'Request is not valid'];
     switch ($input->getArgument('request')) {
       case 'install':
-        $return = Install::create();
-        $output->writeln($return);
+        $output->writeln([
+          '',
+          ' ==============================================================',
+          ' Website Installation.',
+          ' ==============================================================',
+          ' '.Install::create()['response'],
+          ' ==============================================================',
+          '',     
+        ]);
         return Command::SUCCESS;
+
 
       case 'update':
-        $return = Update::update();
-        $output->writeln($return);
+        $output->writeln([
+          '',
+          ' ==============================================================',
+          ' Website Update.',
+          ' ==============================================================',
+          ' '.Update::update()['response'],
+          ' ==============================================================',
+          '',     
+        ]);
+
         return Command::SUCCESS;
 
-      case 'layout:cache':
-        LayoutCaches::destroy();
-        $return = LayoutCaches::create();
-        $output->writeln($return);
+
+      case 'layout:reset':
+        $output->writeln([
+          '',
+          ' ==============================================================',
+          ' Layout Reset.',
+          ' ==============================================================',
+          ' '.LayoutCaches::destroy()['response'],
+          ' '.LayoutCaches::create()['response'],
+          ' ==============================================================',
+          '',     
+        ]);
         return Command::SUCCESS;
+
 
       default:
         $output->writeln([
           '',
           ' ==============================================================',
-          ' Services offered by system',
+          ' Services Offered By System.',
           ' ==============================================================',
           ' Website installation             `./bin/console si:se install`',
+          ' Reset layout cache          `./bin/console si:se layout:reset`',
           ' Update custom website             `./bin/console si:se update`',
           ' ==============================================================',
           '',

@@ -124,6 +124,8 @@ class SiteServices extends Command {
             ' Website installation             `./bin/console si:se install`',
             ' Reset layout cache          `./bin/console si:se layout:reset`',
             ' Update custom website             `./bin/console si:se update`',
+            ' ==============================================================',
+            ''
           ]
         );
         break;

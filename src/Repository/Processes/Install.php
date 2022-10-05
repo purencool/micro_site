@@ -92,7 +92,7 @@ class Install {
     self::installCustomWebsite();
     self::installWebsiteDataDirectory();
     self::installCacheDirectory();
-    return ['response' => 'Your installation was completed'];
+    return ['response' => [' Your installation was completed']];
   }
 
 }

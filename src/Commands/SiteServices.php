@@ -17,7 +17,6 @@ use App\Repository\Processes\LayoutCaches;
     hidden: false,
     aliases: ['si:se']
   )]
-
 /**
  * The AppServices class runs the following functionality,
  *  1. .
@@ -63,58 +62,70 @@ class SiteServices extends Command {
 
     switch ($input->getArgument('request')) {
       case 'install':
-        $output->writeln([
-          '',
-          ' ==============================================================',
-          ' Website Installation.',
-          ' ==============================================================',
-          ' '.Install::create()['response'],
-          ' ==============================================================',
-          '',     
-        ]);
-        return Command::SUCCESS;
+        $output->writeln(array_merge(
+            [
+              '',
+              ' ==============================================================',
+              ' Website Installation.',
+              ' =============================================================='
+            ],
+            Install::create()['response'],
+            [
+              ' ==============================================================',
+              ''
+            ]
+        ));
 
+        return Command::SUCCESS;
 
       case 'update':
-        $output->writeln([
-          '',
-          ' ==============================================================',
-          ' Website Update.',
-          ' ==============================================================',
-          ' '.Update::update()['response'],
-          ' ==============================================================',
-          '',     
-        ]);
+        $output->writeln(array_merge(
+            [
+              '',
+              ' ==============================================================',
+              ' Website Update.',
+              ' =============================================================='
+            ],
+            LayoutCaches::destroy()['response'],
+            Update::update()['response'],
+            LayoutCaches::create($this->layoutEnvVariable)['response'],
+            [
+              ' ==============================================================',
+              ''
+            ]
+        ));
 
         return Command::SUCCESS;
-
 
       case 'layout:reset':
-        $output->writeln([
-          '',
-          ' ==============================================================',
-          ' Layout Reset.',
-          ' ==============================================================',
-          ' '.LayoutCaches::destroy()['response'],
-          ' '.LayoutCaches::create()['response'],
-          ' ==============================================================',
-          '',     
-        ]);
+        $output->writeln(array_merge(
+            [
+              '',
+              ' ==============================================================',
+              ' Layout Reset.',
+              ' =============================================================='
+            ],
+            LayoutCaches::destroy()['response'],
+            LayoutCaches::create($this->layoutEnvVariable)['response'],
+            [
+              ' ==============================================================',
+              ''
+            ]
+        ));
         return Command::SUCCESS;
 
-
       default:
-        $output->writeln([
-          '',
-          ' ==============================================================',
-          ' Services Offered By System.',
-          ' ==============================================================',
-          ' Website installation             `./bin/console si:se install`',
-          ' Reset layout cache          `./bin/console si:se layout:reset`',
-          ' Update custom website             `./bin/console si:se update`',
-          ' ==============================================================',
-          '',
-        ]);
+        $output->writeln(
+          [
+            '',
+            ' ==============================================================',
+            ' Services Offered By System.',
+            ' ==============================================================',
+            ' Website installation             `./bin/console si:se install`',
+            ' Reset layout cache          `./bin/console si:se layout:reset`',
+            ' Update custom website             `./bin/console si:se update`',
+          ]
+        );
         break;
     }
 

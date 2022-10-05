@@ -94,17 +94,14 @@ class Update {
       self::$path . ".." . self::$ds . 'websites' . self::$ds
     );
 
-    // Caching being destroyed so application can be rebuilt including twig.
-    LayoutCaches::destroy();
+
 
     // Recreating the templating system.
     $src = self::$path . 'templates' . self::$ds . 'layouts';
     self::createTwigConfigurationTemplating($src);
 
-    // Created caching for routes and content.
-    LayoutCaches::create();
 
-    return ['response' => 'Updated sites custom configuration'];
+    return ['response' => [' Updated sites custom configuration']];
   }
 
 }

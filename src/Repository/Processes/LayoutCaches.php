@@ -27,15 +27,13 @@ class LayoutCaches {
    */
   private static $path;
 
-
   /**
    *  Setup paths needed for this class to run relevant tasks.
    */
   public static function globalPath() {
-    self::$path =  __DIR__ . self::$ds . ".." . 
-           self::$ds . ".." . self::$ds . ".." . self::$ds;
+    self::$path = __DIR__ . self::$ds . ".." .
+      self::$ds . ".." . self::$ds . ".." . self::$ds;
   }
-  
 
   /**
    * Destroy caches.
@@ -46,15 +44,15 @@ class LayoutCaches {
    */
   public static function destroy(): array {
     self::globalPath();
-    
-    $pathProd = self::$path . 'var' . self::$ds . 
-            'cache' . self::$ds . 'site'. self::$ds . 'layouts';
+
+    $pathProd = self::$path . 'var' . self::$ds .
+      'cache' . self::$ds . 'site' . self::$ds . 'layouts';
 
     if (is_dir($pathProd)) {
       RemoveDirectoryAndFiles::deleteSD($pathProd);
     }
 
-    return ['response' => 'Caches have been destroyed'];
+    return ['response' => [' Caches have been destroyed']];
   }
 
   /**
@@ -64,11 +62,13 @@ class LayoutCaches {
    * @return array
    *    Lets the user know the results of the process.
    */
-  public static function create(): array {
-     
+  public static function create(String $layoutEnvVariable): array {
 
 
-    return ['response' => 'Caches have been created'];
+
+    return ['response' => [
+        " Layout caches have been created using: $layoutEnvVariable",
+    ]];
   }
 
 }

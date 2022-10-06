@@ -19,7 +19,7 @@ class Update {
    * 
    * @var string
    */
-  protected static $ds;
+  protected static $ds = DIRECTORY_SEPARATOR;
 
   /**
    * Sets the real path to that applications root.
@@ -85,7 +85,6 @@ class Update {
    *    Lets the user know the results of the process. 
    */
   public static function update(): array {
-    self::$ds = DIRECTORY_SEPARATOR;
     self::$path = __DIR__ . self::$ds . ".." .
       self::$ds . ".." . self::$ds . ".." . self::$ds;
 
@@ -93,8 +92,6 @@ class Update {
     self::moveCustomLayoutConfiguration(
       self::$path . ".." . self::$ds . 'websites' . self::$ds
     );
-
-
 
     // Recreating the templating system.
     $src = self::$path . 'templates' . self::$ds . 'layouts';

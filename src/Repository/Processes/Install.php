@@ -58,21 +58,22 @@ class Install {
    * Sets up cache directories for applications.
    */
   protected static function installCacheDirectory() {
-    $dataCache = self::$path . 'var' . self::$ds . 'cache' . self::$ds . 'site';
-    if (!is_dir($dataCache)) {
-      mkdir($dataCache);
-    }
 
-    $dataCacheLayouts = self::$path . 'var' .
-      self::$ds . 'cache' . self::$ds . 'site' . self::$ds . 'layouts';
-    if (!is_dir($dataCacheLayouts)) {
-      mkdir($dataCacheLayouts);
-    }
+    $basePath = self::$path . 'var' . self::$ds . 'cache' . self::$ds;
+    $directoryPaths = [
+      $basePath . 'site',
+      $basePath . 'site' . self::$ds . 'test',
+      $basePath . 'site' . self::$ds . 'test' . self::$ds . 'layouts',
+      $basePath . 'site' . self::$ds . 'test' . self::$ds . 'content',
+      $basePath . 'site' . self::$ds . 'prod',
+      $basePath . 'site' . self::$ds . 'prod' . self::$ds . 'layouts',
+      $basePath . 'site' . self::$ds . 'prod' . self::$ds . 'content'
+    ];
 
-    $dataCacheContent = self::$path . 'var' .
-      self::$ds . 'cache' . self::$ds . 'site' . self::$ds . 'content';
-    if (!is_dir($dataCacheContent)) {
-      mkdir($dataCacheContent);
+    foreach ($directoryPaths as $item) {
+      if (!is_dir($item)) {
+        mkdir($item);
+      }
     }
   }
 

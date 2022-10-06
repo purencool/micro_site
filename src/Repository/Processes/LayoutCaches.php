@@ -3,11 +3,12 @@
 namespace App\Repository\Processes;
 
 use App\Repository\Utilities\RemoveDirectoryAndFiles;
+use App\Repository\Layouts\LayoutArrayBuilder;
 
 /**
  * The LayoutCaches class completes the following functions.
- *  1. Destroy caches for layout array.
- *  2. Creates caches for the layout array.
+ *  1. Destroy caches for layout arrays.
+ *  2. Creates caches for the layout arrays.
  *
  * @author purencool
  */
@@ -56,19 +57,36 @@ class LayoutCaches {
   }
 
   /**
-   * Create caches.
+   * Create Layout caches so the system can use them.
    * 
-   * 
+   * @param String $layoutEnvVariable
+   *    Gives the cache building system the layout environment directory it 
+   *    needs to implement.
    * @return array
    *    Lets the user know the results of the process.
    */
   public static function create(String $layoutEnvVariable): array {
+    self::globalPath();
+
+    //Build layout caching files.
+    $layoutArrayObj = new LayoutArrayBuilder();
+    $layoutArrayObjResponse = $layoutArrayObj->setLayoutArray(
+      self::$path . 'var' . self::$ds . 'cache' . self::$ds . 'site' . self::$ds . 'layouts',
+      self::$path . 'templates' . self::$ds . 'layouts' . self::$ds . $layoutEnvVariable . self::$ds . 'structure' . self::$ds
+    );
+
+    // Run content array builder.
 
 
-
-    return ['response' => [
-        " Layout caches have been created using: $layoutEnvVariable",
-    ]];
+    return ['response' => array_merge(
+        // Letting user know what has been started.
+        [
+          " Layout caches are being created using: $layoutEnvVariable.",
+        ],
+        // Getting layout cache building response.
+        $layoutArrayObjResponse
+      )
+    ];
   }
 
 }

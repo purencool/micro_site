@@ -2,7 +2,6 @@
 
 namespace App\Repository\Layouts;
 
-
 /**
  * The LayoutArrayBuilder completes the following functions.
  *  1. Collates all the layouts into one large array.
@@ -11,13 +10,18 @@ namespace App\Repository\Layouts;
  * @author purencool
  */
 class LayoutArrayBuilder implements LayoutArrayBuilderInterface {
-  
+
   /**
    * @inheritDoc
    */
-  public function getLayoutArray(String $path): array {
-    $path;
-    return [];
+  public function setLayoutArray(String $cachePath, String $layoutPath): array {
+
+    $cachePath;
+    $layoutPath;
+    return [
+      ' set layout array',
+      ' set layout two array'
+    ];
   }
 
 }

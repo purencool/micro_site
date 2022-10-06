@@ -29,7 +29,9 @@ class Install {
   protected static $path;
 
   /**
-   * Installs custom layouts out of core.
+   * Installs custom websites configuration out of core into a directory
+   * above the applications system so developers can update applications
+   * core and keep site configuration in a different repository.
    */
   protected static function installCustomWebsite() {
     $webCustomPath = self::$path . ".." . self::$ds . 'websites';
@@ -42,7 +44,8 @@ class Install {
   }
 
   /**
-   * Installs the websites data directory out of core.
+   * Installs the websites data directory out of core for the websites initial
+   * display of content.
    */
   protected static function installWebsiteDataDirectory() {
     $dataCustomPath = self::$path . ".." . self::$ds . 'data';
@@ -55,19 +58,18 @@ class Install {
   }
 
   /**
-   * Sets up cache directories for applications.
+   * Sets up cache directories for application.
    */
   protected static function installCacheDirectory() {
 
     $basePath = self::$path . 'var' . self::$ds . 'cache' . self::$ds;
     $directoryPaths = [
       $basePath . 'site',
+      $basePath . 'site' . self::$ds . 'content',
       $basePath . 'site' . self::$ds . 'test',
-      $basePath . 'site' . self::$ds . 'test' . self::$ds . 'layouts',
-      $basePath . 'site' . self::$ds . 'test' . self::$ds . 'content',
+      $basePath . 'site' . self::$ds . 'test' . self::$ds . 'layouts', 
       $basePath . 'site' . self::$ds . 'prod',
       $basePath . 'site' . self::$ds . 'prod' . self::$ds . 'layouts',
-      $basePath . 'site' . self::$ds . 'prod' . self::$ds . 'content'
     ];
 
     foreach ($directoryPaths as $item) {
@@ -78,10 +80,7 @@ class Install {
   }
 
   /**
-   * Create twig from Json object.
-   * 
-   * @param type $path
-   *    Path to directory that has Json configuration.
+   * Installing site configuration and caching system.
    * 
    * @return array
    *    Lets the user know the results of the process.

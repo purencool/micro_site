@@ -1,6 +1,7 @@
 #!/bin/bash
 
 REQUEST=$1
+PARAMETER=$2
 if [[ "$REQUEST" = "core:update" ]]
 then
   echo "Update core";
@@ -10,7 +11,7 @@ then
 elif [[ "$REQUEST" = "cc" ]]
 then
   ./bin/console cache:clear
-  ./bin/console si:se layout:reset
+  ./bin/console si:se caching $PARAMETER
 
 elif [[ "$REQUEST" = "services" ]]
 then
@@ -54,6 +55,10 @@ then
 elif [[ "$REQUEST" = "stop" ]]
 then
   kill $(ps aux | grep 'php -S localhost:8000 index.php' | awk '{print $2}') 
+
+elif [[ "$REQUEST" = "help" ]]
+then
+   ./bin/console si:se
 
 else
   echo ""

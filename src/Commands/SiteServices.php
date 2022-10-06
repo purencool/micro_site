@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use App\Repository\Processes\Install;
 use App\Repository\Processes\Update;
-use App\Repository\Processes\LayoutCaches;
+use App\Repository\Processes\Caching;
 
 #[AsCommand(
     name: 'site:services',
@@ -48,6 +48,7 @@ class SiteServices extends Command {
   protected function configure(): void {
     $this
       ->addArgument('request', InputArgument::OPTIONAL, 'request default')
+      ->addArgument('param', InputArgument::OPTIONAL, 'request parameter')
     ;
   }
 
@@ -86,9 +87,9 @@ class SiteServices extends Command {
               ' Website Update.',
               ' =============================================================='
             ],
-            LayoutCaches::destroy()['response'],
+            Caching::destroy()['response'],
             Update::update()['response'],
-            LayoutCaches::create($this->layoutEnvVariable)['response'],
+            Caching::create($this->layoutEnvVariable)['response'],
             [
               ' ==============================================================',
               ''
@@ -97,7 +98,11 @@ class SiteServices extends Command {
 
         return Command::SUCCESS;
 
-      case 'layout:reset':
+      case 'caching':
+        $inputParam = $input->getArgument('param');
+        if ($inputParam == '') {
+          $inputParam = 'all';
+        }
         $output->writeln(array_merge(
             [
               '',
@@ -105,8 +110,8 @@ class SiteServices extends Command {
               ' Layout Reset.',
               ' =============================================================='
             ],
-            LayoutCaches::destroy()['response'],
-            LayoutCaches::create($this->layoutEnvVariable)['response'],
+            Caching::destroy($inputParam)['response'],
+            Caching::create($this->layoutEnvVariable)['response'],
             [
               ' ==============================================================',
               ''
@@ -122,7 +127,8 @@ class SiteServices extends Command {
             ' Services Offered By System.',
             ' ==============================================================',
             ' Website installation             `./bin/console si:se install`',
-            ' Reset layout cache          `./bin/console si:se layout:reset`',
+            ' Reset layout cache    `./bin/console si:se caching {optional}`',
+            '                                            {""|all|test|prod}`',
             ' Update custom website             `./bin/console si:se update`',
             ' ==============================================================',
             ''

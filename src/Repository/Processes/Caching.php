@@ -12,7 +12,7 @@ use App\Repository\Layouts\LayoutArrayBuilder;
  *
  * @author purencool
  */
-class LayoutCaches {
+class Caching {
 
   /**
    * Sets directory separator.
@@ -39,21 +39,50 @@ class LayoutCaches {
   /**
    * Destroy caches.
    * 
-   * 
+   * @param String $caches
+   *    Allows the user to choose which caches need to be cleared.
+   *    By default all will need to be destroyed.
    * @return array
    *    Lets the user know the results of the process.
    */
-  public static function destroy(): array {
+  public static function destroy(String $caches = "all"): array {
     self::globalPath();
 
-    $pathProd = self::$path . 'var' . self::$ds .
-      'cache' . self::$ds . 'site' . self::$ds . 'layouts';
+    $basePath = self::$path . 'var' . self::$ds . 'cache' . self::$ds;
+    $returnString = '';
 
-    if (is_dir($pathProd)) {
-      RemoveDirectoryAndFiles::deleteSD($pathProd);
+    switch ($caches) {
+
+      case 'test':
+        $directoryPaths = [
+          $basePath . 'site' . self::$ds . 'test' . self::$ds . 'layouts',
+        ];
+        $returnString = ' Test caches have been rebuilt.';
+        break;
+
+      case 'prod':
+        $directoryPaths = [
+          $basePath . 'site' . self::$ds . 'prod' . self::$ds . 'layouts',
+        ];
+        $returnString = ' Prod caches have been rebuilt.';
+        break;
+
+      default:
+        $directoryPaths = [
+          $basePath . 'site' . self::$ds . 'test' . self::$ds . 'layouts',
+          $basePath . 'site' . self::$ds . 'prod' . self::$ds . 'layouts',
+        ];
+        $returnString = ' Test and Prod caches have been rebuilt.';
+        break;
     }
 
-    return ['response' => [' Caches have been destroyed']];
+    foreach ($directoryPaths as $item) {
+      if (is_dir($item)) {
+        RemoveDirectoryAndFiles::deleteSD($item);
+      }
+    }
+
+    return ['response' => [$returnString]];
   }
 
   /**

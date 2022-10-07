@@ -23,13 +23,6 @@ class Update {
   protected static $ds = DIRECTORY_SEPARATOR;
 
   /**
-   * Sets the real path to that applications root.
-   * 
-   * @var string
-   */
-  protected static $path;
-
-  /**
    * Move custom layout configuration into the templates directory. 
    * 
    * @param type $src
@@ -43,7 +36,7 @@ class Update {
           if ($items == 'layouts') {
             MoveDirectoryAndFiles::copySD(
               $src . self::$ds . $items,
-              self::$path . 'templates' . self::$ds . 'layouts' . self::$ds,
+              Paths::getProductionLayouts(),
             );
           }
           self::moveCustomLayoutConfiguration($src . self::$ds . $items);
@@ -70,7 +63,6 @@ class Update {
         else {
           $contents = json_decode(file_get_contents($src . self::$ds . $items), true);
           if (isset($contents['@type']) && $contents['@type'] === 'twig' && isset($contents['@config'])) {
-            // print $src . self::$ds . $items;
             ExpressionEngine::renderConfiguration($contents, $src . self::$ds);
           }
         }
@@ -86,17 +78,16 @@ class Update {
    *    Lets the user know the results of the process. 
    */
   public static function update(): array {
-    self::$path = __DIR__ . self::$ds . ".." .
-      self::$ds . ".." . self::$ds . ".." . self::$ds;
 
-    // Move twig template configuration to working directory
-    self::moveCustomLayoutConfiguration(
-      self::$path . ".." . self::$ds . 'websites' . self::$ds
-    );
+    // Move test twig template configuration to working directory
+    /* @todo */
+
+ 
+    // Move product twig template configuration to working directory
+    self::moveCustomLayoutConfiguration(Paths::getWebsiteConfiguration());
 
     // Recreating the templating system.
-    $src = self::$path . 'templates' . self::$ds . 'layouts';
-    self::createTwigConfigurationTemplating($src);
+    self::createTwigConfigurationTemplating(Paths::getProductionLayouts());
 
 
     return ['response' => [' Updated sites custom configuration']];

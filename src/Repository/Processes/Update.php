@@ -4,6 +4,7 @@ namespace App\Repository\Processes;
 
 use App\Repository\Utilities\MoveDirectoryAndFiles;
 use App\Repository\Twig\ExpressionEngine;
+use App\Repository\Utilities\Paths;
 
 /**
  * The Update class achieves several functions.

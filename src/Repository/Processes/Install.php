@@ -3,6 +3,7 @@
 namespace App\Repository\Processes;
 
 use App\Repository\Utilities\MoveDirectoryAndFiles;
+use App\Repository\Utilities\Paths;
 
 /**
  * The Install class completes the following functions.
@@ -22,23 +23,16 @@ class Install {
   protected static $ds = DIRECTORY_SEPARATOR;
 
   /**
-   * Sets the real path to that applications root.
-   * 
-   * @var string
-   */
-  protected static $path;
-
-  /**
    * Installs custom websites configuration out of core into a directory
    * above the applications system so developers can update applications
    * core and keep site configuration in a different repository.
    */
   protected static function installCustomWebsite() {
-    $webCustomPath = self::$path . ".." . self::$ds . 'websites';
-    if (!is_dir($webCustomPath)) {
+
+    if (!is_dir(Paths::getWebsiteConfiguration())) {
       MoveDirectoryAndFiles::copySD(
-        self::$path . 'core' . self::$ds . 'websites' . self::$ds,
-        $webCustomPath,
+        Paths::getRoot() . 'initial_install' . self::$ds . 'websites' . self::$ds,
+        Paths::getWebsiteConfiguration(),
       );
     }
   }
@@ -48,11 +42,11 @@ class Install {
    * display of content.
    */
   protected static function installWebsiteDataDirectory() {
-    $dataCustomPath = self::$path . ".." . self::$ds . 'data';
-    if (!is_dir($dataCustomPath)) {
+
+    if (!is_dir(Paths::getWebsiteData())) {
       MoveDirectoryAndFiles::copySD(
-        self::$path . 'core' . self::$ds . 'data' . self::$ds,
-        $dataCustomPath,
+        Paths::getRoot() . 'initial_install' . self::$ds . 'data' . self::$ds,
+        Paths::getWebsiteData()
       );
     }
   }
@@ -62,14 +56,15 @@ class Install {
    */
   protected static function installCacheDirectory() {
 
-    $basePath = self::$path . 'var' . self::$ds . 'cache' . self::$ds;
     $directoryPaths = [
-      $basePath . 'site',
-      $basePath . 'site' . self::$ds . 'content',
-      $basePath . 'site' . self::$ds . 'test',
-      $basePath . 'site' . self::$ds . 'test' . self::$ds . 'layouts', 
-      $basePath . 'site' . self::$ds . 'prod',
-      $basePath . 'site' . self::$ds . 'prod' . self::$ds . 'layouts',
+      Paths::getSiteCache(),
+      Paths::getSiteCacheContent(),
+      Paths::getSiteCacheTest(),
+      Paths::getSiteCacheTestSrc(),
+      Paths::getSiteCacheTestLayouts(),
+      Paths::getSiteCacheProd(),
+      Paths::getSiteCacheProdSrc(),
+      Paths::getSiteCacheProdLayouts(),
     ];
 
     foreach ($directoryPaths as $item) {
@@ -86,8 +81,6 @@ class Install {
    *    Lets the user know the results of the process.
    */
   public static function create(): array {
-    self::$path = __DIR__ . self::$ds . ".." .
-      self::$ds . ".." . self::$ds . ".." . self::$ds;
 
     self::installCustomWebsite();
     self::installWebsiteDataDirectory();

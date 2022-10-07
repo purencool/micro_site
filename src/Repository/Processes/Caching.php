@@ -57,14 +57,14 @@ class Caching {
         $directoryPaths = [
           $basePath . 'site' . self::$ds . 'test' . self::$ds . 'layouts',
         ];
-        $returnString = ' Test caches have been rebuilt.';
+        $returnString = ' Test caches have been deleted.';
         break;
 
       case 'prod':
         $directoryPaths = [
           $basePath . 'site' . self::$ds . 'prod' . self::$ds . 'layouts',
         ];
-        $returnString = ' Prod caches have been rebuilt.';
+        $returnString = ' Prod caches have been deleted.';
         break;
 
       default:
@@ -72,7 +72,7 @@ class Caching {
           $basePath . 'site' . self::$ds . 'test' . self::$ds . 'layouts',
           $basePath . 'site' . self::$ds . 'prod' . self::$ds . 'layouts',
         ];
-        $returnString = ' Test and Prod caches have been rebuilt.';
+        $returnString = ' Test and Prod caches have been deleted.';
         break;
     }
 
@@ -86,36 +86,85 @@ class Caching {
   }
 
   /**
-   * Create Layout caches so the system can use them.
    * 
    * @param String $layoutEnvVariable
-   *    Gives the cache building system the layout environment directory it 
-   *    needs to implement.
+   *    Gives the cache building system the layout environment directory.
    * @return array
    *    Lets the user know the results of the process.
    */
-  public static function create(String $layoutEnvVariable): array {
-    self::globalPath();
+  protected static function cachingTest(String $layoutEnvVariable): array {
+    $basePath = self::$path . 'var' . self::$ds . 'cache' . self::$ds;
 
-    //Build layout caching files.
+    //Build layout caching files for testing.
     $layoutArrayObj = new LayoutArrayBuilder();
-    $layoutArrayObjResponse = $layoutArrayObj->setLayoutArray(
-      self::$path . 'var' . self::$ds . 'cache' . self::$ds . 'site' . self::$ds . 'layouts',
+    $layoutResult = $layoutArrayObj->setLayoutArray(
+      $basePath . 'site' . self::$ds . 'test' . self::$ds . 'layouts',
       self::$path . 'templates' . self::$ds . 'layouts' . self::$ds . $layoutEnvVariable . self::$ds . 'structure' . self::$ds
     );
 
+    return array_merge(
+      [' Test caches have been rebuilt.'],
+      $layoutResult
+    );
+  }
+
+  /**
+   * 
+   * @param String $layoutEnvVariable
+   *    Gives the cache building system the layout environment directory.
+   * @return array
+   *    Lets the user know the results of the process.
+   */
+  protected static function cachingProd(String $layoutEnvVariable): array {
+    $basePath = self::$path . 'var' . self::$ds . 'cache' . self::$ds;
+
+    //Build layout caching files for prod.
+    $layoutArrayObj = new LayoutArrayBuilder();
+    $layoutResult = $layoutArrayObj->setLayoutArray(
+      $basePath . 'site' . self::$ds . 'prod' . self::$ds . 'layouts',
+      self::$path . 'templates' . self::$ds . 'layouts' . self::$ds . $layoutEnvVariable . self::$ds . 'structure' . self::$ds
+    );
+
+    return array_merge(
+      [' Prod caches have been rebuilt.'],
+      $layoutResult
+    );
+  }
+
+  /**
+   * Create Layout caches so the system can use them.
+   * 
+   * @param String $caches
+   *    Allows the user to choose which caches need to be created.
+   *    By default all will need to be created.
+   * @param String $layoutEnvVariable
+   *    Gives the cache building system the layout environment directory.
+   * @return array
+   *    Lets the user know the results of the process.
+   */
+  public static function create(String $layoutEnvVariable, String $caches = 'all'): array {
+    self::globalPath();
+
+    switch ($caches) {
+
+      case 'test':
+        $returnArr = self::cachingTest($layoutEnvVariable);
+        break;
+
+      case 'prod':
+        $returnArr = self::cachingProd($layoutEnvVariable);
+        break;
+
+      default:
+        $returnArr = array_merge(
+          self::cachingTest($layoutEnvVariable),
+          self::cachingProd($layoutEnvVariable)
+        );
+        break;
+    }
+
     // Run content array builder.
-
-
-    return ['response' => array_merge(
-        // Letting user know what has been started.
-        [
-          " Layout caches are being created using: $layoutEnvVariable.",
-        ],
-        // Getting layout cache building response.
-        $layoutArrayObjResponse
-      )
-    ];
+    return ['response' => $returnArr];
   }
 
 }

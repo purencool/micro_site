@@ -24,7 +24,7 @@ class Paths {
   protected static $path;
 
   /**
-   *  Setup paths needed for this class to run relevant tasks.
+   * Setup paths needed for this class to run relevant tasks.
    */
   protected static function globalPath() {
     self::$path = __DIR__ . self::$ds . ".." .
@@ -32,6 +32,7 @@ class Paths {
   }
 
   /**
+   * Root path for the system.
    * 
    * @return string
    */
@@ -41,6 +42,7 @@ class Paths {
   }
 
   /**
+   * Websites default configuration.
    * 
    * @return string
    */
@@ -50,6 +52,7 @@ class Paths {
   }
 
   /**
+   * The websites data.
    * 
    * @return string
    */
@@ -59,6 +62,7 @@ class Paths {
   }
 
   /**
+   * Returns the default caching directory.
    * 
    * @return string
    */
@@ -68,6 +72,7 @@ class Paths {
   }
 
   /**
+   * Points to the sites default cache directory.
    * 
    * @return string
    */
@@ -77,6 +82,7 @@ class Paths {
   }
 
   /**
+   * Allows the system to return the websites default data
    * 
    * @return string
    */
@@ -86,6 +92,7 @@ class Paths {
   }
 
   /**
+   * Sites testing cache directory.
    * 
    * @return string
    */
@@ -95,6 +102,7 @@ class Paths {
   }
 
   /**
+   * Testings auto load classes for custom configuration. 
    * 
    * @return string
    */
@@ -104,6 +112,7 @@ class Paths {
   }
 
   /**
+   * Websites test decoration layer cache.
    * 
    * @return string
    */
@@ -113,6 +122,7 @@ class Paths {
   }
 
   /**
+   * Production caching base directory.
    * 
    * @return string
    */
@@ -122,6 +132,7 @@ class Paths {
   }
 
   /**
+   * Custom production website auto loaded configuration.
    * 
    * @return string
    */
@@ -131,6 +142,7 @@ class Paths {
   }
 
   /**
+   * Layout configuration that has been cached for production.
    * 
    * @return string
    */
@@ -140,6 +152,7 @@ class Paths {
   }
 
   /**
+   * Twig templating directory for the website.
    * 
    * @return string
    */
@@ -149,17 +162,19 @@ class Paths {
   }
 
   /**
+   * Configuration directory for production before cached.
    * 
    * @param String $environment
    * @return string
    */
   public static function getProductionLayoutsConfig(String $environment): string {
     self::globalPath();
-    return self::$path . 'templates' . self::$ds . 'layouts' .
-      self::$ds . $environment . self::$ds . 'structure' . self::$ds;
+    return paths::getProductionLayouts() . 
+       $environment . self::$ds . 'structure' . self::$ds;
   }
 
   /**
+   * Test layouts are based in the websites.
    * 
    * @return string
    */
@@ -169,6 +184,7 @@ class Paths {
   }
 
   /**
+   * Test layout configuration.
    * 
    * @param String $environment
    * @return string

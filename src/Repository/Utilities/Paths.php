@@ -116,9 +116,9 @@ class Paths {
    * 
    * @return string
    */
-  public static function getSiteCacheTestLayouts(): string {
+  public static function getSiteCacheTestLayoutStructure(): string {
     self::globalPath();
-    return self::getSiteCacheTest() . self::$ds . 'layout' . self::$ds;
+    return self::getSiteCacheTest() . self::$ds . 'layout_structure' . self::$ds;
   }
 
   /**
@@ -146,9 +146,9 @@ class Paths {
    * 
    * @return string
    */
-  public static function getSiteCacheProdLayouts(): string {
+  public static function getSiteCacheProdLayoutStructure(): string {
     self::globalPath();
-    return self::getSiteCacheProd() . self::$ds . 'layout' . self::$ds;
+    return self::getSiteCacheProd() . self::$ds . 'layout_structure' . self::$ds;
   }
 
   /**

@@ -32,22 +32,22 @@ class Caching {
 
       case 'test':
         $directoryPaths = [
-          Paths::getSiteCacheTestLayouts(),
+          Paths::getSiteCacheTestLayoutStructure(),
         ];
         $returnString = ' Test caches have been deleted.';
         break;
 
       case 'prod':
         $directoryPaths = [
-          Paths::getSiteCacheProdLayouts(),
+          Paths::getSiteCacheProdLayoutStructure(),
         ];
         $returnString = ' Prod caches have been deleted.';
         break;
 
       default:
         $directoryPaths = [
-          Paths::getSiteCacheTestLayouts(),
-          Paths::getSiteCacheProdLayouts(),
+          Paths::getSiteCacheTestLayoutStructure(),
+          Paths::getSiteCacheProdLayoutStructure(),
         ];
         $returnString = ' Test and Prod caches have been deleted.';
         break;
@@ -74,7 +74,7 @@ class Caching {
     //Build layout caching files for testing.
     $layoutArrayObj = new LayoutArrayBuilder();
     $layoutResult = $layoutArrayObj->setLayoutArray(
-      Paths::getSiteCacheTestLayouts(),
+      Paths::getSiteCacheTestLayoutStructure(),
       Paths::getTestLayoutsConfig($layoutEnvVariable)
     );
 
@@ -96,7 +96,7 @@ class Caching {
     //Build layout caching files for prod.
     $layoutArrayObj = new LayoutArrayBuilder();
     $layoutResult = $layoutArrayObj->setLayoutArray(
-      Paths::getSiteCacheProdLayouts(),
+      Paths::getSiteCacheProdLayoutStructure(),
       Paths::getProductionLayoutsConfig($layoutEnvVariable)
     );
 

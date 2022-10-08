@@ -61,10 +61,10 @@ class Install {
       Paths::getSiteCacheContent(),
       Paths::getSiteCacheTest(),
       Paths::getSiteCacheTestSrc(),
-      Paths::getSiteCacheTestLayouts(),
+      Paths::getSiteCacheTestLayoutStructure(),
       Paths::getSiteCacheProd(),
       Paths::getSiteCacheProdSrc(),
-      Paths::getSiteCacheProdLayouts(),
+      Paths::getSiteCacheProdLayoutStructure(),
     ];
 
     foreach ($directoryPaths as $item) {

@@ -39,13 +39,13 @@ APP_REST_CLIENT_KEY="Rest API"' > .env.local
 
   composer update;
   ./bin/console si:se install
-  ./bin/console si:se update
+  ./bin/console si:se update all
   ./bin/console cache:clear
 
 elif [[ "$REQUEST" = "update" ]]
 then
+  ./bin/console si:se update $PARAMETER
   ./bin/console cache:clear
-  ./bin/console si:se update
 
 elif [[ "$REQUEST" = "start" ]]
 then

@@ -77,20 +77,41 @@ class Update {
    * @return array
    *    Lets the user know the results of the process. 
    */
-  public static function update(): array {
-
-    // Move test twig template configuration to working directory
-    /* @todo */
-
- 
-    // Move product twig template configuration to working directory
-    self::moveCustomLayoutConfiguration(Paths::getWebsiteConfiguration());
-
-    // Recreating the templating system.
-    self::createTwigConfigurationTemplating(Paths::getProductionLayouts());
+  public static function update(String $update): array {
 
 
-    return ['response' => [' Updated sites custom configuration']];
+    switch ($update) {
+
+      case 'test':
+        $returnArr = ' Update test';
+        // Move test twig template configuration to working directory
+        /* @todo */
+        break;
+
+      case 'prod':
+        $returnArr = ' Updated production';
+         //Move product twig template configuration to working directory
+        self::moveCustomLayoutConfiguration(Paths::getWebsiteConfiguration());
+
+        // Recreating the templating system.
+        self::createTwigConfigurationTemplating(Paths::getProductionLayout());
+        break;
+
+      case 'all':
+        $returnArr = ' Updated all';
+        // Move product twig template configuration to working directory
+        self::moveCustomLayoutConfiguration(Paths::getWebsiteConfiguration());
+
+        // Recreating the templating system.
+        self::createTwigConfigurationTemplating(Paths::getProductionLayouts());
+        break;
+
+      default:
+        $returnArr = ' Update test|prod|all parameter wasn\'t called';
+        break;
+    }
+
+    return ['response' => [$returnArr]];
   }
 
 }

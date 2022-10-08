@@ -80,6 +80,10 @@ class SiteServices extends Command {
         return Command::SUCCESS;
 
       case 'update':
+        $inputParam = $input->getArgument('param');
+        if ($inputParam == '') {
+          $inputParam = '';
+        }
         $output->writeln(array_merge(
             [
               '',
@@ -88,7 +92,7 @@ class SiteServices extends Command {
               ' =============================================================='
             ],
             Caching::destroy()['response'],
-            Update::update()['response'],
+            Update::update($inputParam)['response'],
             Caching::create($this->layoutEnvVariable)['response'],
             [
               ' ==============================================================',
@@ -127,9 +131,10 @@ class SiteServices extends Command {
             ' Services Offered By System.',
             ' ==============================================================',
             ' Website installation             `./bin/console si:se install`',
-            ' Reset layout cache    `./bin/console si:se caching {optional}`',
+            ' Reset layout cache     `./bin/console si:se caching {options}`',
             '                                            {""|all|test|prod}`',
-            ' Update custom website             `./bin/console si:se update`',
+            ' Update custom website      `./bin/console si:se update {flag}`',
+            '                                               {test|prod|all}`',
             ' ==============================================================',
             ''
           ]

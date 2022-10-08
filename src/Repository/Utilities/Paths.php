@@ -136,7 +136,7 @@ class Paths {
    */
   public static function getSiteCacheProdLayouts(): string {
     self::globalPath();
-    return self::getSiteCacheProd() . self::$ds . 'src' . self::$ds;
+    return self::getSiteCacheProd() . self::$ds . 'layout' . self::$ds;
   }
 
   /**

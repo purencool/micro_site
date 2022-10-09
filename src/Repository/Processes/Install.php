@@ -57,6 +57,11 @@ class Install {
   protected static function installCacheDirectory() {
 
     $directoryPaths = [
+      Paths::getLayoutTemplates(),
+      Paths::getTestTemplates(),
+      Paths::getProductionTemplates(),
+      Paths::getTestAssets(),
+      Paths::getProductionAssets(),
       Paths::getSiteCache(),
       Paths::getSiteCacheContent(),
       Paths::getSiteCacheTest(),

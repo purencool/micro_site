@@ -2,6 +2,9 @@
 
 namespace App\Repository\Utilities;
 
+//add paths on install to assets and twig directories. 
+//get update to move the data from website directory to correct part of the testing system
+
 /**
  * Description of Paths
  *
@@ -60,6 +63,61 @@ class Paths {
     self::globalPath();
     return self::$path . ".." . self::$ds . 'data';
   }
+
+  /**
+   * The production template.
+   * 
+   * @return string
+   */
+  public static function getLayoutTemplates(): string {
+    self::globalPath();
+    return self::$path . "templates" . self::$ds . 'layouts' . self::$ds;
+  }
+
+  /**
+   * The production template.
+   * 
+   * @return string
+   */
+  public static function getTestTemplates(): string {
+    self::globalPath();
+    return self::$path . "templates" . self::$ds .
+      'layouts' . self::$ds . "test" . self::$ds;
+  }
+
+  /**
+   * The production template.
+   * 
+   * @return string
+   */
+  public static function getProductionTemplates(): string {
+    self::globalPath();
+    return self::$path . "templates" . self::$ds .
+      'layouts' . self::$ds . "prods" . self::$ds;
+  }
+
+  /**
+   * The production template.
+   * 
+   * @return string
+   */
+  public static function getTestAssets(): string {
+    self::globalPath();
+    return self::$path . "public" . self::$ds . 'test' . self::$ds;
+  }
+
+  /**
+   * The production template.
+   * 
+   * @return string
+   */
+  public static function getProductionAssets(): string {
+    self::globalPath();
+    return self::$path . "public" . self::$ds . 'prod' . self::$ds;
+  }
+
+
+
 
   /**
    * Returns the default caching directory.
@@ -169,8 +227,8 @@ class Paths {
    */
   public static function getProductionLayoutsConfig(String $environment): string {
     self::globalPath();
-    return paths::getProductionLayouts() . 
-       $environment . self::$ds . 'structure' . self::$ds;
+    return paths::getProductionLayouts() .
+      $environment . self::$ds . 'structure' . self::$ds;
   }
 
   /**

@@ -82,7 +82,19 @@ class SiteServices extends Command {
       case 'update':
         $inputParam = $input->getArgument('param');
         if ($inputParam == '') {
-          $inputParam = '';
+          $output->writeln(
+            [
+              '',
+              ' ==============================================================',
+              ' Update didn\'t run.',
+              ' ==============================================================',
+              ' Update commands            `./bin/console si:se update {flag}`',
+              '                                                   {test|prod}`',
+              ' ==============================================================',
+              ''
+            ]
+          );
+          return Command::INVALID;
         }
         $output->writeln(array_merge(
             [
@@ -134,7 +146,7 @@ class SiteServices extends Command {
             ' Reset layout cache     `./bin/console si:se caching {options}`',
             '                                            {""|all|test|prod}`',
             ' Update custom website      `./bin/console si:se update {flag}`',
-            '                                               {test|prod|all}`',
+            '                                                   {test|prod}`',
             ' ==============================================================',
             ''
           ]

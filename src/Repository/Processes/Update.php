@@ -28,12 +28,12 @@ class Update {
    * @param type $src
    *   Source path for the layout directories.
    */
-  protected static function moveCustomLayoutConfiguration($src) {
+  protected static function moveLayoutTemplates($src, $directory = 'test') {
     $dir = opendir($src);
     while (( $items = readdir($dir))) {
       if (( $items != '.' ) && ( $items != '..' )) {
         if (\is_dir($src . self::$ds . $items)) {
-          if ($items == 'layouts') {
+          if ($items == $directory) {
             MoveDirectoryAndFiles::copySD(
               $src . self::$ds . $items,
               Paths::getProductionLayouts(),
@@ -72,42 +72,71 @@ class Update {
   }
 
   /**
-   * Updates website data and configuration into the system for deployment.
-   *
+   *  Updates website data and configuration into the system for deployment.
+   * 
+   * @param String $layoutEnvVariable
+   *    Gives Update Class the environment to find the default configuration.
+   * @param String $update
+   *    Update provides class with test or prod type.
    * @return array
    *    Lets the user know the results of the process. 
    */
-  public static function update(String $update): array {
+  public static function update(String $layoutEnvVariable, String $update): array {
 
+    // Recreating the templating system. @todo
+    // self::createTwigConfigurationTemplating(Paths::getProductionLayouts());
 
     switch ($update) {
 
       case 'test':
-        $returnArr = ' Update test';
-        // Move test twig template configuration to working directory
-        /* @todo */
+        MoveDirectoryAndFiles::copySD(
+          Paths::getWebsiteTwigTemplates($layoutEnvVariable),
+          Paths::getTestTemplates()
+        );
+
+        MoveDirectoryAndFiles::copySD(
+          Paths::getWebsiteLayoutStructure($layoutEnvVariable),
+          Paths::getSiteCacheTestLayoutStructure()
+        );
+
+        MoveDirectoryAndFiles::copySD(
+          Paths::getWebsiteAssets($layoutEnvVariable),
+          Paths::getTestAssets()
+        );
+
+        MoveDirectoryAndFiles::copySD(
+          Paths::getWebsiteSrc($layoutEnvVariable),
+          Paths::getSiteCacheTestSrc()
+        );
+
+        $returnArr = " Updated configuration from $layoutEnvVariable to test.";
         break;
 
       case 'prod':
-        $returnArr = ' Updated production';
-         //Move product twig template configuration to working directory
-        self::moveCustomLayoutConfiguration(Paths::getWebsiteConfiguration());
+        MoveDirectoryAndFiles::copySD(
+          Paths::getTestTemplates(),
+          Paths::getProductionTemplates(),
+        );
 
-        // Recreating the templating system.
-        self::createTwigConfigurationTemplating(Paths::getProductionLayout());
-        break;
+        MoveDirectoryAndFiles::copySD(
+          Paths::getSiteCacheTestLayoutStructure(),
+          Paths::getSiteCacheProdLayoutStructure()
+        );
 
-      case 'all':
-        $returnArr = ' Updated all';
-        // Move product twig template configuration to working directory
-        self::moveCustomLayoutConfiguration(Paths::getWebsiteConfiguration());
+        MoveDirectoryAndFiles::copySD(
+          Paths::getTestAssets(),
+          Paths::getProductionAssets()
+        );
 
-        // Recreating the templating system.
-        self::createTwigConfigurationTemplating(Paths::getProductionLayouts());
+        MoveDirectoryAndFiles::copySD(
+          Paths::getSiteCacheTestSrc(),
+          Paths::getSiteCacheProdSrc()
+        );
+        $returnArr = ' Updated configuration from test to production.';
         break;
 
       default:
-        $returnArr = ' Update test|prod|all parameter wasn\'t called';
+        $returnArr = ' Update test|prod parameter wasn\'t called.';
         break;
     }
 

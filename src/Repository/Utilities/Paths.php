@@ -55,6 +55,50 @@ class Paths {
   }
 
   /**
+   * Websites twig templates.
+   * 
+   * @return string
+   */
+  public static function getWebsiteTwigTemplates($environment): string {
+    self::globalPath();
+    return self::$path . ".." . self::$ds . 'websites' . self::$ds .
+      $environment . self::$ds . 'layouts' . self::$ds . 'templates';
+  }
+
+  /**
+   * Websites layouts structure.
+   * 
+   * @return string
+   */
+  public static function getWebsiteLayoutStructure($environment): string {
+    self::globalPath();
+    return self::$path . ".." . self::$ds . 'websites' . self::$ds .
+      $environment . self::$ds . 'layouts' . self::$ds . 'structure';
+  }
+
+  /**
+   * Websites assets.
+   * 
+   * @return string
+   */
+  public static function getWebsiteAssets($environment): string {
+    self::globalPath();
+    return self::$path . ".." . self::$ds . 'websites' .
+      self::$ds . $environment . self::$ds . 'assets';
+  }
+
+  /**
+   * Websites custom src.
+   * 
+   * @return string
+   */
+  public static function getWebsiteSrc($environment): string {
+    self::globalPath();
+    return self::$path . ".." . self::$ds . 'websites' .
+      self::$ds . $environment . self::$ds . 'src';
+  }
+
+  /**
    * The websites data.
    * 
    * @return string
@@ -93,7 +137,7 @@ class Paths {
   public static function getProductionTemplates(): string {
     self::globalPath();
     return self::$path . "templates" . self::$ds .
-      'layouts' . self::$ds . "prods" . self::$ds;
+      'layouts' . self::$ds . "prod" . self::$ds;
   }
 
   /**
@@ -115,9 +159,6 @@ class Paths {
     self::globalPath();
     return self::$path . "public" . self::$ds . 'prod' . self::$ds;
   }
-
-
-
 
   /**
    * Returns the default caching directory.

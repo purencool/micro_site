@@ -59,6 +59,18 @@ class Paths {
    * 
    * @return string
    */
+  public static function getWebsiteEnvironment($environment): string {
+    self::globalPath();
+    return self::$path . ".." . self::$ds . 'websites' . self::$ds .
+      $environment . self::$ds;
+  }
+
+
+  /**
+   * Websites twig templates.
+   * 
+   * @return string
+   */
   public static function getWebsiteTwigTemplates($environment): string {
     self::globalPath();
     return self::$path . ".." . self::$ds . 'websites' . self::$ds .

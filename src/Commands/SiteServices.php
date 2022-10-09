@@ -103,7 +103,6 @@ class SiteServices extends Command {
               ' Website Update.',
               ' =============================================================='
             ],
-           // Caching::destroy()['response'],
             Update::update($this->layoutEnvVariable, $inputParam)['response'],
             Caching::create($this->layoutEnvVariable)['response'],
             [

@@ -89,6 +89,12 @@ class Update {
     switch ($update) {
 
       case 'test':
+
+        copy(
+          Paths::getWebsiteEnvironment($layoutEnvVariable) . "config.json",
+          Paths::getSiteCacheTest() . "config.json"
+        );
+
         MoveDirectoryAndFiles::copySD(
           Paths::getWebsiteTwigTemplates($layoutEnvVariable),
           Paths::getTestTemplates()
@@ -113,6 +119,13 @@ class Update {
         break;
 
       case 'prod':
+
+        copy(
+          Paths::getSiteCacheTest() . "config.json",
+          Paths::getSiteCacheProd() . "config.json"
+        );
+
+
         MoveDirectoryAndFiles::copySD(
           Paths::getTestTemplates(),
           Paths::getProductionTemplates(),

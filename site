@@ -4,7 +4,6 @@ REQUEST=$1
 PARAMETER=$2
 if [[ "$REQUEST" = "core:update" ]]
 then
-  echo "Update core";
   git pull origin main
   composer update
 

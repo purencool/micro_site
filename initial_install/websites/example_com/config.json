@@ -1,6 +1,8 @@
 {
     "name": "example.com",
-    "block_bots" : "",
-    "block_ips" : "",
-    "block_methods" : ""
+    "block": {
+        "bots": "",
+        "ips": "",
+        "methods": ""
+    }
 }

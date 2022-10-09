@@ -30,8 +30,6 @@ class MoveDirectoryAndFiles {
           self::copySD($src . $ds . $file, $dst . $ds . $file);
         }
         else {
-          print $src . $ds . $file . "\n";
-          print$dst . $ds . $file . "\n";
           copy($src . $ds . $file, $dst . $ds . $file);
         }
       }

@@ -177,7 +177,7 @@ class Paths {
    */
   public static function getSiteCache(): string {
     self::globalPath();
-    return self::getCacheDir() . self::$ds . 'site' . self::$ds;
+    return self::getCacheDir() . 'site' . self::$ds;
   }
 
   /**
@@ -187,7 +187,7 @@ class Paths {
    */
   public static function getSiteCacheContent(): string {
     self::globalPath();
-    return self::getSiteCache() . self::$ds . 'content' . self::$ds;
+    return self::getSiteCache() . 'content' . self::$ds;
   }
 
   /**
@@ -197,7 +197,7 @@ class Paths {
    */
   public static function getSiteCacheTest(): string {
     self::globalPath();
-    return self::getSiteCache() . self::$ds . 'test' . self::$ds;
+    return self::getSiteCache() . 'test' . self::$ds;
   }
 
   /**
@@ -207,17 +207,17 @@ class Paths {
    */
   public static function getSiteCacheTestSrc(): string {
     self::globalPath();
-    return self::getSiteCacheTest() . self::$ds . 'src' . self::$ds;
+    return self::getSiteCacheTest() . 'src' . self::$ds;
   }
 
   /**
-   * Websites test decoration layer cache.
+   * Websites test content layer cache.
    * 
    * @return string
    */
   public static function getSiteCacheTestLayoutStructure(): string {
     self::globalPath();
-    return self::getSiteCacheTest() . self::$ds . 'layout_structure' . self::$ds;
+    return self::getSiteCacheTest() . 'layout_structure' . self::$ds;
   }
 
   /**
@@ -227,7 +227,7 @@ class Paths {
    */
   public static function getSiteCacheProd(): string {
     self::globalPath();
-    return self::getSiteCache() . self::$ds . 'prod' . self::$ds;
+    return self::getSiteCache() . 'prod' . self::$ds;
   }
 
   /**
@@ -237,7 +237,7 @@ class Paths {
    */
   public static function getSiteCacheProdSrc(): string {
     self::globalPath();
-    return self::getSiteCacheProd() . self::$ds . 'src' . self::$ds;
+    return self::getSiteCacheProd() . 'src' . self::$ds;
   }
 
   /**
@@ -247,7 +247,7 @@ class Paths {
    */
   public static function getSiteCacheProdLayoutStructure(): string {
     self::globalPath();
-    return self::getSiteCacheProd() . self::$ds . 'layout_structure' . self::$ds;
+    return self::getSiteCacheProd() . 'layout_structure' . self::$ds;
   }
 
   /**

@@ -72,11 +72,18 @@ class DynamicRouting extends Loader {
     if (true === $this->isLoaded) {
       throw new \RuntimeException('Do not add the "extra" loader twice');
     }
-
     // Routes collection 
     $collection = new RouteCollection();
+
+    $homeRoute = '/';
+    $createdRoute = new Route($homeRoute, [
+      '_controller' => 'App\Controller\DynamicRoutingController::index',
+    ]);
+    $routeName = 'dr_home_' . str_replace(['-', '/'], '_', $homeRoute);
+    $collection->add($routeName, $createdRoute);
+
     foreach ($this->routes() as $route) {
-      $createdRoute = new Route($route, [
+      $createdRoute = new Route($route . '/{parameter}', [
         '_controller' => 'App\Controller\DynamicRoutingController::index',
       ]);
       $routeName = 'dr_' . str_replace(['-', '/'], '_', $route);

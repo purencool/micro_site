@@ -3,7 +3,7 @@
 namespace App\Repository\Processes;
 
 use App\Repository\Utilities\RemoveDirectoryAndFiles;
-use App\Repository\JsonConversion\Layouts\LayoutArrayBuilder;
+use App\Repository\JsonConversion\JsonConversion;
 use App\Repository\Utilities\Paths;
 
 /**
@@ -69,28 +69,6 @@ class Caching {
    * @return array
    *    Lets the user know the results of the process.
    */
-  protected static function cachingTest(String $layoutEnvVariable): array {
-
-    //Build layout caching files for testing.
-    $layoutArrayObj = new LayoutArrayBuilder();
-    $layoutResult = $layoutArrayObj->setLayoutArray(
-      Paths::getSiteCacheTestLayoutStructure(),
-      Paths::getTestLayoutsConfig($layoutEnvVariable)
-    );
-
-    return array_merge(
-      [' Test caches have been rebuilt.'],
-      $layoutResult
-    );
-  }
-
-  /**
-   * 
-   * @param String $layoutEnvVariable
-   *    Gives the cache building system the layout environment directory.
-   * @return array
-   *    Lets the user know the results of the process.
-   */
   protected static function cachingProd(String $layoutEnvVariable): array {
 
     //Build layout caching files for prod.
@@ -119,21 +97,22 @@ class Caching {
    */
   public static function create(String $layoutEnvVariable, String $caches = 'all'): array {
 
-
+    $jsonObjTest = new JsonConversion($caches);
+    $jsonObjProd = new JsonConversion($caches);
     switch ($caches) {
 
       case 'test':
-        $returnArr = self::cachingTest($layoutEnvVariable);
+        $returnArr = $jsonObjTest->getJsonConversion();
         break;
 
       case 'prod':
-        $returnArr = self::cachingProd($layoutEnvVariable);
+        $returnArr = $jsonObjProd->getJsonConversion();
         break;
 
       default:
         $returnArr = array_merge(
-          self::cachingTest($layoutEnvVariable),
-          self::cachingProd($layoutEnvVariable)
+          $jsonObjTest->getJsonConversion(),
+          $jsonObjProd->getJsonConversion()
         );
         break;
     }

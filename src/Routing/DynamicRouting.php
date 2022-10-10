@@ -25,7 +25,7 @@ class DynamicRouting extends Loader {
    * 
    * @var type
    */
-  private static $styleGuide;
+  private static $testEnabled;
 
   /**
    * 
@@ -35,11 +35,11 @@ class DynamicRouting extends Loader {
 
   /**
    * 
-   * @param type $styleGuide
+   * @param type $testEnabled
    */
-  public function __construct($styleGuide) {
+  public function __construct($test) {
     parent::__construct();
-    self::$styleGuide = $styleGuide;
+    self::$testEnabled = $test;
   }
 
   /**
@@ -74,7 +74,6 @@ class DynamicRouting extends Loader {
     }
     // Routes collection 
     $collection = new RouteCollection();
-
     $homeRoute = '/';
     $createdRoute = new Route($homeRoute, [
       '_controller' => 'App\Controller\DynamicRoutingController::index',
@@ -91,7 +90,7 @@ class DynamicRouting extends Loader {
     }
 
     // Adds style guides for development reasons
-    if (self::$styleGuide === 'true') {
+    if (self::$testEnabled === 'true') {
       $styleRoute = 'site-style-guide';
       $styleGuideRoute = new Route($styleRoute . '/{parameter}', [
         '_controller' => 'App\Controller\DynamicRoutingController::index',

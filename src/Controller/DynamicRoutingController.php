@@ -22,9 +22,8 @@ class DynamicRoutingController extends AbstractController {
   public function index($parameter = '') {
     // Test or Prod
 
-    if($parameter == 'test') {
- return new Response("test");
-
+    if($parameter === 'test' && $this->getParameter('app.test') === 'true') {
+      return new Response("test");
     }
 
 

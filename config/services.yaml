@@ -4,9 +4,9 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-    app.style_guide: '%env(APP_STYLE_GUIDE)%'
     app.site: '%env(APP_SITE)%'
     app.layout_env_variable: '%env(APP_LAYOUT)%'
+    app.test: '%env(APP_TEST)%'
 
 services:
     # default configuration for services in *this* file
@@ -28,7 +28,7 @@ services:
     App\Routing\DynamicRouting:
         tags: [routing.loader]
         arguments:
-            $styleGuide: '%app.style_guide%'
+            $test: '%app.test%'
     App\Commands\SiteServices:
         arguments:
             $layoutEnvVariable: '%app.layout_env_variable%'

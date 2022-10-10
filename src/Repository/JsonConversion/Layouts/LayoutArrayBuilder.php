@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository\Layouts;
+namespace App\Repository\JsonConversion\Layouts;
 
 /**
  * The LayoutArrayBuilder completes the following functions.

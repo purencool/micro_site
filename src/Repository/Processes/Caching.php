@@ -3,7 +3,7 @@
 namespace App\Repository\Processes;
 
 use App\Repository\Utilities\RemoveDirectoryAndFiles;
-use App\Repository\Layouts\LayoutArrayBuilder;
+use App\Repository\JsonConversion\Layouts\LayoutArrayBuilder;
 use App\Repository\Utilities\Paths;
 
 /**

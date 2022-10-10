@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository\Layouts;
+namespace App\Repository\CacheRequests;
 
 use Symfony\Component\Filesystem\Filesystem;
 

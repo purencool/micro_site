@@ -20,18 +20,12 @@ class DynamicRoutingController extends AbstractController {
    * @return Response
    */
   public function index($parameter = '') {
+    // Request to block
     // Test or Prod
-
-    if($parameter === 'test' && $this->getParameter('app.test') === 'true') {
+    if ($parameter === 'test' && $this->getParameter('app.test') === 'true') {
       return new Response("test");
     }
 
-
-    // Request to block
-
-
-   
-   
     return new Response("prod");
 
     // Route does it exist
@@ -41,14 +35,13 @@ class DynamicRoutingController extends AbstractController {
     // echo $this->getParameter('app.site'); 
     // echo $this->getParameter('app.layout'); 
     // exit;
-
-   // $return = ['result' => 'Request is not valid'];
-   // $path = 'layouts/' . $this->getParameter('app.layout') . '/templates/';
+    // $return = ['result' => 'Request is not valid'];
+    // $path = 'layouts/' . $this->getParameter('app.layout') . '/templates/';
     //return $this->render($path . 'index.html.twig', [
-   //     'twig_base_html_path' => $path . "/base.html.twig",
-   //     'title' => 'Style Guide',
-   //     'result' => $return['result'],
-  //  ]);
+    //     'twig_base_html_path' => $path . "/base.html.twig",
+    //     'title' => 'Style Guide',
+    //     'result' => $return['result'],
+    //  ]);
   }
 
 }

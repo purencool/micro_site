@@ -86,38 +86,12 @@ class Caching {
 
   /**
    * Create Layout caches so the system can use them.
-   * 
-   * @param String $caches
-   *    Allows the user to choose which caches need to be created.
-   *    By default all will need to be created.
-   * @param String $layoutEnvVariable
-   *    Gives the cache building system the layout environment directory.
    * @return array
    *    Lets the user know the results of the process.
    */
-  public static function create(String $layoutEnvVariable, String $caches = 'all'): array {
-
-    $jsonObjTest = new JsonConversion($caches);
-    $jsonObjProd = new JsonConversion($caches);
-    switch ($caches) {
-
-      case 'test':
-        $returnArr = $jsonObjTest->getJsonConversion();
-        break;
-
-      case 'prod':
-        $returnArr = $jsonObjProd->getJsonConversion();
-        break;
-
-      default:
-        $returnArr = array_merge(
-          $jsonObjTest->getJsonConversion(),
-          $jsonObjProd->getJsonConversion()
-        );
-        break;
-    }
-
-    // Run content array builder.
+  public static function create(): array {
+    $jsonObjTest = new JsonConversion();
+    $returnArr = $jsonObjTest->getJsonConversion();
     return ['response' => $returnArr];
   }
 

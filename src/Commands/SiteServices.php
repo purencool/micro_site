@@ -104,7 +104,7 @@ class SiteServices extends Command {
               ' =============================================================='
             ],
             Update::update($this->layoutEnvVariable, $inputParam)['response'],
-            Caching::create($this->layoutEnvVariable)['response'],
+            Caching::create()['response'],
             [
               ' ==============================================================',
               ''
@@ -114,10 +114,6 @@ class SiteServices extends Command {
         return Command::SUCCESS;
 
       case 'caching':
-        $inputParam = $input->getArgument('param');
-        if ($inputParam == '') {
-          $inputParam = 'all';
-        }
         $output->writeln(array_merge(
             [
               '',
@@ -125,8 +121,8 @@ class SiteServices extends Command {
               ' Layout Reset.',
               ' =============================================================='
             ],
-            Caching::destroy($inputParam)['response'],
-            Caching::create($this->layoutEnvVariable, $inputParam)['response'],
+            //Caching::destroy($inputParam)['response'],
+            Caching::create()['response'],
             [
               ' ==============================================================',
               ''

@@ -11,13 +11,9 @@ namespace App\Repository\JsonConversion;
 interface ConfigInterface {
 
   /**
-   * Implements data array contract for the layout build array and cache file 
-   * creation.
    * 
    * @param String $cachePath
    *    The directory files are added to for caching. 
-   * @param String $layoutPath
-   *    The layout directory where the path configuration is resolved.
    * @return array
    *    Messaging the result of the Layout cache build. Response example below:
    *    [
@@ -25,5 +21,5 @@ interface ConfigInterface {
    *      'action two has this error',
    *    ]
    */
-  public function setConfigArray(String $cachePath, String $layoutPath): array;
+  public function setConfigArray(): array;
 }

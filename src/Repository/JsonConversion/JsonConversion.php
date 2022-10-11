@@ -13,17 +13,9 @@ class JsonConversion implements JsonConversionInterface {
 
   /**
    * 
-   * @var type
-   */
-  private $testOrProd;
-
-  /**
-   * 
    * @param type $testOrProd
    */
-  public function __construct($testOrProd) {
-    $this->testOrProd = $testOrProd;
-    $this->init();
+  public function __construct() {
   }
 
   /**
@@ -48,13 +40,16 @@ class JsonConversion implements JsonConversionInterface {
     );
   }
 
-  protected function init() {
-    //$this->cachingTest($layoutEnvVariable);
-  }
+
 
   public function getJsonConversion(): array {
+    $configuration = new Config();
+    $returnConfig = $configuration->setConfigArray();
+    //$this->cachingTest($layoutEnvVariable);
 
-    return [];
+    return array_merge($returnConfig ,
+      [' aaa'], [' bbbb'], [' ffff']
+    );
   }
 
 }

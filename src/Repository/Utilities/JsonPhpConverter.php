@@ -10,27 +10,28 @@ namespace App\Repository\Utilities;
 class JsonPhpConverter {
 
   /**
-   * Copies directories and files to another position.
+   * Creates serialized PHP object.
    * 
    * @param type $src
    *   Default source directory.
-   * @param type $dst
-   *   Default destination directory.
    */
-  public static function coverter($src, $dst) {
+  public static function converter($src) {
     $ds = DIRECTORY_SEPARATOR;
-    if (!is_dir($src)) {
-      mkdir($src, 0755, true);
-    }
     $dir = opendir($src);
-    @mkdir($dst);
     while (( $file = readdir($dir))) {
       if (( $file != '.' ) && ( $file != '..' )) {
         if (\is_dir($src . $ds . $file)) {
-          self::copySD($src . $ds . $file, $dst . $ds . $file);
+          self::converter($src . $ds . $file);
         }
         else {
-          copy($src . $ds . $file, $dst . $ds . $file);
+          $ext = pathinfo($src . $ds . $file, PATHINFO_EXTENSION);
+          if ($ext === 'json') {
+            $data = serialize(json_decode(file_get_contents($src . $ds . $file)));
+            $newFileName = substr($src . $ds . $file, 0, -4);
+            $fp = fopen($newFileName . 'txts', 'w');
+            fwrite($fp, $data);
+            fclose($fp);
+          }
         }
       }
     }

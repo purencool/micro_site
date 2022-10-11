@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Repository\JsonConversion;
+namespace App\Repository\CacheBuilding\Layouts;
 
 /**
- * The ConfigInterface enforces the public methods needed for 
+ * The LayoutArrayBuilderInterface enforces the public methods needed for 
  * interacting with the systems for Layout Array Creation.
  *
  * @author purencool
  */
-interface JsonConversionInterface {
+interface LayoutArrayBuilderInterface {
 
   /**
    * Implements data array contract for the layout build array and cache file 
@@ -25,5 +25,5 @@ interface JsonConversionInterface {
    *      'action two has this error',
    *    ]
    */
-  public function getJsonConversion(): array;
+  public function setLayoutArray(String $cachePath, String $layoutPath): array;
 }

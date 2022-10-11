@@ -3,7 +3,7 @@
 namespace App\Repository\Processes;
 
 use App\Repository\Utilities\RemoveDirectoryAndFiles;
-use App\Repository\JsonConversion\JsonConversion;
+use App\Repository\CacheBuilding\JsonConversion;
 use App\Repository\Utilities\Paths;
 
 /**

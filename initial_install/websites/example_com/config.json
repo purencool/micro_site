@@ -1,5 +1,6 @@
 {
     "name": "example.com",
+    "404" : "/",
     "block": {
         "bots": "",
         "ips": "",

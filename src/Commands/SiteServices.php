@@ -10,6 +10,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use App\Repository\Processes\Install;
 use App\Repository\Processes\Update;
 use App\Repository\Processes\Caching;
+use App\Repository\Processes\DataObjects;
 
 #[AsCommand(
     name: 'site:services',
@@ -105,6 +106,38 @@ class SiteServices extends Command {
             ],
             Update::update($this->layoutEnvVariable, $inputParam)['response'],
             Caching::create()['response'],
+            [
+              ' ==============================================================',
+              ''
+            ]
+        ));
+
+        return Command::SUCCESS;
+
+      case 'object:request':
+        $inputParam = $input->getArgument('param');
+        if ($inputParam == '') {
+          $output->writeln(
+            [
+              '',
+              ' ==============================================================',
+              ' Object request didn\'t run.',
+              ' ==============================================================',
+              ' Update commands  `./bin/console si:se object:request {object}`',
+              ' ==============================================================',
+              ''
+            ]
+          );
+          return Command::INVALID;
+        }
+        $output->writeln(array_merge(
+            [
+              '',
+              ' ==============================================================',
+              ' Object requested.',
+              ' =============================================================='
+            ],
+            DataObjects::consoleRequest($inputParam)['response'],
             [
               ' ==============================================================',
               ''

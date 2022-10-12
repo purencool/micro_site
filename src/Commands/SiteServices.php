@@ -114,16 +114,16 @@ class SiteServices extends Command {
 
         return Command::SUCCESS;
 
-      case 'object:request':
+      case 'data:object':
         $inputParam = $input->getArgument('param');
         if ($inputParam == '') {
           $output->writeln(
             [
               '',
               ' ==============================================================',
-              ' Object request didn\'t run.',
+              ' Data object request didn\'t run.',
               ' ==============================================================',
-              ' Update commands  `./bin/console si:se object:request {object}`',
+              ' Update commands     `./bin/console si:se data:object {object}`',
               ' ==============================================================',
               ''
             ]
@@ -134,7 +134,7 @@ class SiteServices extends Command {
             [
               '',
               ' ==============================================================',
-              ' Object requested.',
+              ' Data object requested.',
               ' =============================================================='
             ],
             DataObjects::consoleRequest($inputParam)['response'],
@@ -175,6 +175,8 @@ class SiteServices extends Command {
             '                                            {""|all|test|prod}`',
             ' Update custom website      `./bin/console si:se update {flag}`',
             '                                                   {test|prod}`',
+            ' Data object request    ./bin/console si:se data:object {param}',
+            '                         {Any data object active in the system}',
             ' ==============================================================',
             ''
           ]

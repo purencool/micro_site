@@ -46,6 +46,10 @@ then
   ./bin/console si:se update $PARAMETER
   ./bin/console cache:clear
 
+elif [[ "$REQUEST" = "do" ]]
+then
+  ./bin/console si:se data:object $PARAMETER
+
 elif [[ "$REQUEST" = "start" ]]
 then
   cd ./public
@@ -75,6 +79,7 @@ else
   echo " Services offered by system                     'site services'"
   echo " Clear caches alias                                   'site cc'"
   echo " Debug route alias                                    'site dr'"
+  echo " Data object request                                  'site do'"
   echo " Install latest core release                 'site core:update'"
   echo " Site installation                               'site install'"
   echo " Start testing web server                          'site start'"

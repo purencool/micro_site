@@ -13,16 +13,41 @@ use App\Repository\Utilities\Paths;
  *
  * @author purencool
  */
-class Caching {
+class Caching implements CachingInterface {
 
   /**
-   * Destroy caches.
    * 
-   * @param String $caches
-   *    Allows the user to choose which caches need to be cleared.
-   *    By default all will need to be destroyed.
+   * @param String $layoutEnvVariable
+   *    Gives the cache building system the layout environment directory.
    * @return array
    *    Lets the user know the results of the process.
+   */
+  protected static function cachingProd(String $layoutEnvVariable): array {
+
+    //Build layout caching files for prod.
+    $layoutArrayObj = new LayoutArrayBuilder();
+    $layoutResult = $layoutArrayObj->setLayoutArray(
+      Paths::getSiteCacheProdLayoutStructure(),
+      Paths::getProductionLayoutsConfig($layoutEnvVariable)
+    );
+
+    return array_merge(
+      [' Prod caches have been rebuilt.'],
+      $layoutResult
+    );
+  }
+
+  /**
+   * @inherit
+   */
+  public static function create(): array {
+    $jsonObjTest = new JsonConversion();
+    $returnArr = $jsonObjTest->getJsonConversion();
+    return ['response' => $returnArr];
+  }
+
+  /**
+   * @inherit
    */
   public static function destroy(String $caches = "all"): array {
 
@@ -60,39 +85,6 @@ class Caching {
     }
 
     return ['response' => [$returnString]];
-  }
-
-  /**
-   * 
-   * @param String $layoutEnvVariable
-   *    Gives the cache building system the layout environment directory.
-   * @return array
-   *    Lets the user know the results of the process.
-   */
-  protected static function cachingProd(String $layoutEnvVariable): array {
-
-    //Build layout caching files for prod.
-    $layoutArrayObj = new LayoutArrayBuilder();
-    $layoutResult = $layoutArrayObj->setLayoutArray(
-      Paths::getSiteCacheProdLayoutStructure(),
-      Paths::getProductionLayoutsConfig($layoutEnvVariable)
-    );
-
-    return array_merge(
-      [' Prod caches have been rebuilt.'],
-      $layoutResult
-    );
-  }
-
-  /**
-   * Create Layout caches so the system can use them.
-   * @return array
-   *    Lets the user know the results of the process.
-   */
-  public static function create(): array {
-    $jsonObjTest = new JsonConversion();
-    $returnArr = $jsonObjTest->getJsonConversion();
-    return ['response' => $returnArr];
   }
 
 }

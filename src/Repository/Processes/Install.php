@@ -13,7 +13,7 @@ use App\Repository\Utilities\Paths;
  *
  * @author purencool
  */
-class Install {
+class Install implements InstallInterface {
 
   /**
    * Sets directory separator.
@@ -80,10 +80,7 @@ class Install {
   }
 
   /**
-   * Installing site configuration and caching system.
-   * 
-   * @return array
-   *    Lets the user know the results of the process.
+   * @inherit
    */
   public static function create(): array {
 

@@ -13,7 +13,7 @@ use App\Repository\Utilities\Paths;
  *  
  * @author purencool
  */
-class Update {
+class Update implements UpdateInterface {
 
   /**
    * Sets directory separator.
@@ -72,14 +72,7 @@ class Update {
   }
 
   /**
-   *  Updates website data and configuration into the system for deployment.
-   * 
-   * @param String $layoutEnvVariable
-   *    Gives Update Class the environment to find the default configuration.
-   * @param String $update
-   *    Update provides class with test or prod type.
-   * @return array
-   *    Lets the user know the results of the process. 
+   * @inherit
    */
   public static function update(String $layoutEnvVariable, String $update): array {
 
@@ -124,7 +117,6 @@ class Update {
           Paths::getSiteCacheTest() . "config.json",
           Paths::getSiteCacheProd() . "config.json"
         );
-
 
         MoveDirectoryAndFiles::copySD(
           Paths::getTestTemplates(),

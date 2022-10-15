@@ -1,7 +1,8 @@
 #!/bin/bash
 
 REQUEST=$1
-PARAMETER=$2
+PARAMETER_ONE=$2
+PARAMETER_TWO=$3
 if [[ "$REQUEST" = "core:update" ]]
 then
   git pull origin main
@@ -10,7 +11,7 @@ then
 elif [[ "$REQUEST" = "cc" ]]
 then
   ./bin/console cache:clear
-  ./bin/console si:se caching $PARAMETER
+  ./bin/console si:se caching $PARAMETER_ONE
 
 elif [[ "$REQUEST" = "services" ]]
 then
@@ -43,12 +44,12 @@ APP_REST_CLIENT_KEY="Rest API"' > .env.local
 
 elif [[ "$REQUEST" = "update" ]]
 then
-  ./bin/console si:se update $PARAMETER
+  ./bin/console si:se update $PARAMETER_ONE
   ./bin/console cache:clear
 
 elif [[ "$REQUEST" = "do" ]]
 then
-  ./bin/console si:se data:object $PARAMETER
+  ./bin/console si:se data:object $PARAMETER_ONE $PARAMETER_TWO
 
 elif [[ "$REQUEST" = "start" ]]
 then
@@ -79,7 +80,8 @@ else
   echo " Services offered by system                     'site services'"
   echo " Clear caches alias                                   'site cc'"
   echo " Debug route alias                                    'site dr'"
-  echo " Data object request                                  'site do'"
+  echo " Data object request                'site do {param1} {param2}'"
+  echo "               {param1}=data object request, {param2}=test|prod"
   echo " Install latest core release                 'site core:update'"
   echo " Site installation                               'site install'"
   echo " Start testing web server                          'site start'"

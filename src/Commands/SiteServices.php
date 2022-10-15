@@ -49,7 +49,8 @@ class SiteServices extends Command {
   protected function configure(): void {
     $this
       ->addArgument('request', InputArgument::OPTIONAL, 'request default')
-      ->addArgument('param', InputArgument::OPTIONAL, 'request parameter')
+      ->addArgument('param_one', InputArgument::OPTIONAL, 'request parameter')
+      ->addArgument('param_two', InputArgument::OPTIONAL, 'request parameter')
     ;
   }
 
@@ -81,7 +82,7 @@ class SiteServices extends Command {
         return Command::SUCCESS;
 
       case 'update':
-        $inputParam = $input->getArgument('param');
+        $inputParam = $input->getArgument('param_one');
         if ($inputParam == '') {
           $output->writeln(
             [
@@ -115,8 +116,8 @@ class SiteServices extends Command {
         return Command::SUCCESS;
 
       case 'data:object':
-        $inputParam = $input->getArgument('param');
-        if ($inputParam == '') {
+        $inputParamOne = $input->getArgument('param_one');
+        if ($inputParamOne == '') {
           $output->writeln(
             [
               '',
@@ -130,6 +131,10 @@ class SiteServices extends Command {
           );
           return Command::INVALID;
         }
+        $inputParamTwo = $input->getArgument('param_two');
+        if ($inputParamTwo == '') {
+          $inputParamTwo = 'test';
+        }
         $output->writeln(array_merge(
             [
               '',
@@ -137,7 +142,7 @@ class SiteServices extends Command {
               ' Data object requested.',
               ' =============================================================='
             ],
-            DataObjects::consoleRequest($inputParam)['response'],
+            DataObjects::consoleRequest($inputParamOne, $inputParamTwo)['response'],
             [
               ' ==============================================================',
               ''

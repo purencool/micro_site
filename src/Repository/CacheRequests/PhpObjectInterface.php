@@ -14,6 +14,8 @@ interface PhpObjectInterface {
    * 
    * @param String $typeOfObject 
    *    Type of PHP Object that is being requested.
+   * @param String $environment
+   *    Selects which environment the data comes from.
    * @return array
    *    Messaging the result of the Layout cache build. Response example below:
    *    [
@@ -21,5 +23,5 @@ interface PhpObjectInterface {
    *      'action two has this error',
    *    ]
    */
-  public function getPhpObject(String $typeOfObject): array;
+  public function getPhpObject(String $typeOfObject, String $environment): array;
 }

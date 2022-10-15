@@ -4,6 +4,7 @@
     "block": {
         "bots": "",
         "ips": "",
-        "methods": ""
+        "methods": "",
+        "locking":""
     }
 }

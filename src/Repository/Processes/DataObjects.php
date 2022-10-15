@@ -14,11 +14,12 @@ class DataObjects implements DataObjectsInterface {
   /**
    * @inherit
    */
-  public static function consoleRequest($objectType): array {
+  public static function consoleRequest($objectType, $environment = 'test'): array {
     $phpObjects = new PhpObject();
     return ['response' => array_merge(
-        [" You requested : $objectType"],
-        [" " . print_r($phpObjects->getPhpObject($objectType), true) . ""]
+  [" The data object requested is : $objectType."],
+  [" From the following environment : $environment."],
+        [" " . print_r($phpObjects->getPhpObject($objectType, $environment), true) . ""]
       )
     ];
   }
@@ -26,9 +27,9 @@ class DataObjects implements DataObjectsInterface {
   /**
    * @inherit
    */
-  public static function dataRequest($objectType): array {
+  public static function dataRequest($objectType, $environment = 'test'): array {
     $phpObjects = new PhpObject();
-    return $phpObjects->getPhpObject($objectType);
+    return $phpObjects->getPhpObject($objectType, $environment);
   }
 
 }

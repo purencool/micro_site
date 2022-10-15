@@ -12,15 +12,31 @@ use App\Repository\Utilities\FindPhpObject;
  */
 class PhpObject implements PhpObjectInterface {
 
+  
+  protected function getData($path ,$typeOfObject){
+    
+    $pathResult = FindPhpObject::getObject($path, $typeOfObject);
+    if($pathResult === false) {
+       return ['Data object does not exist'];
+    }
+  
+    $data =  @file_get_contents($pathResult);
+    return unserialize($data);
+
+  }
+
   /**
    * @inherit
    */
-  public function getPhpObject($typeOfObject): array {
-    $data = unserialize(
-      file_get_contents(
-        FindPhpObject::getObject(Paths::getSiteCacheTest(), $typeOfObject)
-      )
-    );
+  public function getPhpObject($typeOfObject, $environment): array {
+   
+    if ($environment === 'prod') {
+      $data = $this->getData(Paths::getSiteCacheProd(), $typeOfObject);
+    }
+    else {
+      $data = $this->getData(Paths::getSiteCacheTest(), $typeOfObject);
+
+    }
 
     return [$data];
   }

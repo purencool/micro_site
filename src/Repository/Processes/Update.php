@@ -113,19 +113,14 @@ class Update implements UpdateInterface {
 
       case 'prod':
 
-        copy(
-          Paths::getSiteCacheTest() . "config.json",
-          Paths::getSiteCacheProd() . "config.json"
-        );
-
         MoveDirectoryAndFiles::copySD(
           Paths::getTestTemplates(),
           Paths::getProductionTemplates(),
         );
 
         MoveDirectoryAndFiles::copySD(
-          Paths::getSiteCacheTestLayoutStructure(),
-          Paths::getSiteCacheProdLayoutStructure()
+          Paths::getSiteCacheTest(),
+          Paths::getSiteCacheProd()
         );
 
         MoveDirectoryAndFiles::copySD(
@@ -133,10 +128,6 @@ class Update implements UpdateInterface {
           Paths::getProductionAssets()
         );
 
-        MoveDirectoryAndFiles::copySD(
-          Paths::getSiteCacheTestSrc(),
-          Paths::getSiteCacheProdSrc()
-        );
         $returnArr = ' Updated configuration from test to production.';
         break;
 

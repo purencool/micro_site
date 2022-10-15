@@ -2,7 +2,7 @@
     "name": "example.com",
     "404" : "/",
     "block": {
-        "bots": "",
+        "user_agent": "",
         "ips": "",
         "methods": "",
         "locking":""

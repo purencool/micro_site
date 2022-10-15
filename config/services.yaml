@@ -33,3 +33,5 @@ services:
         arguments:
             $layoutEnvVariable: '%app.layout_env_variable%'
     App\EventSubscriber\KernelSubscriber:
+         arguments:
+            $test: '%app.test%'

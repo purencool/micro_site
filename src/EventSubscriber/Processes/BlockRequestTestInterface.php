@@ -3,14 +3,20 @@
 namespace App\EventSubscriber\Processes;
 
 /**
+ * Returns object the system has requested.
  *
- * @author john.cullen
+ * @author purencool
  */
 interface BlockRequestTestInterface {
 
-  /**
-   * 
-   * @return boolean
-   */
-  public static function request(): bool;
+/**
+ * The Request methods needs a Kernel Request event to test
+ * if incoming traffic requests are legitimate traffic the 
+ * system will allow access the website.
+ * 
+ * @param RequestEvent $event
+ * @param String $type
+ * @return bool
+ */
+  public static function request(RequestEvent $event, String $type): bool;
 }

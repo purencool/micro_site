@@ -5,7 +5,6 @@ namespace App\EventSubscriber;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-
 use App\EventSubscriber\Processes\BlockRequestTest;
 
 /**
@@ -14,8 +13,26 @@ use App\EventSubscriber\Processes\BlockRequestTest;
  *  2. IP addresses that are undesirable.
  *  4. Method requests like POST, PUT etc.
  *  5. Locking requests to a group of IPs.
+ * 
+ *  @author purencool
  */
 class KernelSubscriber implements EventSubscriberInterface {
+
+  /**
+   * Checking to see if testing is enabled
+   * 
+   * @var string
+   */
+  private static $testEnabled;
+
+  /**
+   * Kernel constructor
+   * 
+   * @param type $test
+   */
+  public function __construct($test) {
+    self::$testEnabled = $test;
+  }
 
   /**
    * @inherit
@@ -25,6 +42,8 @@ class KernelSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Adds Blocking Request tests to each Kernel request to 
+   * block unwanted types of traffic.
    * 
    * @param RequestEvent $event
    * @return void
@@ -35,25 +54,9 @@ class KernelSubscriber implements EventSubscriberInterface {
       return;
     }
 
-    // Blocking user agents.
-    if (in_array($event->getRequest()->headers->all('user_agent'), ['192.168.001.1'], true)) {
+    if (BlockRequestTest::request($event, self::$testEnabled) === true) {
       throw new AccessDeniedHttpException('Access Denied');
     }
-    // Blocking IP addresses.
-    if (in_array($event->getRequest()->getClientIp(), ['192.168.001.1'], true)) {
-      throw new AccessDeniedHttpException('Access Denied');
-    }
-
-    // Blocking method types.
-    if (in_array($event->getRequest()->getMethod(), ['192.168.001.1'], true)) {
-      throw new AccessDeniedHttpException('Access Denied');
-    }
-
-    // Locking to IP addresses.
-   if (!in_array($event->getRequest()->getClientIp(), ['192.168.001.1'], true)) {
-      throw new AccessDeniedHttpException('Access Denied');
-   }
-   
   }
 
 }

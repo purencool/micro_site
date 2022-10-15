@@ -18,7 +18,7 @@ class DynamicRouting extends Loader {
   private static $routeArr = [
     '',
     'intro',
-    'install',
+    'install/abc',
   ];
 
   /**
@@ -74,18 +74,22 @@ class DynamicRouting extends Loader {
     }
     // Routes collection 
     $collection = new RouteCollection();
-    $homeRoute = '/';
-    $createdRoute = new Route($homeRoute, [
-      '_controller' => 'App\Controller\DynamicRoutingController::index',
-    ]);
-    $routeName = 'dr_home_' . str_replace(['-', '/'], '_', $homeRoute);
-    $collection->add($routeName, $createdRoute);
 
+    // Test routes
     foreach ($this->routes() as $route) {
       $createdRoute = new Route($route . '/{parameter}', [
         '_controller' => 'App\Controller\DynamicRoutingController::index',
       ]);
-      $routeName = 'dr_' . str_replace(['-', '/'], '_', $route);
+      $routeName = 'dr_test' . str_replace(['-', '/'], '_', $route);
+      $collection->add($routeName, $createdRoute);
+    }
+
+    // Prod routes
+    foreach ($this->routes() as $route) {
+      $createdRoute = new Route($route . '/', [
+        '_controller' => 'App\Controller\DynamicRoutingController::index',
+      ]);
+      $routeName = 'dr_prod' . str_replace(['-', '/'], '_', $route);
       $collection->add($routeName, $createdRoute);
     }
 

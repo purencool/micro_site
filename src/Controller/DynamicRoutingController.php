@@ -22,10 +22,14 @@ class DynamicRoutingController extends AbstractController {
   public function index($parameter = '') {
     // For reference the blocking requests tools are executed 
     // from the following namespace App\EventSubscriber\KernelSubscriber.
-    // This allows traffic to be blocked from the kernal.
+    // This allows traffic to be blocked from the kernel.
     
-    // Test or Prod
+    // Check to see if the request has a test parameter and if the 
+    // user is allowed to access the testing caching system.
     if ($parameter === 'test' && $this->getParameter('app.test') === 'true') {
+  
+      
+
       return new Response("test");
     }
 

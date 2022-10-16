@@ -1,0 +1,50 @@
+{
+    "description": "Layout where the systems data keys are stored",
+    "@data_store": "file",
+    "@routes": {
+        "@store": "content",
+        "@list": "config/routes"
+    },
+    "@media_data": {
+        "@store": "assets",
+        "@list": "config/media"
+    }, 
+    "@types": {
+        "article": {
+            "header": {
+                "@store": "universal"
+            },
+            "content": {
+                "@store": "content/articles"
+            },
+            "footer": {
+                "@store": "universal"
+            }
+        },
+        "home": {
+            "header": {
+                "@store": "universal"
+            },
+            "content": {
+                "@store": "content"
+            },
+            "footer": {
+                "@store": "universal"
+            }
+        },
+        "page": {
+            "header": {
+                "@store": "universal"
+            },
+            "content": {
+                "@store": "content/pages"
+            },
+            "footer": {
+                "@store": "universal"
+            }
+        }
+    }, 
+    "@layouts": {
+        "@store": "content"
+    }
+}

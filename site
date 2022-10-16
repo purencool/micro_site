@@ -13,13 +13,32 @@ then
   ./bin/console cache:clear
   ./bin/console si:se caching $PARAMETER_ONE
 
-elif [[ "$REQUEST" = "services" ]]
+elif [[ "$REQUEST" = "cd" ]]
 then
-  ./bin/console si:se
+  #./bin/console si:se content:deploy
+  ./bin/console cache:clear
+
+elif [[ "$REQUEST" = "ci" ]]
+then
+  #./bin/console si:se content:import
+  ./bin/console cache:clear
+
+elif [[ "$REQUEST" = "co" ]]
+then
+  #./bin/console si:se content:object
+  ./bin/console cache:clear
+
+elif [[ "$REQUEST" = "do" ]]
+then
+  ./bin/console si:se data:object $PARAMETER_ONE $PARAMETER_TWO
 
 elif [[ "$REQUEST" = "dr" ]]
 then
   ./bin/console debug:router
+
+elif [[ "$REQUEST" = "help" ]]
+then
+   ./bin/console si:se
 
 elif [[ "$REQUEST" = "install" ]]
 then
@@ -42,14 +61,14 @@ APP_REST_CLIENT_KEY="Rest API"' > .env.local
   ./bin/console si:se update test
   ./bin/console cache:clear
 
+elif [[ "$REQUEST" = "services" ]]
+then
+  ./bin/console si:se
+
 elif [[ "$REQUEST" = "update" ]]
 then
   ./bin/console si:se update $PARAMETER_ONE
   ./bin/console cache:clear
-
-elif [[ "$REQUEST" = "do" ]]
-then
-  ./bin/console si:se data:object $PARAMETER_ONE $PARAMETER_TWO
 
 elif [[ "$REQUEST" = "start" ]]
 then
@@ -60,9 +79,6 @@ elif [[ "$REQUEST" = "stop" ]]
 then
   kill $(ps aux | grep 'php -S localhost:8000 index.php' | awk '{print $2}') 
 
-elif [[ "$REQUEST" = "help" ]]
-then
-   ./bin/console si:se
 
 else
   echo ""
@@ -78,10 +94,16 @@ else
   echo " Site Commands."
   echo " =============================================================="
   echo " Services offered by system                     'site services'"
-  echo " Clear caches alias                                   'site cc'"
+  echo " Clear all caches alias                               'site cc'"
+  echo " Content deploy alias                                 'site cd'"
+  echo " Content import alias                                 'site ci'"
+  echo " Content object alias                       'site co {p1} {p2}'"
+  echo "                                             {p1} = data object"
+  echo "                                          {p2} = type test|prod"
+  echo " Data object alias                          'site do {p1} {p2}'"
+  echo "                                             {p1} = data object"
+  echo "                                          {p2} = type test|prod"
   echo " Debug route alias                                    'site dr'"
-  echo " Data object request                'site do {param1} {param2}'"
-  echo "               {param1}=data object request, {param2}=test|prod"
   echo " Install latest core release                 'site core:update'"
   echo " Site installation                               'site install'"
   echo " Start testing web server                          'site start'"

@@ -2,7 +2,7 @@
 
 namespace App\Repository\CacheBuilding;
 
-use App\Repository\Utilities\Paths;
+use App\Repository\Utilities\Schema;
 use App\Repository\Utilities\JsonPhpConverter;
 
 /**
@@ -18,12 +18,12 @@ class JsonConversion implements JsonConversionInterface {
    */
   public function getJsonConversion(): array {
 
-    JsonPhpConverter::converter(Paths::getSiteCacheTest());
+    JsonPhpConverter::converter(Schema::getSiteCacheTest());
 
-    JsonPhpConverter::buildLayoutArray(Paths::getSiteCacheTestLayoutStructure());
+    JsonPhpConverter::buildLayoutArray(Schema::getSiteCacheTestLayoutStructure());
 
     JsonPhpConverter::fileCreation(
-      Paths::getSiteCacheTest() . 'layout_object.json',
+      Schema::getSiteCacheTest() . 'layout_object.json',
       JsonPhpConverter::arraySerialization(
         JsonPhpConverter::$layoutArray,
         'serialize'
@@ -35,7 +35,7 @@ class JsonConversion implements JsonConversionInterface {
 
   public function getJsonContentConversion(): array {
 
-    JsonPhpConverter::converter(Paths::getSiteCacheContent());
+    JsonPhpConverter::converter(Schema::getSiteCacheContent());
     return [' Content PHP object creation completed.'];
   }
 

@@ -2,35 +2,65 @@
 
 namespace App\Repository\Processes;
 
-use App\Repository\Utilities\Paths;
+use App\Repository\Utilities\Schema;
 use App\Repository\CacheBuilding\JsonConversion;
 use App\Repository\Utilities\MoveDirectoryAndFiles;
 
 /**
- * The Update class achieves several functions.
- *  1. Moves custom configuration to the correct directories in the system.
- *  2. Build the twig templates from configuration.
+ * @inheritDoc
  *  
  * @author purencool
  */
 class ContentDeploy implements ContentDeployInterface {
 
   /**
-   * @inherit
+   * Moves data from data directory to site caching.
+   * 
+   * @return array
+   *    Response to process.
+   */
+  private static function moveData(): array {
+    MoveDirectoryAndFiles::copySD(
+      Schema::getWebsiteData(),
+      Schema::getSiteCacheContent()
+    );
+
+    return [' Content Json deployed to cache.'];
+  }
+
+  /**
+   * Moves data from data directory to site caching.
+   * 
+   * @return array
+   *    Response to process.
+   */
+  private static function convertData(): array {
+    $jsonObjects = new JsonConversion();
+    return $jsonObjects->getJsonContentConversion();
+  }
+
+  /**
+   * Creates custom systems PHP objects used by the system.
+   * 
+   * @return array
+   *    Response to process.
+   */
+  private static function systemDataObjects(): array {
+    
+    
+
+    return [' System data objects.', ' Route list has been created.'];
+  }
+
+  /**
+   * @inheritDoc
    */
   public static function deploy(): array {
 
-    MoveDirectoryAndFiles::copySD(
-      Paths::getWebsiteData(),
-      Paths::getSiteCacheContent()
-    );
-
-    $jsonObjects = new JsonConversion();
-    $returnArr = $jsonObjects->getJsonContentConversion();
-
     return ['response' => array_merge(
-        [' Content Json deployed to cache.'],
-        $returnArr
+        self::moveData(),
+        self::convertData(),
+        self::systemDataObjects()
     )];
   }
 

@@ -6,11 +6,11 @@ namespace App\Repository\Utilities;
 //get update to move the data from website directory to correct part of the testing system
 
 /**
- * Description of Paths
+ * Description of Schema
  *
  * @author purencool
  */
-class Paths {
+class Schema {
 
   /**
    * Sets directory separator.

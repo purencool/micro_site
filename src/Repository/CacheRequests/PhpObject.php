@@ -2,7 +2,7 @@
 
 namespace App\Repository\CacheRequests;
 
-use App\Repository\Utilities\Paths;
+use App\Repository\Utilities\Schemas;
 use App\Repository\Utilities\FindPhpObject;
 
 /**
@@ -16,7 +16,7 @@ class PhpObject implements PhpObjectInterface {
    * Data request method.
    * 
    * @param String $path
-   *    Path needed to get access to the data.
+   *    Schema needed to get access to the data.
    * @param String $typeOfObject
    *    Type of object needed by the system.
    * @return array
@@ -39,10 +39,10 @@ class PhpObject implements PhpObjectInterface {
   public function getPhpObject($typeOfObject, $environment): array {
 
     if ($environment === 'prod') {
-      $data = $this->getData(Paths::getSiteCacheProd(), $typeOfObject);
+      $data = $this->getData(Schema::getSiteCacheProd(), $typeOfObject);
     }
     else {
-      $data = $this->getData(Paths::getSiteCacheTest(), $typeOfObject);
+      $data = $this->getData(Schema::getSiteCacheTest(), $typeOfObject);
     }
 
     return [$data];

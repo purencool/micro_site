@@ -4,7 +4,7 @@ namespace App\Repository\Processes;
 
 use App\Repository\Utilities\MoveDirectoryAndFiles;
 use App\Repository\Twig\ExpressionEngine;
-use App\Repository\Utilities\Paths;
+use App\Repository\Utilities\Schema;
 
 /**
  * The Update class achieves several functions.
@@ -36,7 +36,7 @@ class Update implements UpdateInterface {
           if ($items == $directory) {
             MoveDirectoryAndFiles::copySD(
               $src . self::$ds . $items,
-              Paths::getProductionLayouts(),
+              Schema::getProductionLayouts(),
             );
           }
           self::moveCustomLayoutConfiguration($src . self::$ds . $items);
@@ -77,35 +77,35 @@ class Update implements UpdateInterface {
   public static function update(String $layoutEnvVariable, String $update): array {
 
     // Recreating the templating system. @todo
-    // self::createTwigConfigurationTemplating(Paths::getProductionLayouts());
+    // self::createTwigConfigurationTemplating(Schema::getProductionLayouts());
 
     switch ($update) {
 
       case 'test':
 
         copy(
-          Paths::getWebsiteEnvironment($layoutEnvVariable) . "config.json",
-          Paths::getSiteCacheTest() . "config.json"
+          Schema::getWebsiteEnvironment($layoutEnvVariable) . "config.json",
+          Schema::getSiteCacheTest() . "config.json"
         );
 
         MoveDirectoryAndFiles::copySD(
-          Paths::getWebsiteTwigTemplates($layoutEnvVariable),
-          Paths::getTestTemplates()
+          Schema::getWebsiteTwigTemplates($layoutEnvVariable),
+          Schema::getTestTemplates()
         );
 
         MoveDirectoryAndFiles::copySD(
-          Paths::getWebsiteLayoutStructure($layoutEnvVariable),
-          Paths::getSiteCacheTestLayoutStructure()
+          Schema::getWebsiteLayoutStructure($layoutEnvVariable),
+          Schema::getSiteCacheTestLayoutStructure()
         );
 
         MoveDirectoryAndFiles::copySD(
-          Paths::getWebsiteAssets($layoutEnvVariable),
-          Paths::getTestAssets()
+          Schema::getWebsiteAssets($layoutEnvVariable),
+          Schema::getTestAssets()
         );
 
         MoveDirectoryAndFiles::copySD(
-          Paths::getWebsiteSrc($layoutEnvVariable),
-          Paths::getSiteCacheTestSrc()
+          Schema::getWebsiteSrc($layoutEnvVariable),
+          Schema::getSiteCacheTestSrc()
         );
 
         $returnArr = " Updated configuration from $layoutEnvVariable to test.";
@@ -114,18 +114,18 @@ class Update implements UpdateInterface {
       case 'prod':
 
         MoveDirectoryAndFiles::copySD(
-          Paths::getTestTemplates(),
-          Paths::getProductionTemplates(),
+          Schema::getTestTemplates(),
+          Schema::getProductionTemplates(),
         );
 
         MoveDirectoryAndFiles::copySD(
-          Paths::getSiteCacheTest(),
-          Paths::getSiteCacheProd()
+          Schema::getSiteCacheTest(),
+          Schema::getSiteCacheProd()
         );
 
         MoveDirectoryAndFiles::copySD(
-          Paths::getTestAssets(),
-          Paths::getProductionAssets()
+          Schema::getTestAssets(),
+          Schema::getProductionAssets()
         );
 
         $returnArr = ' Updated configuration from test to production.';

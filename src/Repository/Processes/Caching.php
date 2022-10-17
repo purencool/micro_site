@@ -4,7 +4,7 @@ namespace App\Repository\Processes;
 
 use App\Repository\Utilities\RemoveDirectoryAndFiles;
 use App\Repository\CacheBuilding\JsonConversion;
-use App\Repository\Utilities\Paths;
+use App\Repository\Utilities\Schema;
 
 /**
  * The LayoutCaches class completes the following functions.
@@ -27,8 +27,8 @@ class Caching implements CachingInterface {
     //Build layout caching files for prod.
     $layoutArrayObj = new LayoutArrayBuilder();
     $layoutResult = $layoutArrayObj->setLayoutArray(
-      Paths::getSiteCacheProdLayoutStructure(),
-      Paths::getProductionLayoutsConfig($layoutEnvVariable)
+      Schema::getSiteCacheProdLayoutStructure(),
+      Schema::getProductionLayoutsConfig($layoutEnvVariable)
     );
 
     return array_merge(
@@ -56,29 +56,29 @@ class Caching implements CachingInterface {
     switch ($caches) {
 
       case 'test':
-        $directoryPaths = [
-          Paths::getSiteCacheTestLayoutStructure(),
+        $directorySchema = [
+          Schema::getSiteCacheTestLayoutStructure(),
         ];
         $returnString = ' Test caches have been deleted.';
         break;
 
       case 'prod':
-        $directoryPaths = [
-          Paths::getSiteCacheProdLayoutStructure(),
+        $directorySchema = [
+          Schema::getSiteCacheProdLayoutStructure(),
         ];
         $returnString = ' Prod caches have been deleted.';
         break;
 
       default:
-        $directoryPaths = [
-          Paths::getSiteCacheTestLayoutStructure(),
-          Paths::getSiteCacheProdLayoutStructure(),
+        $directorySchema = [
+          Schema::getSiteCacheTestLayoutStructure(),
+          Schema::getSiteCacheProdLayoutStructure(),
         ];
         $returnString = ' Test and Prod caches have been deleted.';
         break;
     }
 
-    foreach ($directoryPaths as $item) {
+    foreach ($directorySchema as $item) {
       if (is_dir($item)) {
         RemoveDirectoryAndFiles::deleteSD($item);
       }

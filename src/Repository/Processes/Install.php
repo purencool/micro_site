@@ -3,7 +3,7 @@
 namespace App\Repository\Processes;
 
 use App\Repository\Utilities\MoveDirectoryAndFiles;
-use App\Repository\Utilities\Paths;
+use App\Repository\Utilities\Schema;
 
 /**
  * The Install class completes the following functions.
@@ -29,10 +29,10 @@ class Install implements InstallInterface {
    */
   protected static function installCustomWebsite() {
 
-    if (!is_dir(Paths::getWebsiteConfiguration())) {
+    if (!is_dir(Schema::getWebsiteConfiguration())) {
       MoveDirectoryAndFiles::copySD(
-        Paths::getRoot() . 'initial_install' . self::$ds . 'websites' . self::$ds,
-        Paths::getWebsiteConfiguration(),
+        Schema::getRoot() . 'initial_install' . self::$ds . 'websites' . self::$ds,
+        Schema::getWebsiteConfiguration(),
       );
     }
   }
@@ -43,10 +43,10 @@ class Install implements InstallInterface {
    */
   protected static function installWebsiteDataDirectory() {
 
-    if (!is_dir(Paths::getWebsiteData())) {
+    if (!is_dir(Schema::getWebsiteData())) {
       MoveDirectoryAndFiles::copySD(
-        Paths::getRoot() . 'initial_install' . self::$ds . 'data' . self::$ds,
-        Paths::getWebsiteData()
+        Schema::getRoot() . 'initial_install' . self::$ds . 'data' . self::$ds,
+        Schema::getWebsiteData()
       );
     }
   }
@@ -56,23 +56,23 @@ class Install implements InstallInterface {
    */
   protected static function installCacheDirectory() {
 
-    $directoryPaths = [
-      Paths::getLayoutTemplates(),
-      Paths::getTestTemplates(),
-      Paths::getProductionTemplates(),
-      Paths::getTestAssets(),
-      Paths::getProductionAssets(),
-      Paths::getSiteCache(),
-      Paths::getSiteCacheContent(),
-      Paths::getSiteCacheTest(),
-      Paths::getSiteCacheTestSrc(),
-      Paths::getSiteCacheTestLayoutStructure(),
-      Paths::getSiteCacheProd(),
-      Paths::getSiteCacheProdSrc(),
-      Paths::getSiteCacheProdLayoutStructure(),
+    $directorySchema = [
+      Schema::getLayoutTemplates(),
+      Schema::getTestTemplates(),
+      Schema::getProductionTemplates(),
+      Schema::getTestAssets(),
+      Schema::getProductionAssets(),
+      Schema::getSiteCache(),
+      Schema::getSiteCacheContent(),
+      Schema::getSiteCacheTest(),
+      Schema::getSiteCacheTestSrc(),
+      Schema::getSiteCacheTestLayoutStructure(),
+      Schema::getSiteCacheProd(),
+      Schema::getSiteCacheProdSrc(),
+      Schema::getSiteCacheProdLayoutStructure(),
     ];
 
-    foreach ($directoryPaths as $item) {
+    foreach ($directorySchema as $item) {
       if (!is_dir($item)) {
         mkdir($item);
       }

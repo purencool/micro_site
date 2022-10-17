@@ -2,15 +2,16 @@
 
 namespace App\Commands;
 
-use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
 use App\Repository\Processes\Install;
 use App\Repository\Processes\Update;
 use App\Repository\Processes\Caching;
 use App\Repository\Processes\DataObjects;
+use App\Repository\Processes\ContentDeploy;
 
 #[AsCommand(
     name: 'site:services',
@@ -68,13 +69,11 @@ class SiteServices extends Command {
         $output->writeln(array_merge(
             [
               '',
-              ' ==============================================================',
               ' Website Installation.',
               ' =============================================================='
             ],
             Install::create()['response'],
             [
-              ' ==============================================================',
               ''
             ]
         ));
@@ -87,12 +86,10 @@ class SiteServices extends Command {
           $output->writeln(
             [
               '',
-              ' ==============================================================',
               ' Update didn\'t run.',
               ' ==============================================================',
               ' Update commands            `./bin/console si:se update {flag}`',
               '                                                   {test|prod}`',
-              ' ==============================================================',
               ''
             ]
           );
@@ -101,14 +98,12 @@ class SiteServices extends Command {
         $output->writeln(array_merge(
             [
               '',
-              ' ==============================================================',
               ' Website Update.',
               ' =============================================================='
             ],
             Update::update($this->layoutEnvVariable, $inputParam)['response'],
             Caching::create()['response'],
             [
-              ' ==============================================================',
               ''
             ]
         ));
@@ -121,11 +116,9 @@ class SiteServices extends Command {
           $output->writeln(
             [
               '',
-              ' ==============================================================',
               ' Data object request didn\'t run.',
               ' ==============================================================',
               ' Update commands     `./bin/console si:se data:object {object}`',
-              ' ==============================================================',
               ''
             ]
           );
@@ -138,13 +131,11 @@ class SiteServices extends Command {
         $output->writeln(array_merge(
             [
               '',
-              ' ==============================================================',
               ' Data object requested.',
               ' =============================================================='
             ],
             DataObjects::consoleRequest($inputParamOne, $inputParamTwo)['response'],
             [
-              ' ==============================================================',
               ''
             ]
         ));
@@ -155,14 +146,26 @@ class SiteServices extends Command {
         $output->writeln(array_merge(
             [
               '',
-              ' ==============================================================',
               ' Layout Reset.',
               ' =============================================================='
             ],
             //Caching::destroy($inputParam)['response'],
             Caching::create()['response'],
             [
-              ' ==============================================================',
+              ''
+            ]
+        ));
+        return Command::SUCCESS;
+
+      case 'content:deploy':
+        $output->writeln(array_merge(
+            [
+              '',
+              ' Content Deploy.',
+              ' =============================================================='
+            ],
+            ContentDeploy::deploy()['response'],
+            [
               ''
             ]
         ));
@@ -172,17 +175,16 @@ class SiteServices extends Command {
         $output->writeln(
           [
             '',
-            ' ==============================================================',
             ' Services Offered By System.',
             ' ==============================================================',
-            ' Website installation             `./bin/console si:se install`',
             ' Reset layout cache     `./bin/console si:se caching {options}`',
             '                                            {""|all|test|prod}`',
-            ' Update custom website      `./bin/console si:se update {flag}`',
-            '                                                   {test|prod}`',
+            ' Content Deploy            `./bin/console si:se content:deploy`',
             ' Data object request    ./bin/console si:se data:object {param}',
             '                         {Any data object active in the system}',
-            ' ==============================================================',
+            ' Update custom website      `./bin/console si:se update {flag}`',
+            '                                                   {test|prod}`',
+            ' Website installation             `./bin/console si:se install`',
             ''
           ]
         );

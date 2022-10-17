@@ -17,11 +17,11 @@ class JsonConversion implements JsonConversionInterface {
    * @return array
    */
   public function getJsonConversion(): array {
-    
+
     JsonPhpConverter::converter(Paths::getSiteCacheTest());
 
     JsonPhpConverter::buildLayoutArray(Paths::getSiteCacheTestLayoutStructure());
-    
+
     JsonPhpConverter::fileCreation(
       Paths::getSiteCacheTest() . 'layout_object.json',
       JsonPhpConverter::arraySerialization(
@@ -30,7 +30,13 @@ class JsonConversion implements JsonConversionInterface {
       )
     );
 
-    return [' Layout reset creation'];
+    return [' PHP object creation'];
+  }
+
+  public function getJsonContentConversion(): array {
+
+    JsonPhpConverter::converter(Paths::getSiteCacheContent());
+    return [' Content PHP object creation completed.'];
   }
 
 }

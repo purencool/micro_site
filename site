@@ -15,7 +15,7 @@ then
 
 elif [[ "$REQUEST" = "cd" ]]
 then
-  #./bin/console si:se content:deploy
+  ./bin/console si:se content:deploy
   ./bin/console cache:clear
 
 elif [[ "$REQUEST" = "ci" ]]

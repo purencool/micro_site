@@ -3,16 +3,17 @@
 namespace App\Repository\CacheRequests;
 
 /**
- * PhpObjectInterface interface for PHP objects requested by the system.
+ * PhpObjectListInterface interface for a list of PHP objects 
+ * requested by the system.
  *
  * @author purencool
  */
-interface PhpObjectInterface {
+interface PhpObjectListInterface {
 
   /**
-   * Gets PHP object requested by the system for its use.
+   * returns a list of PHP object requested by the system for its use.
    * 
-   * @param String $typeOfObject 
+   * @param String $typeOfObjects 
    *    Type of PHP Object that is being requested.
    * @param String $environment
    *    Selects which environment the data comes from.
@@ -20,8 +21,8 @@ interface PhpObjectInterface {
    *    The result should look like the following:
    *    [
    *      'response' => '',
-   *      'object_array' => '',
+   *      'objects_array' => '',
    *    ]
    */
-  public function getPhpObject(String $typeOfObject, String $environment = ''): array;
+  public function getPhpObject(String $typeOfObjects, String $environment = ''): array;
 }

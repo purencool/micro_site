@@ -12,7 +12,7 @@ use App\Repository\Processes\Update;
 use App\Repository\Processes\Caching;
 use App\Repository\Processes\DataObjects;
 use App\Repository\Processes\ContentDeploy;
-use App\Repository\Processes\DataObjectList;
+use App\Repository\Processes\DataObjectsList;
 
 
 #[AsCommand(
@@ -136,7 +136,7 @@ class SiteServices extends Command {
               ' Data object requested.',
               ' =============================================================='
             ],
-           // DataObjectList::consoleRequest($inputParamOne, $inputParamTwo)['response'],
+            DataObjects::consoleRequest($inputParamOne, $inputParamTwo)['response'],
             [
               ''
             ]
@@ -168,7 +168,7 @@ class SiteServices extends Command {
               ' Data objects list requested.',
               ' =============================================================='
             ],
-            DataObjects::consoleRequest($inputParamOne, $inputParamTwo)['response'],
+            DataObjectsList::consoleRequest($inputParamOne, $inputParamTwo)['response'],
             [
               ''
             ]

@@ -3,7 +3,7 @@
 namespace App\Repository\Utilities;
 
 /**
- * Description of FindPhpObject
+ * FindPhpObject
  *
  * @author purencool
  */
@@ -12,13 +12,13 @@ class FindPhpObject {
   /**
    * Gets serialized PHP object.
    * 
-   * @param type $src
+   * @param string $schema
    *   Default source directory.
-   * @param type $request
+   * @param mixed $request
    *   Request object.
    */
-  public static function getObject($src, $request) {
-    $iti = new \RecursiveDirectoryIterator($src);
+  public static function getObject($schema, $request) {
+    $iti = new \RecursiveDirectoryIterator($schema);
     foreach (new \RecursiveIteratorIterator($iti) as $file) {
       if (strpos($file, $request) !== false) {
         $ext = pathinfo($file, PATHINFO_EXTENSION);

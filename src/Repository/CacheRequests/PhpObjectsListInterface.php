@@ -8,7 +8,7 @@ namespace App\Repository\CacheRequests;
  *
  * @author purencool
  */
-interface PhpObjectListInterface {
+interface PhpObjectsListInterface {
 
   /**
    * returns a list of PHP object requested by the system for its use.
@@ -24,5 +24,5 @@ interface PhpObjectListInterface {
    *      'objects_array' => '',
    *    ]
    */
-  public function getPhpObject(String $typeOfObjects, String $environment = ''): array;
+  public function getPhpObjects(String $typeOfObjects, String $environment = ''): array;
 }

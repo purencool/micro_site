@@ -3,17 +3,17 @@
 namespace App\Repository\CacheRequests;
 
 use App\Repository\Utilities\Schema;
-use App\Repository\Utilities\FindPhpObject;
+use App\Repository\Utilities\FindPhpObjects;
 
 /**
  * Returns PHP objects the system has requested.
  *
  * @author purencool
  */
-class PhpObjectList implements PhpObjectListInterface {
+class PhpObjectsList implements PhpObjectsListInterface {
 
   /**
-   * Data PHP objects request method.
+   * Data PHP object request method.
    * 
    * @param String $schema
    *    Schema category needed to access to the data.
@@ -22,20 +22,23 @@ class PhpObjectList implements PhpObjectListInterface {
    * @return array
    *    Return data structures.
    */
-  protected function getData(String $schema, String $typeOfObject) {
+  protected function getData(String $schema, String $typeOfObjects) {
 
-    $schemaResult = FindPhpObject::getObject($schema, $typeOfObject);
+    $schemaResult = FindPhpObjects::getObjects($schema.$typeOfObjects);
     if ($schemaResult === false) {
       return ['Data object does not exist'];
     }
 
+    print_r($schemaResult); exit;
     return unserialize(file_get_contents($schemaResult));
   }
+
+
 
   /**
    * @inherit
    */
-  public function getPhpObject($typeOfObjects, $environment = ''): array {
+  public function getPhpObjects($typeOfObjects, $environment = ''): array {
 
     if ($environment === 'prod') {
       $data = $this->getData(Schema::getSiteCacheProd(), $typeOfObjects);

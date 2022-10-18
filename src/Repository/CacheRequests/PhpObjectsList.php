@@ -4,6 +4,7 @@ namespace App\Repository\CacheRequests;
 
 use App\Repository\Utilities\Schema;
 use App\Repository\Utilities\FindPhpObjects;
+use App\Repository\Utilities\SchemaDecode;
 
 /**
  * Returns PHP objects the system has requested.
@@ -24,16 +25,22 @@ class PhpObjectsList implements PhpObjectsListInterface {
    */
   protected function getData(String $schema, String $typeOfObjects) {
 
-    $schemaResult = FindPhpObjects::getObjects($schema.$typeOfObjects);
+    $schemaResult = FindPhpObjects::getObjects($schema . $typeOfObjects);
     if ($schemaResult === false) {
       return ['Data object does not exist'];
     }
 
-    print_r($schemaResult); exit;
-    return unserialize(file_get_contents($schemaResult));
+    $return = [];
+    foreach ($schemaResult as $schemaItem) {
+      $return[] = [
+          'object' => SchemaDecode::requestObject($schemaItem),
+          'schema' => $schemaItem
+      ];
+
+    }
+  
+    return $return;
   }
-
-
 
   /**
    * @inherit
@@ -52,7 +59,7 @@ class PhpObjectsList implements PhpObjectsListInterface {
 
     return [
       'response' => ' Data objects requested.',
-      'object_array' => $data,
+      'object_response' => $data,
     ];
   }
 

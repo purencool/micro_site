@@ -3,6 +3,7 @@
 namespace App\Repository\CacheRequests;
 
 use App\Repository\Utilities\Schema;
+use App\Repository\Utilities\SchemaDecode;
 use App\Repository\Utilities\FindPhpObject;
 
 /**
@@ -29,7 +30,7 @@ class PhpObject implements PhpObjectInterface {
       return ['Data object does not exist'];
     }
 
-    return unserialize(file_get_contents($schemaResult));
+    return SchemaDecode::requestObject($schemaResult);
   }
 
   /**

@@ -48,6 +48,7 @@ echo 'APP_ENV=prod
 APP_SITE=example_com
 APP_LAYOUT=example_com
 APP_TEST=true
+APP_STORAGE=file
 APP_SECRET="Add 32 characters without spaces"
 
 APP_REST_API="Rest URL without HTTP"

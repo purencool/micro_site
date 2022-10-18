@@ -4,7 +4,7 @@ namespace App\Repository\CacheRequests;
 
 use App\Repository\Utilities\Schema;
 use App\Repository\Utilities\FindPhpObjects;
-use App\Repository\Utilities\SchemaDecode;
+use App\Repository\Utilities\SchemaEncodeDecode;
 
 /**
  * Returns PHP objects the system has requested.
@@ -33,7 +33,7 @@ class PhpObjectsList implements PhpObjectsListInterface {
     $return = [];
     foreach ($schemaResult as $schemaItem) {
       $return[] = [
-          'object' => SchemaDecode::requestObject($schemaItem),
+          'object' => SchemaEncodeDecode::requestObject($schemaItem),
           'schema' => $schemaItem
       ];
 

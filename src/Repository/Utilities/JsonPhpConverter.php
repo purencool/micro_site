@@ -2,6 +2,8 @@
 
 namespace App\Repository\Utilities;
 
+use App\Repository\Utilities\SchemaEncodeDecode;
+
 /**
  * Description of JsonPhpConverter
  *
@@ -62,11 +64,8 @@ class JsonPhpConverter {
    * @param type $path
    * @param type $data
    */
-  public static function fileCreation($path, $data) {
-    $newFileName = substr($path, 0, -4);
-    $fp = fopen($newFileName . 'txts', 'w');
-    fwrite($fp, $data);
-    fclose($fp);
+  public static function fileCreation($schema, $data) {
+    SchemaEncodeDecode::createObject($schema, $data);
   }
 
   /**

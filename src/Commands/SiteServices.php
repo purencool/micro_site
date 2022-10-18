@@ -12,6 +12,8 @@ use App\Repository\Processes\Update;
 use App\Repository\Processes\Caching;
 use App\Repository\Processes\DataObjects;
 use App\Repository\Processes\ContentDeploy;
+use App\Repository\Processes\DataObjectList;
+
 
 #[AsCommand(
     name: 'site:services',
@@ -69,7 +71,7 @@ class SiteServices extends Command {
         $output->writeln(array_merge(
             [
               '',
-              ' Website Installation.',
+              ' Website installation.',
               ' =============================================================='
             ],
             Install::create()['response'],
@@ -98,7 +100,7 @@ class SiteServices extends Command {
         $output->writeln(array_merge(
             [
               '',
-              ' Website Update.',
+              ' Website update.',
               ' =============================================================='
             ],
             Update::update($this->layoutEnvVariable, $inputParam)['response'],
@@ -118,7 +120,7 @@ class SiteServices extends Command {
               '',
               ' Data object request didn\'t run.',
               ' ==============================================================',
-              ' Update commands     `./bin/console si:se data:object {object}`',
+              ' `./bin/console si:se data:object {object} {environment}`      ',
               ''
             ]
           );
@@ -134,6 +136,38 @@ class SiteServices extends Command {
               ' Data object requested.',
               ' =============================================================='
             ],
+           // DataObjectList::consoleRequest($inputParamOne, $inputParamTwo)['response'],
+            [
+              ''
+            ]
+        ));
+
+        return Command::SUCCESS;
+
+      case 'data:object:list':
+        $inputParamOne = $input->getArgument('param_one');
+        if ($inputParamOne == '') {
+          $output->writeln(
+            [
+              '',
+              ' Data objects list request didn\'t run.',
+              ' ==============================================================',
+              ' `./bin/console si:se data:object:list {object} {environment}` ',
+              ''
+            ]
+          );
+          return Command::INVALID;
+        }
+        $inputParamTwo = $input->getArgument('param_two');
+        if ($inputParamTwo == '') {
+          $inputParamTwo = 'test';
+        }
+        $output->writeln(array_merge(
+            [
+              '',
+              ' Data objects list requested.',
+              ' =============================================================='
+            ],
             DataObjects::consoleRequest($inputParamOne, $inputParamTwo)['response'],
             [
               ''
@@ -146,7 +180,7 @@ class SiteServices extends Command {
         $output->writeln(array_merge(
             [
               '',
-              ' Layout Reset.',
+              ' Layout reset.',
               ' =============================================================='
             ],
             //Caching::destroy($inputParam)['response'],
@@ -161,7 +195,7 @@ class SiteServices extends Command {
         $output->writeln(array_merge(
             [
               '',
-              ' Content Deploy.',
+              ' Content deploy.',
               ' =============================================================='
             ],
             ContentDeploy::deploy()['response'],
@@ -175,13 +209,14 @@ class SiteServices extends Command {
         $output->writeln(
           [
             '',
-            ' Services Offered By System.',
-            ' ================================================================================',
-            ' Reset layout cache                   ./bin/console si:se caching {all|test|prod}',
-            ' Content Deploy                                ./bin/console si:se content:deploy',
-            ' Data object request  ./bin/console si:se data:object {data obj} {test|prod|cont}',
-            ' Update custom website                     ./bin/console si:se update {test|prod}', 
-            ' Website installation                                 ./bin/console si:se install',
+            ' Services offered by system.',
+            ' ==================================================================================',
+            ' Reset layout cache                     ./bin/console si:se caching {all|test|prod}',
+            ' Content Deploy                                  ./bin/console si:se content:deploy',
+            ' Data object request    ./bin/console si:se data:object {data obj} {test|prod|cont}',
+            ' Data objects list ./bin/console si:se data:object:list {data obj} {test|prod|cont}',
+            ' Update custom website                       ./bin/console si:se update {test|prod}',
+            ' Website installation                                   ./bin/console si:se install',
             ''
           ]
         );

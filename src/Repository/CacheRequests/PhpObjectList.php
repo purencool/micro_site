@@ -6,14 +6,14 @@ use App\Repository\Utilities\Schema;
 use App\Repository\Utilities\FindPhpObject;
 
 /**
- * Returns PHP object the system has requested.
+ * Returns PHP objects the system has requested.
  *
  * @author purencool
  */
-class PhpObject implements PhpObjectInterface {
+class PhpObjectList implements PhpObjectListInterface {
 
   /**
-   * Data PHP object request method.
+   * Data PHP objects request method.
    * 
    * @param String $schema
    *    Schema category needed to access to the data.
@@ -48,7 +48,7 @@ class PhpObject implements PhpObjectInterface {
     }
 
     return [
-      'response' => ' Data object requested.',
+      'response' => ' Data objects requested.',
       'object_array' => $data,
     ];
   }

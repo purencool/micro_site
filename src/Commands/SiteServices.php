@@ -176,15 +176,12 @@ class SiteServices extends Command {
           [
             '',
             ' Services Offered By System.',
-            ' ==============================================================',
-            ' Reset layout cache     `./bin/console si:se caching {options}`',
-            '                                            {""|all|test|prod}`',
-            ' Content Deploy            `./bin/console si:se content:deploy`',
-            ' Data object request    ./bin/console si:se data:object {param}',
-            '                         {Any data object active in the system}',
-            ' Update custom website      `./bin/console si:se update {flag}`',
-            '                                                   {test|prod}`',
-            ' Website installation             `./bin/console si:se install`',
+            ' ================================================================================',
+            ' Reset layout cache                   ./bin/console si:se caching {all|test|prod}',
+            ' Content Deploy                                ./bin/console si:se content:deploy',
+            ' Data object request  ./bin/console si:se data:object {data obj} {test|prod|cont}',
+            ' Update custom website                     ./bin/console si:se update {test|prod}', 
+            ' Website installation                                 ./bin/console si:se install',
             ''
           ]
         );

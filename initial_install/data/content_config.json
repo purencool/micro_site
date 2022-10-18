@@ -3,7 +3,7 @@
     "@data_store": "file",
     "@routes": {
         "@store": "content",
-        "@list": "config/routes"
+        "@list": "routes"
     },
     "@media_data": {
         "@store": "assets",

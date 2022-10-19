@@ -15,7 +15,7 @@ class BlockRequestTest implements BlockRequestTestInterface {
    * @inherit
    */
   public static function request($event, $type): bool {
-   
+
     // Checking if the user is allowed to access the testing cache.
     $uri = $event->getRequest()->getUri();
     $endOfUrl = end(explode('/', $uri));
@@ -38,29 +38,35 @@ class BlockRequestTest implements BlockRequestTestInterface {
     }
 
     // Blocking IP addresses.
-    if ($b->ips !== '') {
-      if (!in_array($event->getRequest()->getClientIp(),
-          explode(',', $b->ips), true)
-      ) {
-        return true;
+    if (property_exists($b, 'ips')) {
+      if ($b->ips !== '') {
+        if (!in_array($event->getRequest()->getClientIp(),
+            explode(',', $b->ips), true)
+        ) {
+          return true;
+        }
       }
     }
 
     // Blocking method types.
-    if ($b->methods !== '') {
-      if (!in_array($event->getRequest()->getMethod(),
-          explode(',', $b->methods), true)
-      ) {
-        return true;
+    if (property_exists($b, 'methods')) {
+      if ($b->methods !== '') {
+        if (!in_array($event->getRequest()->getMethod(),
+            explode(',', $b->methods), true)
+        ) {
+          return true;
+        }
       }
     }
 
     // Locking to IP addresses.
-    if ($b->locking !== '') {
-      if (!in_array($event->getRequest()->getClientIp(),
-          explode(',', $b->locking), true)
-      ) {
-        return true;
+    if (property_exists($b, 'locking')) {
+      if ($b->locking !== '') {
+        if (!in_array($event->getRequest()->getClientIp(),
+            explode(',', $b->locking), true)
+        ) {
+          return true;
+        }
       }
     }
 

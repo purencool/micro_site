@@ -2,8 +2,9 @@
 
 namespace App\Routing;
 
-use Symfony\Component\Config\Loader\Loader;
 use Symfony\Component\Routing\Route;
+use Symfony\Component\Config\Loader\Loader;
+use App\Repository\CacheRequests\PhpObject;
 use Symfony\Component\Routing\RouteCollection;
 
 /**
@@ -15,11 +16,7 @@ class DynamicRouting extends Loader {
    * 
    * @var type
    */
-  private static $routeArr = [
-    '',
-    'intro',
-    'install/abc',
-  ];
+  private static $routeArr;
 
   /**
    * 
@@ -40,6 +37,19 @@ class DynamicRouting extends Loader {
   public function __construct($test) {
     parent::__construct();
     self::$testEnabled = $test;
+    self::routeArray();
+  }
+
+  /**
+   *  Get route object to create an array to build routes for the system.
+   */
+  private static function routeArray() {
+    $obj = new PhpObject();
+    foreach ($obj->getPhpObject('routes', 'cont')['array_objects'] as $object) {
+      if (property_exists($object, '@route')) {
+        self::$routeArr[] = $object->{'@route'};
+      }
+    }
   }
 
   /**

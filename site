@@ -31,10 +31,6 @@ elif [[ "$REQUEST" = "dol" ]]
 then
   ./bin/console si:se data:object:list $PARAMETER_ONE $PARAMETER_TWO
 
-elif [[ "$REQUEST" = "dr" ]]
-then
-  ./bin/console debug:router
-
 elif [[ "$REQUEST" = "help" ]]
 then
    ./bin/console si:se
@@ -65,10 +61,13 @@ elif [[ "$REQUEST" = "services" ]]
 then
   ./bin/console si:se
 
-elif [[ "$REQUEST" = "update" ]]
+elif [[ "$REQUEST" = "rc" ]]
 then
-  ./bin/console si:se update $PARAMETER_ONE
-  ./bin/console cache:clear
+   ./bin/console si:se route:creation
+
+elif [[ "$REQUEST" = "rd" ]]
+then
+  ./bin/console debug:router
 
 elif [[ "$REQUEST" = "start" ]]
 then
@@ -79,6 +78,10 @@ elif [[ "$REQUEST" = "stop" ]]
 then
   kill $(ps aux | grep 'php -S localhost:8000 index.php' | awk '{print $2}') 
 
+elif [[ "$REQUEST" = "update" ]]
+then
+  ./bin/console si:se update $PARAMETER_ONE
+  ./bin/console cache:clear
 
 else
   echo ""
@@ -97,7 +100,8 @@ else
   echo " Content import alias                                                   'site ci'"
   echo " Data object alias                          'site do {data obj} {test|prod|cont}'"
   echo " Data objects list alias                   'site dol {data obj} {test|prod|cont}'"
-  echo " Debug route alias                                                      'site dr'"
+  echo " Route creation alias                                                   'site rc'"
+  echo " Debug route alias                                                      'site rd'"
   echo " Install latest core release                                   'site core:update'"
   echo " Site installation                                                 'site install'"
   echo " Start testing web server                                            'site start'"

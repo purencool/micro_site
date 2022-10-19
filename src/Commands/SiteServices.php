@@ -12,6 +12,7 @@ use App\Repository\Processes\Update;
 use App\Repository\Processes\Caching;
 use App\Repository\Processes\DataObjects;
 use App\Repository\Processes\ContentDeploy;
+use App\Repository\Processes\RouteCreation;
 use App\Repository\Processes\DataObjectsList;
 
 
@@ -199,6 +200,20 @@ class SiteServices extends Command {
               ' =============================================================='
             ],
             ContentDeploy::deploy()['response'],
+            [
+              ''
+            ]
+        ));
+        return Command::SUCCESS;
+
+      case 'route:creation':
+        $output->writeln(array_merge(
+            [
+              '',
+              ' Route creation.',
+              ' =============================================================='
+            ],
+            RouteCreation::create()['response'],
             [
               ''
             ]

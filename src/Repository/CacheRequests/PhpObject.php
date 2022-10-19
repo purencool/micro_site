@@ -50,7 +50,7 @@ class PhpObject implements PhpObjectInterface {
 
     return [
       'response' => ' Data object requested.',
-      'object_array' => $data,
+      'array_objects' => $data,
     ];
   }
 

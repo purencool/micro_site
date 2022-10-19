@@ -59,7 +59,7 @@ class PhpObjectsList implements PhpObjectsListInterface {
 
     return [
       'response' => ' Data objects requested.',
-      'object_response' => $data,
+      'array_objects' => $data,
     ];
   }
 

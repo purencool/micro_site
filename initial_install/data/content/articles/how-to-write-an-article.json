@@ -1,6 +1,7 @@
 {
     "@title": "Welcome to this website",
     "@route": "/articles/how-to-write-an-article",
+    "@link_text" : "Writng an article",
     "@type": "article",
     "@layout": "article",
     "@content_center": "Welcome to this website"

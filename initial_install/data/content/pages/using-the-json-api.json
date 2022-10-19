@@ -1,6 +1,7 @@
 {
     "@title": "Welcome to this website",
     "@route": "/using-the-json-api",
+    "@link_text" : "Json api",
     "@type": "page",
     "@content_center": "Welcome to this website"
 }

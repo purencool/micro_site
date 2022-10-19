@@ -23,6 +23,9 @@ class DynamicRoutingController extends AbstractController {
     // For reference the blocking requests tools are executed 
     // from the following namespace App\EventSubscriber\KernelSubscriber.
     // This allows traffic to be blocked from the kernel.
+
+    // Get route data and return as Json
+
     
     // Check to see if the request has a test parameter and if the 
     // user is allowed to access the testing caching system.

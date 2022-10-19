@@ -28,9 +28,13 @@ class RouteCreation implements RouteCreationInterface {
     $return = [];
 
     foreach ($storeList['array_objects'] as $storeListItem) {
-      $return[] = $storeListItem['object'];
+      if (property_exists($storeListItem['object'], '@route' )) {
+        $return[] = (object) [
+            '@route' => $storeListItem['object']->{'@route'},
+            '@schema' => $storeListItem['schema']->getRealPath(),
+        ];
+      }
     }
-
 
     JsonPhpConverter::fileCreation(
       Schema::getSiteCacheContent() . 'routes.json',

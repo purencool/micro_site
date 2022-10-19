@@ -1,6 +1,7 @@
 {
     "@title": "Welcome to this website",
     "@route": "/",
+    "@link_text" : "home",
     "@type": "home",
     "@content_center": "Welcome to this website"
 }

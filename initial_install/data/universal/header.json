@@ -1,4 +1,8 @@
 {
-    "title": "Welcome to this website",
-    "@content_center": "Welcome to this website"
+    "branding": {
+        "@schema" : "universal/sections/branding"
+    },
+    "navigation": {
+        "@schema" : "universal/sections/navigation"
+    }
 }

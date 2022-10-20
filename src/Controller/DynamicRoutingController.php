@@ -30,7 +30,7 @@ class DynamicRoutingController extends AbstractController {
 
     // Check to see if the request has a json parameter and if so the 
     // user is allowed to access the content caching system in json.
-    if ($parameter === 'json' && $appTest === 'true') {
+    if ($parameter === 'json') {
       return new Response(
         json_encode(RouteData::getData($request->getRequestUri())['@data'])
       );

@@ -23,6 +23,11 @@ then
   #./bin/console si:se content:import
   ./bin/console cache:clear
 
+elif [[ "$REQUEST" = "cs" ]]
+then
+  ./bin/console create:sitemap
+  ./bin/console si:se caching $PARAMETER_ONE
+
 elif [[ "$REQUEST" = "do" ]]
 then
   ./bin/console si:se data:object $PARAMETER_ONE $PARAMETER_TWO
@@ -98,6 +103,7 @@ else
   echo " Clear all caches alias                                                 'site cc'"
   echo " Content deploy alias                                                   'site cd'"
   echo " Content import alias                                                   'site ci'"
+  echo " Create sitemap alias                                                   'site cs'"
   echo " Data object alias                          'site do {data obj} {test|prod|cont}'"
   echo " Data objects list alias                   'site dol {data obj} {test|prod|cont}'"
   echo " Route creation alias                                                   'site rc'"

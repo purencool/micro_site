@@ -1,49 +1,62 @@
 {
     "description": "Layout where the systems data keys are stored",
     "@routes": {
-        "@store": "content",
+        "@schema": [
+            "content/home/content/",
+            "content/articles/content/",
+            "content/page/"
+        ],
         "@list": "routes"
     },
     "@media_data": {
-        "@store": "assets",
+        "@schema": "assets",
         "@list": "config/media"
     }, 
     "@types": {
         "article": {
             "header": {
-                "@store": "universal"
+                "@schema": "universal/header"
             },
             "content": {
-                "@store": "content/articles"
+                "@schema": "content/articles/"
+            },
+            "right_sidebar": {
+                "@schema": "content/articles/sections/sidebar"
             },
             "footer": {
-                "@store": "universal"
+                "@schema": "universal/footer"
             }
         },
         "home": {
             "header": {
-                "@store": "universal"
+                "@schema": "universal/header"
+            },
+            "hero": {
+                "@schema": "content/home/sections/hero"
+            },
+            "about": {
+                "@schema": "content/home/sections/about"
             },
             "content": {
-                "@store": "content"
+                "@schema": "content/home/home"
+            },
+            "articles": {
+                "@schema": "content/home/home"
             },
             "footer": {
-                "@store": "universal"
+                "@schema": "universal/footer"
             }
         },
         "page": {
             "header": {
-                "@store": "universal"
+                "@schema": "universal/header"
             },
             "content": {
-                "@store": "content/pages"
+                "@schema": "content/pages/"
             },
             "footer": {
-                "@store": "universal"
+                "@schema": "universal/footer"
             }
         }
-    }, 
-    "@layouts": {
-        "@store": "content"
-    }
+    } 
 }

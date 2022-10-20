@@ -1,0 +1,8 @@
+{
+    "item_one": {
+        "@schema" : "content/articles/sections/items/item_one"
+    },
+    "item_two": {
+        "@schema" : "content/articles/sections/items/item_two"
+    }
+}

@@ -18,12 +18,17 @@ class BlockRequestTest implements BlockRequestTestInterface {
 
     // Checking if the user is allowed to access the testing cache.
     $uri = $event->getRequest()->getUri();
-    $endOfUrl = end(explode('/', $uri));
+    $exploadedUri = explode('/', $uri);
+    $endOfUrl = end($exploadedUri);
     if ($type === 'true' && $endOfUrl === 'test') {
       $b = DataObjects::dataRequest('config')['array_objects']->block;
     }
     else {
-      $b = DataObjects::dataRequest('config', 'prod')['array_objects']->block;
+      $test = DataObjects::dataRequest('config', 'prod');
+      if(property_exists($test['array_objects'], 'error')){
+        return true;
+      }
+      $b = $test['array_objects']->block;
     }
 
     // Blocking user agents.

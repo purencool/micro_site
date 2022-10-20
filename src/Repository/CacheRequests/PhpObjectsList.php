@@ -27,18 +27,20 @@ class PhpObjectsList implements PhpObjectsListInterface {
 
     $schemaResult = FindPhpObjects::getObjects($schema . $typeOfObjects);
     if ($schemaResult === false) {
-      return ['Data object does not exist'];
+      return (object) [
+          'error' => 'true',
+          'message' => 'Data objects does not exist.'
+      ];
     }
 
     $return = [];
     foreach ($schemaResult as $schemaItem) {
       $return[] = [
-          'object' => SchemaEncodeDecode::requestObject($schemaItem),
-          'schema' => $schemaItem
+        'object' => SchemaEncodeDecode::requestObject($schemaItem),
+        'schema' => $schemaItem
       ];
-
     }
-  
+
     return $return;
   }
 

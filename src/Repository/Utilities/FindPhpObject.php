@@ -18,6 +18,15 @@ class FindPhpObject {
    *   Request object.
    */
   public static function getObject($schema, $request) {
+
+    if (str_contains($request, '/')) {
+      $file = $schema . $request . '.txts';
+      if (file_exists($file)) {
+        return $file;
+      }
+      return false;
+    }
+
     $iti = new \RecursiveDirectoryIterator($schema);
     foreach (new \RecursiveIteratorIterator($iti) as $file) {
       if (strpos($file, $request) !== false) {
@@ -29,4 +38,5 @@ class FindPhpObject {
     }
     return false;
   }
+
 }

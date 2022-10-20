@@ -20,19 +20,25 @@ class RouteCreation implements RouteCreationInterface {
   public static function create(): array {
     $obj = new PhpObject();
     $dataObj = $obj->getPhpObject('config', 'cont');
-    $store = $dataObj['array_objects']->{'@routes'}->{'@store'};
 
+    $store = $dataObj['array_objects']->{'@routes'}->{'@schema'};
+
+    $x = [];
     $objList = new PhpObjectsList();
-    $storeList = $objList->getPhpObjects($store, 'cont');
+    foreach ($store as $storeItem) {
+      $x[] = $objList->getPhpObjects($storeItem, 'cont')['array_objects'];
+    }
+
 
     $return = [];
-
-    foreach ($storeList['array_objects'] as $storeListItem) {
-      if (property_exists($storeListItem['object'], '@route' )) {
-        $return[] = (object) [
-            '@route' => $storeListItem['object']->{'@route'},
-            '@schema' => $storeListItem['schema']->getRealPath(),
-        ];
+    foreach ($x as $storeList) {
+      foreach ($storeList as $storeListItem) {
+        if (property_exists($storeListItem['object'], '@route')) {
+          $return[] = (object) [
+              '@route' => $storeListItem['object']->{'@route'},
+              '@schema' => $storeListItem['schema']->getRealPath(),
+          ];
+        }
       }
     }
 

@@ -39,13 +39,17 @@ class DynamicRoutingController extends AbstractController {
     // Check to see if the request has a test parameter and if the 
     // user is allowed to access the testing caching system.
     if ($parameter === 'test' && $appTest === 'true') {
-            return new Response(
-        json_encode(RouteData::getData($request->getRequestUri()))
-      );
+      print "<pre>";
+      print_r(RouteData::getData($request->getRequestUri()));
+      exit;
     }
 
+    print "<pre>";
+    print_r(RouteData::getData($request->getRequestUri()));
+    exit;
+
     return new Response(
-        json_encode(RouteData::getData($request->getRequestUri()))
+      json_encode(RouteData::getData($request->getRequestUri()))
     );
 
     // $path = 'layouts/' . $this->getParameter('app.layout') . '/templates/';

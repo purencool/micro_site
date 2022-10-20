@@ -4,5 +4,5 @@
     "@link_text" : "Writng an article",
     "@type": "article",
     "@layout": "article",
-    "@content_center": "Welcome to this website"
+    "@data": "Welcome to this website"
 }

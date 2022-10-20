@@ -19,7 +19,7 @@ class RouteData {
     $obj = new PhpObject();
     foreach ($obj->getPhpObject('routes', 'cont')['array_objects'] as $object) {
       if (property_exists($object, '@route')) {
-        if ( $object->{'@route'} == rtrim($routeName, '/')) {
+        if ($object->{'@route'} == rtrim($routeName, '/')) {
           return $object->{'@schema'};
         }
       }
@@ -27,6 +27,11 @@ class RouteData {
     return '';
   }
 
+  /**
+   * 
+   * @param type $routeName
+   * @return type
+   */
   private static function routeRebuild($routeName) {
     $routeExplode = explode('/', $routeName);
     $responseType = '';
@@ -46,11 +51,26 @@ class RouteData {
     ];
   }
 
+  /**
+   *  Get route object to create an array to build routes for the system.
+   */
+  private static function typeArray($type) {
+    $obj = new PhpObject();
+    return $obj->getPhpObject('config', 'cont')['array_objects']
+      ->{'@types'}
+      ->{$type};
+  }
+
+  /**
+   * 
+   * @param type $schema
+   * @return string
+   */
   private static function routeData($schema) {
-     if($schema == ''){
-        return '';
-     } 
-     return SchemaEncodeDecode::requestObject($schema);
+    if ($schema == '') {
+      return '';
+    }
+    return SchemaEncodeDecode::requestObject($schema);
   }
 
   public static function getData($routeName) {
@@ -61,7 +81,13 @@ class RouteData {
       '@route' => $routeRebuildArr['@route'],
       '@schema' => $schema,
       '@response_type' => $routeRebuildArr['@response_type'],
-      '@data' =>  $data
+      '@data_array' => [
+        '@route' => $data->{'@route'},
+        '@link_text' => $data->{'@link_text'},
+        '@type' => $data->{'@type'},
+        '@type_data' => self::typeArray($data->{'@type'}),
+        'content' => $data,
+      ]
     ];
   }
 

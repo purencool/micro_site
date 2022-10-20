@@ -73,20 +73,82 @@ class RouteData {
     return SchemaEncodeDecode::requestObject($schema);
   }
 
+  /**
+   * 
+   * @param type $objectPassed
+   * @param type $in_arr
+   * @return type
+   */
+  private static function lookingForSchemas($objectPassed, &$in_arr = []) {
+    foreach ($objectPassed as $element) {
+      if (is_object($element)) {
+        if (property_exists($element, '@schema')) {
+          $in_arr[] = $element;
+        }
+        self::lookingForSchemas($element, $in_arr);
+      }
+    }
+    return $in_arr;
+  }
+
+  /**
+   * 
+   * @param type $schema
+   * @return type
+   */
+  private static function dataTreeSchema($schema) {
+    $obj = new PhpObject();
+    $return = [];
+    $result = self::lookingForSchemas(
+        $obj->getPhpObject($schema, 'cont')['array_objects']
+    );
+
+    foreach ($result as $resultItem) {
+      $return[] = $obj->getPhpObject($resultItem->{'@schema'}, 'cont')['array_objects'];
+    }
+
+    return $return;
+  }
+
+ /**
+  * 
+  * @param type $type
+  * @param type $content
+  * @return type
+  */
+  private static function dataTree($type, $content) {
+    $return = [];
+
+    foreach ((array) self::typeArray($type) as $key => $item) {
+      if (property_exists($item, '@schema')) {
+        $return[$key] = self::dataTreeSchema($item->{'@schema'});
+        if($key == 'content') {
+         $return[$key][] = (object)['@data' =>$content];
+        }
+      }
+    }
+    return $return;
+  }
+
+  /**
+   * 
+   * @param type $routeName
+   * @return type
+   */
   public static function getData($routeName) {
     $routeRebuildArr = self::routeRebuild($routeName);
     $schema = self::routeArray($routeRebuildArr['@route']);
     $data = self::routeData($schema);
+    $dataTree = self::dataTree($data->{'@type'},$data->{'@data'} );
     return [
-      '@route' => $routeRebuildArr['@route'],
       '@schema' => $schema,
       '@response_type' => $routeRebuildArr['@response_type'],
       '@data_array' => [
         '@route' => $data->{'@route'},
         '@link_text' => $data->{'@link_text'},
+        '@layout' => $data->{'@layout'},
         '@type' => $data->{'@type'},
-        '@type_data' => self::typeArray($data->{'@type'}),
-        'content' => $data,
+        '@data' => $dataTree,
       ]
     ];
   }

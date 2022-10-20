@@ -3,5 +3,5 @@
     "@route": "/",
     "@link_text" : "home",
     "@type": "home",
-    "@data": "Welcome to this website"
+    "@data": { "content" : "Welcome to this website" }
 }

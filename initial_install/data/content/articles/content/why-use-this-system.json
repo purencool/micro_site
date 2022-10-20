@@ -4,5 +4,5 @@
     "@link_text" : "Why use this system",
     "@layout": "article",
     "@type": "article",
-    "@data": "Welcome to this website"
+    "@data": { "content" : "Welcome to this website" }
 }

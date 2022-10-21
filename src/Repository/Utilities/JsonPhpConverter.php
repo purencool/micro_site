@@ -11,35 +11,6 @@ use App\Repository\Utilities\SchemaEncodeDecode;
  */
 class JsonPhpConverter {
 
-  public static $layoutArray = [];
-
-  /**
-   * Creates serialized PHP object.
-   * 
-   * @param type $src
-   *   Default source directory.
-   */
-  public static function buildLayoutArray($src) {
-    $ds = DIRECTORY_SEPARATOR;
-    $dir = opendir($src);
-    while (( $file = readdir($dir))) {
-      if (( $file != '.' ) && ( $file != '..' )) {
-        if (\is_dir($src . $ds . $file)) {
-          self::buildLayoutArray($src . $ds . $file);
-        }
-        else {
-          $ext = pathinfo($src . $ds . $file, PATHINFO_EXTENSION);
-          if ($ext === 'json') {
-            $key = basename($src . $ds . $file, '.' . $ext);
-            self::$layoutArray[$key . '.data'][$key . '.path'] = substr($src . $ds . $file, 0, -5);
-            self::$layoutArray[$key . '.data'][$key . '.array'] = self::arraySerialization($src . $ds . $file, 'decode');
-          }
-        }
-      }
-    }
-    closedir($dir);
-  }
-
   /**
    * 
    * @param Mixed $path

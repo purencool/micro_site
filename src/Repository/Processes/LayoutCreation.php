@@ -6,6 +6,7 @@ use App\Repository\Utilities\Schema;
 use App\Repository\Utilities\JsonPhpConverter;
 use App\Repository\CacheRequests\PhpObject;
 use App\Repository\CacheRequests\PhpObjectsList;
+use App\Repository\Utilities\DataTreeCreation;
 
 /**
  * Request a PHP object from the caching.
@@ -18,43 +19,35 @@ class LayoutCreation implements RouteCreationInterface {
    * @inherit
    */
   public static function create(): array {
-    $obj = new PhpObject();
-    $dataObj = $obj->getPhpObject('layout_structure/layouts', 'test');
+    //$obj = new PhpObject();
+    //$dataObj = $obj->getPhpObject('layout_structure/layouts', 'test');
+    $dataArray = DataTreeCreation::getDataTree(
+        'layout_structure/layouts',
+        'test',
+        'default'
+    );
 
-print_r($dataObj); exit;
-
-    $store = $dataObj['array_objects']->{'@routes'}->{'@schema'};
-
-    $x = [];
-    $objList = new PhpObjectsList();
-    foreach ($store as $storeItem) {
-      $x[] = $objList->getPhpObjects($storeItem, 'cont')['array_objects'];
-    }
+    //   print_r(   );
+    //exit;
 
 
-    $return = [];
-    foreach ($x as $storeList) {
-      foreach ($storeList as $storeListItem) {
-        if (property_exists($storeListItem['object'], '@route')) {
-          $return[] = (object) [
-              '@route' => $storeListItem['object']->{'@route'},
-              '@schema' => $storeListItem['schema']->getRealPath(),
-          ];
-        }
-      }
-    }
 
-    JsonPhpConverter::buildLayoutArray(Schema::getSiteCacheTestLayoutStructure());
+
 
     JsonPhpConverter::fileCreation(
-      Schema::getSiteCacheTest() . 'layouts.json',
+      Schema::getSiteCacheTest() . 'layouts_data.json',
       JsonPhpConverter::arraySerialization(
-        JsonPhpConverter::$layoutArray,
+        $dataArray,
         'serialize'
       )
     );
 
     return ['response' => [' Layout creation completed']];
+  }
+
+  public static function getData($type) {
+    $obj = new PhpObject();
+    return $obj->getPhpObject('layouts_data', $type)['array_objects'];
   }
 
 }

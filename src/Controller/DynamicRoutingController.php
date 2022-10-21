@@ -34,7 +34,12 @@ class DynamicRoutingController extends AbstractController {
     // user is allowed to access the content caching system in json.
     if ($parameter === 'json') {
       return new Response(
-        json_encode(RouteData::getData($request->getRequestUri())['@data'])
+        json_encode(
+          RouteData::getData(
+            $request->getRequestUri(),
+            'prod'
+          )['data']['@data_array']
+        )
       );
     }
 
@@ -42,12 +47,21 @@ class DynamicRoutingController extends AbstractController {
     // user is allowed to access the testing caching system.
     if ($parameter === 'test' && $appTest === 'true') {
       print "<pre>";
-      print_r(DataAlterTest::setChanges(RouteData::getData($request->getRequestUri())));
+      print_r(
+        DataAlterTest::setChanges(
+          RouteData::getData($request->getRequestUri(), 'test')
+        )
+      );
       exit;
     }
 
     print "<pre>";
-    print_r(DataAlterProd::setChanges(RouteData::getData($request->getRequestUri())));
+    print_r(
+      DataAlterProd::setChanges(
+        RouteData::getData(
+          $request->getRequestUri(), 'prod')
+      )
+    );
     exit;
 
     return new Response(

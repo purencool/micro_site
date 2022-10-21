@@ -3,6 +3,7 @@
 namespace App\Controller\Observers;
 
 use App\Repository\Processes\ContentCreation;
+use App\Repository\Processes\LayoutCreation;
 
 /**
  * Gets data array after building the content from the route.
@@ -19,8 +20,11 @@ class RouteData {
    * @return array
    *    Data connected to the route.
    */
-  public static function getData($routeName) {
-    return ContentCreation::getData($routeName);
+  public static function getData($routeName, $type) {
+    return [
+      'data' => ContentCreation::getData($routeName),
+      'layouts' => LayoutCreation::getData($type)
+    ];
   }
 
 }

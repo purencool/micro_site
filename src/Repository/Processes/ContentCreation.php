@@ -82,8 +82,8 @@ class ContentCreation implements ContentCreationInterface {
         '@data' => DataTreeCreation::getDataTree( 
           'config',
           'cont',
+          $data->{'@type'},
           $data->{'@data'},
-          $data->{'@type'}, 
         ),
       ]
     ];

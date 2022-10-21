@@ -120,13 +120,13 @@ class DataTreeCreation {
   public static function getDataTree(
     $schema,
     $category,
-    $data = '',
-    $type = ''
+    $type = '',
+    $data = ''
   ): array {
-    self::$category = $category;
     self::$schema = $schema;
-    self::$type = $type;
+    self::$category = $category;
     self::$data = $data;
+    self::$type = $type;
 
     return self::dataTree();
   }

@@ -108,7 +108,7 @@ class SiteServices extends Command {
             Update::update($this->layoutEnvVariable, $inputParam)['response'],
             Caching::create()['response'],
             LayoutCreation::create()['response'],
-            RouteCreation::create()['response'],
+            //RouteCreation::create()['response'],
             [
               ''
             ]

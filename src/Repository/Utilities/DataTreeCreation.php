@@ -14,6 +14,30 @@ class DataTreeCreation {
 
   /**
    * 
+   * @var type
+   */
+  private static $category;
+
+  /**
+   * 
+   * @var type
+   */
+  private static $schema;
+
+  /**
+   * 
+   * @var type
+   */
+  private static $type;
+
+  /**
+   * 
+   * @var type
+   */
+  private static $data;
+
+  /**
+   * 
    * @param type $objectPassed
    * @param type $in_arr
    * @return type
@@ -30,7 +54,6 @@ class DataTreeCreation {
     return $in_arr;
   }
 
-
   /**
    * 
    * @param type $schema
@@ -40,42 +63,47 @@ class DataTreeCreation {
     $obj = new PhpObject();
     $return = [];
     $result = self::lookingForSchemas(
-        $obj->getPhpObject($schema, 'cont')['array_objects']
+        $obj->getPhpObject(
+          $schema,
+          self::$category
+        )['array_objects']
     );
 
     foreach ($result as $resultItem) {
-      $return[] = $obj->getPhpObject($resultItem->{'@schema'}, 'cont')['array_objects'];
+      $return[] = $obj->getPhpObject(
+          $resultItem->{'@schema'},
+          self::$category
+        )['array_objects'];
     }
 
     return $return;
   }
 
-
   /**
    *  Get route object to create an array to build routes for the system.
    */
-  private static function typeArray($type) {
+  private static function typeArray() {
     $obj = new PhpObject();
-    return $obj->getPhpObject('config', 'cont')['array_objects']
+    return $obj->getPhpObject(
+        self::$schema,
+        self::$category
+      )['array_objects']
       ->{'@types'}
-      ->{$type};
+      ->{self::$type};
   }
-
 
   /**
    * 
-   * @param type $type
-   * @param type $content
    * @return type
    */
-  private static function dataTree($type, $content) {
+  private static function dataTree() {
     $return = [];
 
-    foreach ((array) self::typeArray($type) as $key => $item) {
+    foreach ((array) self::typeArray() as $key => $item) {
       if (property_exists($item, '@schema')) {
         $return[$key] = self::dataTreeSchema($item->{'@schema'});
-        if ($key == 'content') {
-          $return[$key][] = (object) ['@data' => $content];
+        if ($key == 'content' && self::$data != '') {
+          $return[$key][] = (object) ['@data' => self::$data];
         }
       }
     }
@@ -86,11 +114,21 @@ class DataTreeCreation {
    * Creates data tree for layouts and content
    * 
    * @param type $type
-   * @param type $content
+   * @param type $data
    * @return array
    */
-  public static function getDataTree($type, $content) : array {
-     return self::dataTree($type, $content);
+  public static function getDataTree(
+    $schema,
+    $category,
+    $data = '',
+    $type = ''
+  ): array {
+    self::$category = $category;
+    self::$schema = $schema;
+    self::$type = $type;
+    self::$data = $data;
+
+    return self::dataTree();
   }
 
 }

@@ -79,9 +79,11 @@ class ContentCreation implements ContentCreationInterface {
         '@link_text' => $data->{'@link_text'},
         '@layout' => $data->{'@layout'},
         '@type' => $data->{'@type'},
-        '@data' => DataTreeCreation::getDataTree(
-          $data->{'@type'},
-          $data->{'@data'}
+        '@data' => DataTreeCreation::getDataTree( 
+          'config',
+          'cont',
+          $data->{'@data'},
+          $data->{'@type'}, 
         ),
       ]
     ];

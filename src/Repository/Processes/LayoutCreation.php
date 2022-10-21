@@ -19,7 +19,9 @@ class LayoutCreation implements RouteCreationInterface {
    */
   public static function create(): array {
     $obj = new PhpObject();
-    $dataObj = $obj->getPhpObject('config', 'cont');
+    $dataObj = $obj->getPhpObject('layout_structure/layouts', 'test');
+
+print_r($dataObj); exit;
 
     $store = $dataObj['array_objects']->{'@routes'}->{'@schema'};
 

@@ -1,8 +1,9 @@
 <?php
+namespace App\CacheTest;
 
 /**
  *
- * @author john.cullen
+ * @author purencool
  */
 interface CustomConfigurationInterface {
   

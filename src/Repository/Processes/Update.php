@@ -108,6 +108,11 @@ class Update implements UpdateInterface {
           Schema::getSiteCacheTestSrc()
         );
 
+        MoveDirectoryAndFiles::copySD(
+          Schema::getSiteCacheTestSrc(),
+          Schema::getSiteCacheTestSrcProd()
+        );
+
         $returnArr = " Updated configuration from $layoutEnvVariable to test.";
         break;
 

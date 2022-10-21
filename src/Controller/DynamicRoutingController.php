@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Controller\Observers\RouteData;
+use App\Controller\Observers\DataAlterTest;
+use App\Controller\Observers\DataAlterProd;
 
 /**
  * The DynamicRoutingController class completes the following functions.
@@ -40,12 +42,12 @@ class DynamicRoutingController extends AbstractController {
     // user is allowed to access the testing caching system.
     if ($parameter === 'test' && $appTest === 'true') {
       print "<pre>";
-      print_r(RouteData::getData($request->getRequestUri()));
+      print_r(DataAlterTest::setChanges(RouteData::getData($request->getRequestUri())));
       exit;
     }
 
     print "<pre>";
-    print_r(RouteData::getData($request->getRequestUri()));
+    print_r(DataAlterProd::setChanges(RouteData::getData($request->getRequestUri())));
     exit;
 
     return new Response(

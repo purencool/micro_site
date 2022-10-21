@@ -66,9 +66,9 @@ class Install implements InstallInterface {
       Schema::getSiteCacheContent(),
       Schema::getSiteCacheTest(),
       Schema::getSiteCacheTestSrc(),
+      Schema::getSiteCacheTestSrcProd(),
       Schema::getSiteCacheTestLayoutStructure(),
-      Schema::getSiteCacheProd(),
-      Schema::getSiteCacheProdSrc(),
+      Schema::getSiteCacheProdSrcProd(),
       Schema::getSiteCacheProdLayoutStructure(),
     ];
 

@@ -61,7 +61,7 @@ class Schema {
    */
   public static function getWebsiteEnvironment($environment): string {
     self::globalPath();
-    return self::$path . ".." . self::$ds . 'websites' . self::$ds .
+    return self::getWebsiteConfiguration() . self::$ds .
       $environment . self::$ds;
   }
 
@@ -223,6 +223,16 @@ class Schema {
   }
 
   /**
+   * Testings auto load classes for custom configuration. 
+   * 
+   * @return string
+   */
+  public static function getSiteCacheTestSrcProd(): string {
+    self::globalPath();
+    return self::getSiteCacheTest() . 'src_prod' . self::$ds;
+  }
+
+  /**
    * Websites test content layer cache.
    * 
    * @return string
@@ -247,9 +257,9 @@ class Schema {
    * 
    * @return string
    */
-  public static function getSiteCacheProdSrc(): string {
+  public static function getSiteCacheProdSrcProd(): string {
     self::globalPath();
-    return self::getSiteCacheProd() . 'src' . self::$ds;
+    return self::getSiteCacheProd() . 'src_prod' . self::$ds;
   }
 
   /**

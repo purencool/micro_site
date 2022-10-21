@@ -1,11 +1,10 @@
 <?php
-
-
+namespace App\CacheTest;
 
 /**
  * Description of newPHPClass
  *
- * @author john.cullen
+ * @author purencool
  */
 class CustomConfiguration implements CustomConfigurationInterface{
   //put your code here

@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Controller\Observers;
-
-use App\Repository\Processes\ContentCreation;
+namespace App\Repository\Processes;
 
 /**
  * Gets data array after building the content from the route.
- *
+ *  
  * @author purencool
  */
-class RouteData {
+Interface ContentCreationInterface {
 
   /**
    * Gets data array after building the content from the route.
@@ -19,8 +17,5 @@ class RouteData {
    * @return array
    *    Data connected to the route.
    */
-  public static function getData($routeName) {
-    return ContentCreation::getData($routeName);
-  }
-
+  public static function getData($routeName): array;
 }

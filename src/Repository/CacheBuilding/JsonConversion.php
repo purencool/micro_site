@@ -20,16 +20,6 @@ class JsonConversion implements JsonConversionInterface {
 
     JsonPhpConverter::converter(Schema::getSiteCacheTest());
 
-    JsonPhpConverter::buildLayoutArray(Schema::getSiteCacheTestLayoutStructure());
-
-    JsonPhpConverter::fileCreation(
-      Schema::getSiteCacheTest() . 'layout_object.json',
-      JsonPhpConverter::arraySerialization(
-        JsonPhpConverter::$layoutArray,
-        'serialize'
-      )
-    );
-
     return [' PHP object creation'];
   }
 

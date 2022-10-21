@@ -1,15 +1,19 @@
 <?php
+
 namespace App\CacheTest;
 
 /**
- * Description of newPHPClass
+ * All altering classes needs to be registered and changes made here.
  *
  * @author purencool
  */
-class CustomConfiguration implements CustomConfigurationInterface{
-  //put your code here
-  public function getObjectArray(): array {
-    return [];
+class CustomConfiguration implements CustomConfigurationInterface {
+
+  /**
+   * @inheritDoc
+   */
+  public function getObjectArray($inputArray): array {
+    return $inputArray;
   }
 
 }

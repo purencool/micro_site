@@ -5,6 +5,7 @@ namespace App\Repository\Processes;
 use App\Repository\Utilities\MoveDirectoryAndFiles;
 use App\Repository\Twig\ExpressionEngine;
 use App\Repository\Utilities\Schema;
+use App\Repository\Utilities\FindStringAndReplace;
 
 /**
  * The Update class achieves several functions.
@@ -111,6 +112,12 @@ class Update implements UpdateInterface {
         MoveDirectoryAndFiles::copySD(
           Schema::getSiteCacheTestSrc(),
           Schema::getSiteCacheTestSrcProd()
+        );
+
+        FindStringAndReplace::setReplace(
+          Schema::getSiteCacheTestSrcProd(),
+          'namespace App\CacheTest;',
+          'namespace App\CacheProd;'
         );
 
         $returnArr = " Updated configuration from $layoutEnvVariable to test.";

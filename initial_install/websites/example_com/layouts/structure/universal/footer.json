@@ -1,10 +1,17 @@
 {
-    "footer": {
-        "@route":"all",
-        "@footer_one": {},
-        "@footer_two": {},
-        "@footer_three": {},
-        "@footer_four": {},
-        "@footer_general_communication": {}
+    "footer_one": {
+        "@schema": "universal/sections/footer_one"
+    },
+    "footer_two": {
+        "@schema": "universal/sections/footer_two"
+    },
+    "footer_three": {
+        "@schema": "universal/sections/footer_three"
+    },
+    "footer_four": {
+        "@schema": "universal/sections/footer_four"
+    },
+    "footer_five": {
+        "@schema": "universal/sections/footer_five"
     }
 }

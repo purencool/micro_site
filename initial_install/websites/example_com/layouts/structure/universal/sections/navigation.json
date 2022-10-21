@@ -1,0 +1,7 @@
+{
+    "@data": [
+        "<div id=\"navigation\">",
+        "@content_placeholder",
+        "</div>"
+    ]
+}

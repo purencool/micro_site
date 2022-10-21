@@ -1,38 +1,58 @@
 {
     "default": {
-        "@route": "all",
-        "@structure": {
-            "header" : "universal/header.json",
-            "navigation" : "universal/navagation.json",
-            "home" : "content/page.json",
-            "footer" : "universal/footer.json"
-        }
-    },
-    "home": {
-        "@route": "/",
-        "@structure": {
-            "header" : "universal/header.json",
-            "navigation" : "universal/navagation.json",
-            "home" : "content/home.json",
-            "footer" : "universal/footer.json"
-        }
-    },
-    "articles": {
-        "@route": "/articles",
-        "@structure": {
-            "header" : "universal/header.json",
-            "navigation" : "universal/navagation.json",
-            "home" : "content/article_list.json",
-            "footer" : "universal/footer.json"
+        "header": {
+            "@schema": "universal/header"
+        },
+        "content": {
+            "@schema": "content/pages/article"
+        },
+        "footer": {
+            "@schema": "universal/footer"
         }
     },
     "article": {
-        "@route": "/articles/*",
-        "@structure": {
-            "header" : "universal/header.json",
-            "navigation" : "universal/navagation.json",
-            "home" : "content/article.json",
-            "footer" : "universal/footer.json"
+        "header": {
+            "@schema": "universal/header"
+        },
+        "content": {
+            "@schema": "content/articles/content/article"
+        },
+        "right_sidebar": {
+            "@schema": "content/articles/sections/sidebar"
+        },
+        "footer": {
+            "@schema": "universal/footer"
+        }
+    },
+    "home": {
+        "header": {
+            "@schema": "universal/header"
+        },
+        "hero": {
+            "@schema": "content/home/sections/hero"
+        },
+        "about": {
+            "@schema": "content/home/sections/about"
+        },
+        "content": {
+            "@schema": "content/home/home"
+        },
+        "articles": {
+            "@schema": "content/home/home"
+        },
+        "footer": {
+            "@schema": "universal/footer"
+        }
+    },
+    "page": {
+        "header": {
+            "@schema": "universal/header"
+        },
+        "content": {
+            "@schema": "content/pages/article"
+        },
+        "footer": {
+            "@schema": "universal/footer"
         }
     }
 }

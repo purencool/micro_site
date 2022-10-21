@@ -1,15 +1,8 @@
 {
-    "header": {
-        "@route":"all",
-        "@element": "header",
-        "header_branding": {
-            "@element": "div",
-            "@attributes": "id=\"me\" class=\"me\"",
-            "@content": "header_content"
-            
-         },
-        "header_navigation": {
-            "@element": "div"
-        }
+    "branding": {
+        "@schema" : "universal/sections/branding"
+    },
+    "navigation": {
+        "@schema" : "universal/sections/navigation"
     }
 }

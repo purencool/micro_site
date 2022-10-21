@@ -1,0 +1,14 @@
+{
+    "site_bar_top": {
+        "@data": ["<div id=\"sitebar\">"]
+    },
+    "item_one": {
+        "@schema": "content/articles/sections/items/item_one"
+    },
+    "item_two": {
+        "@schema": "content/articles/sections/items/item_two"
+    },
+    "site_bar_bottom": {
+        "@data": ["</div>"]
+    }
+}

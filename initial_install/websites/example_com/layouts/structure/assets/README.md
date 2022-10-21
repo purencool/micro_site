@@ -1,0 +1,1 @@
+Contains files, media, images and other items used in the website content not theming.

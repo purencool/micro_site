@@ -14,6 +14,7 @@ use App\Repository\Processes\DataObjects;
 use App\Repository\Processes\ContentDeploy;
 use App\Repository\Processes\RouteCreation;
 use App\Repository\Processes\DataObjectsList;
+use App\Repository\Processes\LayoutCreation;
 
 
 #[AsCommand(
@@ -106,6 +107,8 @@ class SiteServices extends Command {
             ],
             Update::update($this->layoutEnvVariable, $inputParam)['response'],
             Caching::create()['response'],
+            LayoutCreation::create()['response'],
+            RouteCreation::create()['response'],
             [
               ''
             ]

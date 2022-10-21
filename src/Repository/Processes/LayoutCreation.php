@@ -45,14 +45,14 @@ class LayoutCreation implements RouteCreationInterface {
     JsonPhpConverter::buildLayoutArray(Schema::getSiteCacheTestLayoutStructure());
 
     JsonPhpConverter::fileCreation(
-      Schema::getSiteCacheTest() . 'layout_object.json',
+      Schema::getSiteCacheTest() . 'layouts.json',
       JsonPhpConverter::arraySerialization(
         JsonPhpConverter::$layoutArray,
         'serialize'
       )
     );
 
-    return ['response' => [' Routes object created']];
+    return ['response' => [' Layout creation completed']];
   }
 
 }

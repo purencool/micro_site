@@ -28,7 +28,7 @@ class DataTreeCreation {
   ): array {
 
     if($type == 'multi') {
-      return DataTrees::getDataTree($schema, $category, $type, $data);
+      return DataTrees::getDataTree($schema, $category, $type);
     }
 
     return DataTree::getDataTree($schema, $category, $type, $data);

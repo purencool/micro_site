@@ -29,11 +29,6 @@ class DataTrees {
    */
   private static $type;
 
-  /**
-   * 
-   * @var type
-   */
-  private static $data;
 
   /**
    * 
@@ -79,9 +74,6 @@ class DataTrees {
       foreach ($itemTypeArray as $key => $item) {
         if (property_exists($item, '@schema')) {
           $return[$key] = self::dataTreeSchema($item->{'@schema'});
-          if ($key == 'content' && self::$data != '') {
-            $return[$key][] = (object) ['@data' => self::$data];
-          }
         }
       }
     }
@@ -98,13 +90,11 @@ class DataTrees {
   public static function getDataTree(
     $schema,
     $category,
-    $type = 'multi',
-    $data = ''
+    $type
   ): array {
     self::$schema = $schema;
     self::$category = $category;
     self::$type = $type;
-    self::$data = $data;
 
     return self::dataTree();
   }

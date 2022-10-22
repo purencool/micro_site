@@ -23,17 +23,8 @@ class LayoutCreation implements RouteCreationInterface {
     //$dataObj = $obj->getPhpObject('layout_structure/layouts', 'test');
     $dataArray = DataTreeCreation::getDataTree(
         'layout_structure/layouts',
-        'test',
-        'default'
+        'test'
     );
-
-    //   print_r(   );
-    //exit;
-
-
-
-
-
     JsonPhpConverter::fileCreation(
       Schema::getSiteCacheTest() . 'layouts_data.json',
       JsonPhpConverter::arraySerialization(

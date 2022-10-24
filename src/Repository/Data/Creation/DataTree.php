@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Repository\DataCreation;
+namespace App\Repository\Data\Creation;
 
 use App\Repository\CacheRequests\PhpObject;
+
 
 /**
  * Creates data trees for content and layouts
  *
  * @author purencool
  */
-class DataTrees {
+class DataTree {
 
   /**
    * 
@@ -29,6 +30,13 @@ class DataTrees {
    */
   private static $type;
 
+  /**
+   * 
+   * @var type
+   */
+  private static $data;
+
+
 
   /**
    * 
@@ -38,6 +46,7 @@ class DataTrees {
   private static function dataTreeSchema($schema) {
     $obj = new PhpObject();
     $return = [];
+
     $result = SchemaSearch::findSchemas(
         $obj->getPhpObject(
           $schema,
@@ -65,20 +74,28 @@ class DataTrees {
         self::$schema,
         self::$category
       )['array_objects']
-      ->{'@types'};
+      ->{'@types'}
+      ->{self::$type};
   }
 
+
+  /**
+   * 
+   * @return type
+   */
   private static function dataTree() {
     $return = [];
-    foreach ((array) self::typeArray() as $itemTypeArray) {
-      foreach ($itemTypeArray as $key => $item) {
-        if (property_exists($item, '@schema')) {
-          $return[$key] = self::dataTreeSchema($item->{'@schema'});
+    foreach ((array) self::typeArray() as $key => $item) {
+      if (property_exists($item, '@schema')) {
+        $return[$key] = self::dataTreeSchema($item->{'@schema'});
+        if ($key == 'content' && self::$data != '') {
+          $return[$key][] = (object) ['@data' => self::$data];
         }
       }
     }
     return $return;
   }
+
 
   /**
    * Creates data tree for layouts and content
@@ -90,11 +107,13 @@ class DataTrees {
   public static function getDataTree(
     $schema,
     $category,
-    $type
+    $type = 'multi',
+    $data = ''
   ): array {
     self::$schema = $schema;
     self::$category = $category;
     self::$type = $type;
+    self::$data = $data;
 
     return self::dataTree();
   }

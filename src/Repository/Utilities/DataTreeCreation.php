@@ -2,8 +2,8 @@
 
 namespace App\Repository\Utilities;
 
-use App\Repository\DataCreation\DataTree;
-use App\Repository\DataCreation\DataTrees;
+use App\Repository\Data\Creation\DataTree;
+use App\Repository\Data\Creation\DataTrees;
 
 
 /**
@@ -26,10 +26,6 @@ class DataTreeCreation {
     $type = 'multi',
     $data = ''
   ): array {
-
-    if($type == 'multi') {
-      return DataTrees::getDataTree($schema, $category, $type);
-    }
 
     return DataTree::getDataTree($schema, $category, $type, $data);
   }

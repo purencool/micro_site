@@ -32,7 +32,7 @@ class JsonPhpConverter {
 
   /**
    * 
-   * @param type $path
+   * @param type $schema
    * @param type $data
    */
   public static function fileCreation($schema, $data) {

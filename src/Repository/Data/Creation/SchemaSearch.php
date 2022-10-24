@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository\DataCreation;
+namespace App\Repository\Data\Creation;
 
 
 /**

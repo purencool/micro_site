@@ -3,15 +3,15 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use App\Repository\DataCreation\SchemaSearch;
+use App\Repository\Data\Creation\SchemaTree;
 
-final class SchemaSearchTest extends TestCase {
+final class SchemaTreeTest extends TestCase {
 
   /**
    * @var array data set to be tested
    */
   private static function dataSet() {
-    return json_decode('{
+    return (array) json_decode('{
     "@types": {
         "default": {
             "header": {
@@ -70,13 +70,21 @@ final class SchemaSearchTest extends TestCase {
             }
         }
     }
-}
-');
+  }');
   }
 
-  public function testPushAndPop(): void {
-    $return = SchemaSearch::findSchemas(self::dataSet());
+  /**
+   * 
+   * @return void
+   */
+  public function testSchemasTree(): void {
+    $this->assertArrayHasKey('@types', self::dataSet());
+
+    $return = SchemaTree::create(self::dataSet(), 'layout');
     $this->assertIsArray($return);
+    $this->assertArrayHasKey('@types', $return);
+    $this->assertIsArray($return['@types']);
+   // print_r($return);
   }
 
 }

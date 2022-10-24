@@ -5,8 +5,7 @@ namespace App\Repository\Processes;
 use App\Repository\Utilities\Schema;
 use App\Repository\Utilities\JsonPhpConverter;
 use App\Repository\CacheRequests\PhpObject;
-use App\Repository\CacheRequests\PhpObjectsList;
-use App\Repository\Utilities\DataTreeCreation;
+use App\Repository\Data\Creation\SchemaTree;
 
 /**
  * Request a PHP object from the caching.
@@ -19,16 +18,13 @@ class LayoutCreation implements RouteCreationInterface {
    * @inherit
    */
   public static function create(): array {
-    //$obj = new PhpObject();
-    //$dataObj = $obj->getPhpObject('layout_structure/layouts', 'test');
-    $dataArray = DataTreeCreation::getDataTree(
-        'layout_structure/layouts',
-        'test'
-    );
+    $obj = new PhpObject();
+    $dataObj = $obj->getPhpObject('layout_structure/layouts', 'test');
+  
     JsonPhpConverter::fileCreation(
       Schema::getSiteCacheTest() . 'layouts_data.json',
       JsonPhpConverter::arraySerialization(
-        $dataArray,
+         SchemaTree::create((array)$dataObj['array_objects'], 'layout'),
         'serialize'
       )
     );

@@ -47,6 +47,12 @@ class PhpObject implements PhpObjectInterface {
     elseif ($environment === 'cont') {
       $data = $this->getData(Schema::getSiteCacheContent(), $typeOfObjects);
     }
+    elseif ($environment === 'layout') {
+      $data = $this->getData(
+        Schema::getSiteCacheTestLayoutStructure(),
+        $typeOfObjects
+      );
+    }
     else {
       $data = $this->getData(Schema::getSiteCacheTest(), $typeOfObjects);
     }

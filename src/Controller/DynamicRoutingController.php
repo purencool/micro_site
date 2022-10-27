@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Controller\Observers\RouteData;
 use App\Controller\Observers\DataAlterTest;
 use App\Controller\Observers\DataAlterProd;
+use App\Controller\Observers\DataLayout;
 
 /**
  * The DynamicRoutingController class completes the following functions.
@@ -49,7 +50,11 @@ class DynamicRoutingController extends AbstractController {
       print "<pre>";
       print_r(
         DataAlterTest::setChanges(
-          RouteData::getData($request->getRequestUri(), 'test')
+          DataLayout::getDataLayout(
+            DataAlterTest::setChanges(
+              RouteData::getData($request->getRequestUri(), 'test')
+            )
+          )
         )
       );
       exit;
@@ -58,8 +63,10 @@ class DynamicRoutingController extends AbstractController {
     print "<pre>";
     print_r(
       DataAlterProd::setChanges(
-        RouteData::getData(
-          $request->getRequestUri(), 'prod')
+        DataLayout::getDataLayout(
+          RouteData::getData(
+            $request->getRequestUri(), 'prod')
+        )
       )
     );
     exit;

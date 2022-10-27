@@ -3,5 +3,5 @@
     "@route": "/using-the-json-api",
     "@link_text" : "Json api",
     "@type": "page",
-    "@data": { "content" : "Welcome to this website" }
+    "@data": { "article" : "Welcome to this website" }
 }

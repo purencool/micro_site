@@ -1,4 +1,5 @@
 {
+    "@schema_name": "sidebar",
     "site_bar_top": {
         "@data": ["<div id=\"sitebar\">"]
     },

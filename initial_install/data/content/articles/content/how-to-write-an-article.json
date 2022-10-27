@@ -4,5 +4,5 @@
     "@link_text" : "Writng an article",
     "@type": "article",
     "@layout": "article",
-    "@data": { "content" : "Welcome to this website" }
+    "@data": { "article" : "Welcome to this website" }
 }

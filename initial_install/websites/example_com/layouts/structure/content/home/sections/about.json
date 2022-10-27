@@ -1,4 +1,5 @@
 {
+    "@schema_name": "about",
     "@data": [
         "<div id=\"about\">",
         "@content_placeholder",

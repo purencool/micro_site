@@ -20,10 +20,12 @@ class SchemaTree {
             $category
           )['array_objects'];
         $object->{'@schema'} = $element->{'@schema'};
-       $return[] = $object;
-         
+        $schemaName = explode('/', $element->{'@schema'});
+        $object->{'@schema_name'} = end($schemaName);
+        $return[] = $object;
       }
     }
+
     return (object) $return;
   }
 
@@ -35,7 +37,6 @@ class SchemaTree {
    */
   private static function schema($objectPassed, $category, $inArr = []) {
     foreach ($objectPassed as $key => $element) {
-
       if (is_array($element) || is_object($element)) {
         if (property_exists($element, '@schema')) {
           $dataResponse = DataObjects::dataRequest(

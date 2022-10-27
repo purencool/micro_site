@@ -1,4 +1,5 @@
 {
+    "@schema_name": "footer",
     "footer_one": {
         "@schema": "universal/sections/footer_one"
     },

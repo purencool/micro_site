@@ -4,7 +4,6 @@ namespace App\Repository\Data\Creation;
 
 use App\Repository\CacheRequests\PhpObject;
 
-
 /**
  * Creates data trees for content and layouts
  *
@@ -35,8 +34,6 @@ class DataTree {
    * @var type
    */
   private static $data;
-
-
 
   /**
    * 
@@ -78,7 +75,6 @@ class DataTree {
       ->{self::$type};
   }
 
-
   /**
    * 
    * @return type
@@ -95,7 +91,6 @@ class DataTree {
     }
     return $return;
   }
-
 
   /**
    * Creates data tree for layouts and content

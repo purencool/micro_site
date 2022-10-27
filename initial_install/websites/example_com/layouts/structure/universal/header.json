@@ -1,8 +1,9 @@
 {
+    "@schema_name": "header",
     "branding": {
-        "@schema" : "universal/sections/branding"
+        "@schema": "universal/sections/branding"
     },
     "navigation": {
-        "@schema" : "universal/sections/navigation"
+        "@schema": "universal/sections/navigation"
     }
 }

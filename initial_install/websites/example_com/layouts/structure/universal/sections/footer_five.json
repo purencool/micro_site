@@ -1,4 +1,5 @@
 {
+    "@schema_name": "footer_five",
     "@data": [
         "<div id=\"footer_five\">",
         "@content_placeholder",

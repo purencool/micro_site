@@ -4,5 +4,5 @@
     "@link_text" : "About us",
     "@type": "page",
     "@layout": "default",
-    "@data": { "content" : "Welcome to this website" }
+    "@data": { "article" : "Welcome to this website" }
 }

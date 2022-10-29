@@ -9,6 +9,7 @@ use App\Controller\Observers\RouteData;
 use App\Controller\Observers\DataAlterTest;
 use App\Controller\Observers\DataAlterProd;
 use App\Controller\Observers\DataLayout;
+use App\Controller\Observers\HtmlCreation;
 
 /**
  * The DynamicRoutingController class completes the following functions.
@@ -47,40 +48,37 @@ class DynamicRoutingController extends AbstractController {
     // Check to see if the request has a test parameter and if the 
     // user is allowed to access the testing caching system.
     if ($parameter === 'test' && $appTest === 'true') {
-      print "<pre>";
-      print_r(
-        DataAlterTest::setChanges(
-          DataLayout::getDataLayout(
-            DataAlterTest::setChanges(
-              RouteData::getData($request->getRequestUri(), 'test')
+      $testData = HtmlCreation::setChanges(
+          DataAlterTest::setChanges(
+            DataLayout::getDataLayout(
+              DataAlterTest::setChanges(
+                RouteData::getData($request->getRequestUri(), 'test')
+              )
             )
           )
-        )
       );
-      exit;
+
+      return $this->render('layouts/test/index.html.twig', [
+          'twig_base_html_path' => 'layouts/test/base.html.twig',
+          'title' => 'Style Guide',
+          'result' => $testData,
+      ]);
     }
 
-    print "<pre>";
-    print_r(
-      DataAlterProd::setChanges(
-        DataLayout::getDataLayout(
-          RouteData::getData(
-            $request->getRequestUri(), 'prod')
+
+    $testData = HtmlCreation::setChanges(
+        DataAlterProd::setChanges(
+          DataLayout::getDataLayout(
+            RouteData::getData(
+              $request->getRequestUri(), 'prod')
+          )
         )
-      )
     );
-    exit;
-
-    return new Response(
-      json_encode(RouteData::getData($request->getRequestUri()))
-    );
-
-    // $path = 'layouts/' . $this->getParameter('app.layout') . '/templates/';
-    //return $this->render($path . 'index.html.twig', [
-    //     'twig_base_html_path' => $path . "/base.html.twig",
-    //     'title' => 'Style Guide',
-    //     'result' => $return['result'],
-    //  ]);
+    return $this->render('layouts/prod/index.html.twig', [
+        'twig_base_html_path' => 'layouts/prod/base.html.twig',
+        'title' => 'Style Guide',
+        'result' => $testData,
+    ]);
   }
 
 }

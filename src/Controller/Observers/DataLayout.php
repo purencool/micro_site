@@ -70,14 +70,14 @@ class DataLayout {
   }
 
   /**
-   * Gets data array after building the content from the route.
+   * Returns meshed data with layout array.
    * 
-   * @param string $data
-   *    $data.
+   * @param  array $data
+   *    Gets layout array ready for meshing
    * @return array
    *    Data connected to the route.
    */
-  public static function getDataLayout($data) {
+  public static function getDataLayout(array $data): array {
     $returnArr = [];
     foreach ($data['layouts'] as $key => $item) {
       if (property_exists($item, '@data')) {

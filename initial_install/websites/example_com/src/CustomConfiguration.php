@@ -12,7 +12,7 @@ class CustomConfiguration implements CustomConfigurationInterface {
   /**
    * @inheritDoc
    */
-  public function getObjectArray($inputArray): array {
+  public function getObjectArray(array $inputArray): array {
     return $inputArray;
   }
 

@@ -12,7 +12,7 @@ interface CustomConfigurationInterface {
   /**
    * Accesses data array and objects for custom changes before flattened.
    * 
-   * @param array $dataArray
+   * @param array $inputArray
    *    Data array to be modified.
    * @return array
    *    Return array changes.

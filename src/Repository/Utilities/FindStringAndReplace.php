@@ -3,7 +3,7 @@
 namespace App\Repository\Utilities;
 
 /**
- * FindStringAndReplace  finds files and replaces strings.
+ * FindStringAndReplace finds files and replaces strings.
  *
  * @author purencool
  */

@@ -23,7 +23,7 @@ class RemoveDirectoryAndFiles {
           }
         }
       } catch ( \Exception $e ){
-         // write log
+         //@todo write log
          return false;
       }
       return true;

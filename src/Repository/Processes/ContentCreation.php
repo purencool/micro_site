@@ -4,7 +4,7 @@ namespace App\Repository\Processes;
 
 use App\Repository\CacheRequests\PhpObject;
 use App\Repository\Utilities\SchemaEncodeDecode;
-use App\Repository\Utilities\DataTreeCreation;
+use App\Repository\Data\Creation\DataTree;
 
 /**
  * Description of CotentCreation
@@ -79,7 +79,7 @@ class ContentCreation implements ContentCreationInterface {
         '@link_text' => $data->{'@link_text'},
         '@layout' => $data->{'@layout'},
         '@type' => $data->{'@type'},
-        '@data' => DataTreeCreation::getDataTree( 
+        '@data' => DataTree::getDataTree(
           'config',
           'cont',
           $data->{'@type'},

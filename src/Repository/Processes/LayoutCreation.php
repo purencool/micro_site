@@ -34,7 +34,7 @@ class LayoutCreation implements RouteCreationInterface {
 
   public static function getData($type) {
     $obj = new PhpObject();
-    return $obj->getPhpObject('layouts_data', $type)['array_objects'];
+    return (array)$obj->getPhpObject('layouts_data', $type)['array_objects'];
   }
 
 }

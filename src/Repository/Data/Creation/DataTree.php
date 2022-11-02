@@ -52,7 +52,7 @@ class DataTree {
     );
 
     foreach ($result as $resultItem) {
-      $return[] = $obj->getPhpObject(
+      $return[] = (array) $obj->getPhpObject(
           $resultItem->{'@schema'},
           self::$category
         )['array_objects'];
@@ -67,7 +67,7 @@ class DataTree {
   private static function typeArray() {
 
     $obj = new PhpObject();
-    return $obj->getPhpObject(
+    return (array)$obj->getPhpObject(
         self::$schema,
         self::$category
       )['array_objects']
@@ -83,9 +83,9 @@ class DataTree {
     $return = [];
     foreach ((array) self::typeArray() as $key => $item) {
       if (property_exists($item, '@schema')) {
-        $return[$key] = self::dataTreeSchema($item->{'@schema'});
+        $return[$key] = (array) self::dataTreeSchema($item->{'@schema'});
         if ($key == 'content' && self::$data != '') {
-          $return[$key][] = (object) ['@data' => self::$data];
+          $return[$key][] = ['@data' => (array)self::$data];
         }
       }
     }

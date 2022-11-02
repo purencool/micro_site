@@ -17,7 +17,7 @@ class DataLayout {
    * @return array
    *    Flattened array.
    */
-  private static function flatten(array $array) : array {
+  private static function flatten(array $array): array {
     $return = [];
     array_walk_recursive($array, function ($a) use (&$return) {
       $return[] = $a;
@@ -77,32 +77,76 @@ class DataLayout {
    * @return array
    *    Data connected to the route.
    */
-  public static function getDataLayout(array $data): array {
+  private static function createDataLayout(array $data): array {
     $returnArr = [];
     foreach ($data['layouts'] as $key => $item) {
-      if (property_exists($item, '@data')) {
-        $returnArr[$key] = self::getContentForLayout(
-            $item,
-            $data
-        );
+      if (!is_object($item)) {
+
+        $returnArr[$key] = (array) self::createDataLayout($item);
+
+//self::getContentForLayout(
+        //           $item,
+        //          $data
+        //      );
       }
       else {
-        $itemArray = (array) $item;
-        foreach ($itemArray as $arrayItems) {
-          if (is_object($arrayItems)) {
-            if (property_exists($arrayItems, '@data') &&
-              property_exists($arrayItems, '@schema_name')) {
-              $returnArr[$key][] = self::getContentForLayout(
-                  $arrayItems,
-                  $data
-              );
-            }
-          }
+        //print_r($item);
+        if (!property_exists($item, '@data')) {
+          print $key;
+          $returnArr[$key][] = (array) $item;
+        }
+        else {
+          
         }
       }
+      //else {
+      //   $itemArray = (array) $item;
+      //   foreach ($itemArray as $arrayItems) {
+      //     print_r($arrayItems); exit;
+      //    if (is_object($arrayItems)) {
+      //      if (property_exists($arrayItems, '@data') &&
+      //       property_exists($arrayItems, '@schema_name')) {
+      //        $returnArr[$key][] = self::getContentForLayout(
+      //            $arrayItems,
+      //           $data
+      //       );
+      //     }
+      //    }
+      //   }
+      // }
     }
 
-    return array_merge(['layout_data_combined' => $returnArr], $data);
+    return $returnArr;
+  }
+
+
+private static function object_to_array($obj) {
+    if(is_object($obj)) {$obj = (array) $obj;}
+    if(is_array($obj)) {
+        $new = array();
+        foreach($obj as $key => $val) {
+            $new[$key] = self::object_to_array($val);
+        }
+    }
+    else {$new = $obj; }
+    return $new;       
+}
+
+  /**
+   * Returns meshed data with layout array.
+   * 
+   * @param  array $data
+   *    Gets layout array ready for meshing
+   * @return array
+   *    Data connected to the route.
+   */
+  public static function getDataLayout(array $data, string $type = 'preprocessor'): array {
+   
+
+   if ($type == 'preprocessor') {
+      return ['preprocessor' => self::object_to_array(self::createDataLayout($data))];
+    }
+    return array_merge(['preprocessor' => self::createDataLayout($data)], $data);
   }
 
 }

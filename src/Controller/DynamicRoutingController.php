@@ -48,15 +48,17 @@ class DynamicRoutingController extends AbstractController {
     // Check to see if the request has a test parameter and if the 
     // user is allowed to access the testing caching system.
     if ($parameter === 'test' && $appTest === 'true') {
-      $testData = HtmlCreation::setChanges(
-          DataAlterTest::setChanges(
-            DataLayout::getDataLayout(
-              DataAlterTest::setChanges(
+      //$testData = HtmlCreation::setChanges(
+        //  DataAlterTest::setChanges(
+           print('<pre>');
+             print_r( 
+              DataLayout::getDataLayout(
                 RouteData::getData($request->getRequestUri(), 'test')
               )
-            )
-          )
-      );
+             ) ; exit;
+          //  )
+         // )
+      //);
 
       return $this->render('layouts/test/index.html.twig', [
           'twig_base_html_path' => 'layouts/test/base.html.twig',

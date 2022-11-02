@@ -24,6 +24,12 @@ class RouteData {
    $data =  ContentCreation::getData($routeName);
    $layouts = (array)LayoutCreation::getData($type);
    $typeToBeUsed = $data['@data_array']['@type'];
+
+   // Adds a object around the content to reduce code higher 
+   // in the response observer stack.
+   $content = $layouts['@types'][$typeToBeUsed]['content'];
+   $layouts['@types'][$typeToBeUsed]['content'] = (object)[$content];
+
     return [
       'data' => $data,
       'layouts' => $layouts['@types'][$typeToBeUsed]

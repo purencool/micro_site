@@ -81,70 +81,66 @@ class DataLayout {
     $returnArr = [];
     foreach ($data['layouts'] as $key => $item) {
       if (!is_object($item)) {
-
         $returnArr[$key] = (array) self::createDataLayout($item);
-
-//self::getContentForLayout(
-        //           $item,
-        //          $data
-        //      );
       }
       else {
-        //print_r($item);
         if (!property_exists($item, '@data')) {
           print $key;
           $returnArr[$key][] = (array) $item;
         }
-        else {
-          
-        }
       }
-      //else {
-      //   $itemArray = (array) $item;
-      //   foreach ($itemArray as $arrayItems) {
-      //     print_r($arrayItems); exit;
-      //    if (is_object($arrayItems)) {
-      //      if (property_exists($arrayItems, '@data') &&
-      //       property_exists($arrayItems, '@schema_name')) {
-      //        $returnArr[$key][] = self::getContentForLayout(
-      //            $arrayItems,
-      //           $data
-      //       );
-      //     }
-      //    }
-      //   }
-      // }
     }
 
     return $returnArr;
   }
 
-
-private static function object_to_array($obj) {
-    if(is_object($obj)) {$obj = (array) $obj;}
-    if(is_array($obj)) {
-        $new = array();
-        foreach($obj as $key => $val) {
-            $new[$key] = self::object_to_array($val);
-        }
+  /**
+   * Removes all objects and turns them into an array
+   * so it can be managed better by the side developer. 
+   * 
+   * @param mixed $obj
+   *     Can be arrays or objects.
+   * @return mixed
+   *     Ultimately returns an array after recursion is
+   *     resolved.
+   */
+  private static function objectsToArray($obj) {
+    if (is_object($obj)) {
+      $obj = (array) $obj;
     }
-    else {$new = $obj; }
-    return $new;       
-}
+    if (is_array($obj)) {
+      $new = array();
+      foreach ($obj as $key => $val) {
+        $new[$key] = self::objectsToArray($val);
+      }
+    }
+    else {
+      $new = $obj;
+    }
+    return $new;
+  }
 
   /**
    * Returns meshed data with layout array.
    * 
    * @param  array $data
-   *    Gets layout array ready for meshing
+   *    Gets layout array ready for meshing.
+   * @param  string $type
+   *    Forces class to return an array with 
+   *    only the necessary information.
    * @return array
    *    Data connected to the route.
    */
   public static function getDataLayout(array $data, string $type = 'preprocessor'): array {
-   
 
-   if ($type == 'preprocessor') {
-      return ['preprocessor' => self::object_to_array(self::createDataLayout($data))];
+
+    if ($type == 'preprocessor') {
+      return [
+        'preprocessor' =>
+        self::objectsToArray(
+          self::createDataLayout($data)
+        )
+      ];
     }
     return array_merge(['preprocessor' => self::createDataLayout($data)], $data);
   }

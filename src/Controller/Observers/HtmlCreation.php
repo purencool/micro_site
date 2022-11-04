@@ -19,21 +19,14 @@ class HtmlCreation {
    */
   public static function setChanges(array $dataArray): string {
     $return = '';
-
-    foreach ($dataArray['layout_data_combined'] as $key => $item) {
+    foreach ($dataArray['preprocessor'] as $key => $item) {
       $output = str_replace('_', '-', $key);
       $return .= "<div id=\"id-app-$output\" class=\"app-$output\"  >";
-      foreach ((array) $item as $keyList => $itemsList) {
-        if ($keyList == '@data') {
-          $return .= implode('', $itemsList);
-        }
-        elseif (is_object($itemsList)) {
-          $return .= implode('', $itemsList->{'@data'});
-        } else {
-          // $return .= 'data';
+      foreach ($item as $keyList => $itemsList) {
+        if (array_key_exists('@data', $itemsList)) {
+          $return .= implode('', $itemsList['@data']);
         }
       }
-
       $return .= "</div>";
     }
 

@@ -10,6 +10,12 @@ namespace App\Controller\Observers;
 class DataLayout {
 
   /**
+   * 
+   * @var type
+   */
+  private static $dataArray;
+
+  /**
    * Flattens array so that in can be used in the layout.
    * 
    * @param array $array
@@ -23,50 +29,6 @@ class DataLayout {
       $return[] = $a;
     });
     return $return;
-  }
-
-  /**
-   * Test to see if the content '@data' object matches the content reference 
-   * so that it can be added to the 'layout_data_combined' array.
-   * 
-   * @param array $content
-   *     The content object is tested for key.
-   * @param type $contentReference
-   *     This is the key need to access the data.
-   * @return string
-   *     Returns content data.
-   */
-  private static function recursiveSearch($content, String $contentReference): string {
-
-    foreach ($content as $contentItem) {
-      if (array_key_exists($contentReference, (array) $contentItem->{'@data'})) {
-        return $contentItem->{'@data'}->{$contentReference};
-      }
-    }
-
-    return 'Content couldn\'t not be found';
-  }
-
-  /**
-   * 
-   * @param type $placeholderObject
-   * @param type $data
-   * @return type
-   */
-  private static function getContentForLayout($placeholderObject, $data) {
-    $contentResult = self::recursiveSearch(
-        self::flatten($data['data']['@data_array']['@data']),
-        $placeholderObject->{'@schema_name'}
-    );
-
-    $key = array_search(
-      '@content_placeholder',
-      $placeholderObject->{'@data'}
-    );
-
-    $placeholderObject->{'@data'}[$key] = $contentResult;
-
-    return $placeholderObject;
   }
 
   /**
@@ -95,8 +57,53 @@ class DataLayout {
   }
 
   /**
-   * Removes all objects and turns them into an array
-   * so it can be managed better by the side developer. 
+   * 
+   * @param array $arr
+   * @param string $dataPoint
+   * @return string
+   */
+  private static function findContentNeeded(string $dataPoint): string {
+    foreach (self::$dataArray as $val) {
+      if (property_exists($val, $dataPoint)) {
+        return $val->{$dataPoint};
+      }
+    }
+    return 'Content couldn\'t not be found';
+  }
+
+  /**
+   * Adds content to array so that before the preprocessor. 
+   * 
+   * @param mixed $arr
+   *     Can be arrays.
+   * @return array
+   *     Ultimately returns an array with 
+   *     content after recursion is resolved.
+   */
+  private static function findContentPlaceholder(array $arr): array {
+    foreach ($arr as $key => $val) {
+      if (array_key_exists('@schema_name', $arr) &&
+        array_key_exists('@data', $arr) &&
+        array_key_exists('@schema', $arr)) {
+        $keyFind = array_search('@content_placeholder', $arr['@data']);
+        if ($keyFind !== false) {
+          $arr['@data'][$keyFind] = self::findContentNeeded(
+              $arr['@schema_name']
+          );
+        }
+        return $arr;
+      }
+      else {
+        if (is_array($val)) {
+          $arr[$key] = self::findContentPlaceholder($val);
+        }
+      }
+    }
+    return $arr;
+  }
+
+  /**
+   * Removes all STD objects and turns them into an array.
    * 
    * @param mixed $obj
    *     Can be arrays or objects.
@@ -133,16 +140,20 @@ class DataLayout {
    */
   public static function getDataLayout(array $data, string $type = 'preprocessor'): array {
 
+    self::$dataArray = self::flatten($data['data']['@data_array']['@data']);
 
     if ($type == 'preprocessor') {
       return [
         'preprocessor' =>
-        self::objectsToArray(
-          self::createDataLayout($data)
+        self::findContentPlaceholder(
+          self::objectsToArray(
+            $data['layouts']
+          )
         )
       ];
     }
-    return array_merge(['preprocessor' => self::createDataLayout($data)], $data);
+
+    return array_merge(['preprocessor' => $data], $data);
   }
 
 }

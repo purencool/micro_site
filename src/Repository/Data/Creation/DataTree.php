@@ -85,7 +85,7 @@ class DataTree {
       if (property_exists($item, '@schema')) {
         $return[$key] = (array) self::dataTreeSchema($item->{'@schema'});
         if ($key == 'content' && self::$data != '') {
-          $return[$key][] = ['@data' => (array)self::$data];
+          $return[$key][] = ['@data' => (object)self::$data];
         }
       }
     }

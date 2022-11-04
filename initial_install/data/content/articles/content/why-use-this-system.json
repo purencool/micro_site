@@ -1,8 +1,20 @@
 {
     "@title": "Welcome to this website",
-    "@route": "/articles/why-use-this-sytem",
-    "@link_text" : "Why use this system",
-    "@layout": "article",
+    "@route": "/articles/how-to-write-an-article",
+    "@link_text": "Writng an article",
     "@type": "article",
-    "@data": { "article" : "Welcome to this website" }
+    "@layout": "article",
+    "@summary": {
+        "summary": "Writng an summary of the article",
+        "media": [
+            "path to media"
+        ]
+    },
+    "@data": { 
+        "hero_media": [
+            "path to media",
+            "path to media"
+        ],
+        "article": "Welcome to this website" 
+    }
 }

@@ -199,7 +199,28 @@ class Schema {
    */
   public static function getSiteCacheContent(): string {
     self::globalPath();
-    return self::getSiteCache() . 'content' . self::$ds;
+    return self::getCacheDir() . 'content'. self::$ds;
+  }
+
+
+  /**
+   * Allows the system to return the websites default data
+   * 
+   * @return string
+   */
+  public static function getSiteTestCacheContent(): string {
+    self::globalPath();
+    return self::getSiteCacheContent() . self::$ds .'test'.  self::$ds;
+  }
+
+  /**
+   * Allows the system to return the websites default data
+   * 
+   * @return string
+   */
+  public static function getSiteProdCacheContent(): string {
+    self::globalPath();
+    return self::getSiteCacheContent(). self::$ds .'prod' . self::$ds;
   }
 
   /**

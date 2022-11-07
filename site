@@ -53,10 +53,10 @@ APP_STORAGE=file
 APP_SECRET="Add 32 characters without spaces"' > .env.local
   fi
 
-  composer update;
+  #composer update;
   ./bin/console si:se install
-  ./bin/console si:se update test
-  ./bin/console cache:clear
+ # ./bin/console si:se update test
+ # ./bin/console cache:clear
 
 elif [[ "$REQUEST" = "services" ]]
 then

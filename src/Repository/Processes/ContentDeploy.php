@@ -22,7 +22,7 @@ class ContentDeploy implements ContentDeployInterface {
   private static function moveData(): array {
     MoveDirectoryAndFiles::copySD(
       Schema::getWebsiteData(),
-      Schema::getSiteCacheContent()
+      Schema::getSiteTestCacheContent()
     );
 
     return [' Content Json deployed to cache.'];

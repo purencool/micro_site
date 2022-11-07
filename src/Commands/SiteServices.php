@@ -210,7 +210,7 @@ class SiteServices extends Command {
         return Command::SUCCESS;
 
       case 'route:creation':
-        $output->writeln(array_merge(
+            $output->writeln(array_merge(
             [
               '',
               ' Route creation.',

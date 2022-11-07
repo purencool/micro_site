@@ -64,12 +64,13 @@ class Install implements InstallInterface {
       Schema::getProductionAssets(),
       Schema::getSiteCache(),
       Schema::getSiteCacheContent(),
+      Schema::getSiteTestCacheContent(),
+      Schema::getSiteProdCacheContent(),
       Schema::getSiteCacheTest(),
       Schema::getSiteCacheTestSrc(),
       Schema::getSiteCacheTestSrcProd(),
       Schema::getSiteCacheTestLayoutStructure(),
-      Schema::getSiteCacheProdSrcProd(),
-      Schema::getSiteCacheProdLayoutStructure(),
+      Schema::getSiteCacheProd()
     ];
 
     foreach ($directorySchema as $item) {
@@ -84,9 +85,9 @@ class Install implements InstallInterface {
    */
   public static function create(): array {
 
+    self::installCacheDirectory();
     self::installCustomWebsite();
     self::installWebsiteDataDirectory();
-    self::installCacheDirectory();
     return ['response' => [' Your installation was completed']];
   }
 

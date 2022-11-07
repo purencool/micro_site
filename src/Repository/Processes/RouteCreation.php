@@ -20,6 +20,10 @@ class RouteCreation implements RouteCreationInterface {
   public static function create(): array {
     $obj = new PhpObject();
     $dataObj = $obj->getPhpObject('config', 'cont');
+ 
+    if($dataObj['array_objects']->{'error'} == true){
+      return ['response' => [' '. $dataObj['array_objects']->{'message'}]];
+    }
 
     $store = $dataObj['array_objects']->{'@routes'}->{'@schema'};
 
@@ -43,7 +47,7 @@ class RouteCreation implements RouteCreationInterface {
     }
 
     JsonPhpConverter::fileCreation(
-      Schema::getSiteCacheContent() . 'routes.json',
+      Schema::getSiteTestCacheContent() . 'routes.json',
       JsonPhpConverter::arraySerialization($return, 'serialize')
     );
 

@@ -25,7 +25,7 @@ class JsonConversion implements JsonConversionInterface {
 
   public function getJsonContentConversion(): array {
 
-    JsonPhpConverter::converter(Schema::getSiteCacheContent());
+    JsonPhpConverter::converter(Schema::getSiteTestCacheContent());
     return [' Content PHP object creation completed.'];
   }
 

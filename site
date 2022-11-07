@@ -20,7 +20,7 @@ then
 
 elif [[ "$REQUEST" = "ci" ]]
 then
-  #./bin/console si:se content:import
+ # ./bin/console si:se content:import
   ./bin/console cache:clear
 
 elif [[ "$REQUEST" = "cs" ]]
@@ -53,10 +53,16 @@ APP_STORAGE=file
 APP_SECRET="Add 32 characters without spaces"' > .env.local
   fi
 
-  #composer update;
+  composer update;
   ./bin/console si:se install
- # ./bin/console si:se update test
- # ./bin/console cache:clear
+  ./bin/console si:se update test
+  ./bin/console si:se update prod
+  ./bin/console si:se content:deploy
+  ./bin/console si:se content:deploy test
+  ./bin/console si:se content:deploy prod
+  ./bin/console si:se route:creation
+  ./bin/console debug:router
+  ./bin/console cache:clear
 
 elif [[ "$REQUEST" = "services" ]]
 then

@@ -196,6 +196,20 @@ class SiteServices extends Command {
         return Command::SUCCESS;
 
       case 'content:deploy':
+        $inputParam = $input->getArgument('param_one');
+        if ($inputParam == '') {
+          $output->writeln(
+            [
+              '',
+              ' Content deploy didn\'t run.',
+              ' ==============================================================',
+              ' Commands           `./bin/console si:se content:deploy {flag}`',
+              '                                                   {test|prod}`',
+              ''
+            ]
+          );
+          return Command::INVALID;
+        }
         $output->writeln(array_merge(
             [
               '',

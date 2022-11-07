@@ -12,12 +12,15 @@ namespace App\Repository\Processes;
  */
 interface ContentDeployInterface {
 
+
   /**
    * Updates website content into the system for deployment.
    * 
+   * @param string $type
+   *   Which environment is the content being deployed.
    * @return array
    *    Lets the user know the results of the process. 
    */
-  public static function deploy(): array;
+  public static function deploy(string $type): array;
 
 }

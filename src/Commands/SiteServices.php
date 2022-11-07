@@ -216,7 +216,7 @@ class SiteServices extends Command {
               ' Content deploy.',
               ' =============================================================='
             ],
-            ContentDeploy::deploy()['response'],
+            ContentDeploy::deploy($inputParam)['response'],
             [
               ''
             ]

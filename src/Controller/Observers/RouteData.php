@@ -21,7 +21,8 @@ class RouteData {
    *    Data connected to the route.
    */
   public static function getData($routeName, $type) {
-   $data =  ContentCreation::getData($routeName);
+   $data =  ContentCreation::getData($routeName, $type);
+print_r($data); exit;
    $layouts = (array)LayoutCreation::getData($type);
    $typeToBeUsed = $data['@data_array']['@type'];
 

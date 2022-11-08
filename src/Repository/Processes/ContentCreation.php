@@ -15,17 +15,32 @@ class ContentCreation implements ContentCreationInterface {
 
   /**
    *  Get route object to create an array to build routes for the system.
+   * 
+   * @param string $routeName
+   * @param string $type
+   * @return string
    */
-  private static function routeArray($routeName) {
+  private static function routeArray( $routeName, string $type): string {
     $obj = new PhpObject();
-    foreach ($obj->getPhpObject('routes', 'cont')['array_objects'] as $object) {
+    $routes = '';
+
+    if ($type == 'prod') {
+      $routes = $obj->getPhpObject('routes', 'cont_prod')['array_objects'];
+      print_r($routes); print 'prod'; exit;
+    }
+    elseif ($type == 'test') {
+      $routes = $obj->getPhpObject('routes', 'cont_test')['array_objects'];
+      print_r($routes); print 'test'; exit;
+    }
+
+    foreach ($routes as $object) {
       if (property_exists($object, '@route')) {
-        if ($object->{'@route'} == rtrim($routeName, '/')) {
+        if ($object->{'@route'} == rtrim($routeName['@route'], '/')) {
           return $object->{'@schema'};
         }
       }
     }
-    return '';
+    return 'no route';
   }
 
   /**
@@ -33,7 +48,7 @@ class ContentCreation implements ContentCreationInterface {
    * @param type $routeName
    * @return type
    */
-  private static function routeRebuild($routeName) {
+  private static function routeRebuild($routeName) : array {
     $routeExplode = explode('/', $routeName);
     $responseType = '';
 
@@ -67,9 +82,11 @@ class ContentCreation implements ContentCreationInterface {
   /**
    * @inheritDoc
    */
-  public static function getData($routeName): array {
+  public static function getData(string $routeName, string $type): array {
     $routeRebuildArr = self::routeRebuild($routeName);
-    $schema = self::routeArray($routeRebuildArr['@route']);
+    $schema = self::routeArray($routeRebuildArr, $type);
+    print_r($schema);
+    exit;
     $data = self::routeData($schema);
     return [
       '@schema' => $schema,

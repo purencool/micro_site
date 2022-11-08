@@ -19,7 +19,9 @@ class RouteCreation implements RouteCreationInterface {
    */
   public static function create(): array {
     $obj = new PhpObject();
-    $dataObj = $obj->getPhpObject('config', 'cont');
+    $dataObj = $obj->getPhpObject('config', 'cont_test');
+
+
  
     if($dataObj['array_objects']->{'error'} == true){
       return ['response' => [' '. $dataObj['array_objects']->{'message'}]];
@@ -27,12 +29,21 @@ class RouteCreation implements RouteCreationInterface {
 
     $store = $dataObj['array_objects']->{'@routes'}->{'@schema'};
 
+
+ $objList = new PhpObjectsList();
+
     $x = [];
-    $objList = new PhpObjectsList();
     foreach ($store as $storeItem) {
-      $x[] = $objList->getPhpObjects($storeItem, 'cont')['array_objects'];
+      $x[] = $objList->getPhpObjects($storeItem, 'cont_test')['array_objects'];
     }
 
+    $y = [];
+    foreach ($store as $storeItem) {
+      $y[] = $objList->getPhpObjects($storeItem, 'cont_prod')['array_objects'];
+    }
+
+
+print_r($y); exit;
 
     $return = [];
     foreach ($x as $storeList) {

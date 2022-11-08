@@ -52,8 +52,11 @@ class PhpObjectsList implements PhpObjectsListInterface {
     if ($environment === 'prod') {
       $data = $this->getData(Schema::getSiteCacheProd(), $typeOfObjects);
     }
-    elseif ($environment === 'cont') {
+    elseif ($environment === 'cont_test') {
       $data = $this->getData(Schema::getSiteTestCacheContent(), $typeOfObjects);
+    }
+    elseif ($environment === 'cont_prod') {
+      $data = $this->getData(Schema::getSiteProdCacheContent(), $typeOfObjects);
     }
     else {
       $data = $this->getData(Schema::getSiteCacheTest(), $typeOfObjects);

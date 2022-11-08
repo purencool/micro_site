@@ -14,8 +14,11 @@ Interface ContentCreationInterface {
    * 
    * @param string $routeName
    *    Route name.
+   * @param string $type
+   *    Test or Production content.
+   * 
    * @return array
    *    Data connected to the route.
    */
-  public static function getData($routeName): array;
+  public static function getData(string $routeName, string $type): array;
 }

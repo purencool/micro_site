@@ -16,7 +16,6 @@ use App\Repository\Processes\RouteCreation;
 use App\Repository\Processes\DataObjectsList;
 use App\Repository\Processes\LayoutCreation;
 
-
 #[AsCommand(
     name: 'site:services',
     description: 'Provides and sets configuration for the sites services.',
@@ -224,13 +223,27 @@ class SiteServices extends Command {
         return Command::SUCCESS;
 
       case 'route:creation':
-            $output->writeln(array_merge(
+        $inputParam = $input->getArgument('param_one');
+        if ($inputParam == '') {
+          $output->writeln(
+            [
+              '',
+              ' Route creation didn\'t run.',
+              ' ==============================================================',
+              ' Commands           `./bin/console si:se route:creation {flag}`',
+              '                                                   {test|prod}`',
+              ''
+            ]
+          );
+          return Command::INVALID;
+        }
+        $output->writeln(array_merge(
             [
               '',
               ' Route creation.',
               ' =============================================================='
             ],
-            RouteCreation::create()['response'],
+            RouteCreation::create($inputParam)['response'],
             [
               ''
             ]
@@ -244,10 +257,11 @@ class SiteServices extends Command {
             ' Services offered by system.',
             ' ==================================================================================',
             ' Reset layout cache                     ./bin/console si:se caching {all|test|prod}',
-            ' Content Deploy                                  ./bin/console si:se content:deploy',
+            ' Content Deploy                      ./bin/console si:se content:deploy {test|prod}',
             ' Data object request    ./bin/console si:se data:object {data obj} {test|prod|cont}',
             ' Data objects list ./bin/console si:se data:object:list {data obj} {test|prod|cont}',
             ' Update custom website                       ./bin/console si:se update {test|prod}',
+            ' Route Creation                      ./bin/console si:se route:creation {test|prod}',
             ' Website installation                                   ./bin/console si:se install',
             ''
           ]

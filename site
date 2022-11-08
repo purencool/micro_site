@@ -70,7 +70,7 @@ then
 
 elif [[ "$REQUEST" = "rc" ]]
 then
-   ./bin/console si:se route:creation
+   ./bin/console si:se route:creation  $PARAMETER_ONE
 
 elif [[ "$REQUEST" = "rd" ]]
 then

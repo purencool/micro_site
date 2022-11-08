@@ -20,16 +20,16 @@ class ContentCreation implements ContentCreationInterface {
    * @param string $type
    * @return string
    */
-  private static function routeArray( $routeName, string $type): string {
+  private static function routeArray($routeName, string $type): string {
     $obj = new PhpObject();
     $routes = '';
 
     if ($type == 'prod') {
-      $routes = $obj->getPhpObject('routes', 'cont_prod')['array_objects'];
+      $routes = $obj->getPhpObject('prod_routes', 'cont_prod')['array_objects'];
       print_r($routes); print 'prod'; exit;
     }
     elseif ($type == 'test') {
-      $routes = $obj->getPhpObject('routes', 'cont_test')['array_objects'];
+      $routes = $obj->getPhpObject('test_routes', 'cont_test')['array_objects'];
       print_r($routes); print 'test'; exit;
     }
 

@@ -12,7 +12,7 @@ use App\Repository\Data\Creation\SchemaTree;
  *  
  * @author purencool
  */
-class LayoutCreation implements RouteCreationInterface {
+class LayoutCreation implements LayoutCreationInterface {
 
   /**
    * @inherit

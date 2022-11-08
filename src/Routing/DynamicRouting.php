@@ -16,13 +16,20 @@ class DynamicRouting extends Loader {
    * 
    * @var type
    */
-  private static $routeArr;
+  private static $prodRoutesArr;
+
 
   /**
    * 
    * @var type
    */
-  private static $testEnabled;
+  private static $testRoutesArr;
+
+  /**
+   * 
+   * @var type
+   */
+  private $testEnabled;
 
   /**
    * 
@@ -36,28 +43,36 @@ class DynamicRouting extends Loader {
    */
   public function __construct($test) {
     parent::__construct();
-    self::$testEnabled = $test;
-    self::routeArray();
+    $this->testEnabled = $test;
+    if($this->testEnabled === 'true'){
+      self::testRouteArray();
+    }
+    self::prodRouteArray();
   }
 
   /**
    *  Get route object to create an array to build routes for the system.
    */
-  private static function routeArray() {
-    $obj = new PhpObject();
-    foreach ($obj->getPhpObject('routes', 'cont')['array_objects'] as $object) {
+  private static function prodRouteArray() {
+    $obj = new PhpObject;
+    foreach ($obj->getPhpObject('prod_routes', 'cont_prod')['array_objects'] as $object) {
       if (property_exists($object, '@route')) {
-        self::$routeArr[] = $object->{'@route'};
+        self::$prodRoutesArr[] = $object->{'@route'};
       }
     }
   }
 
+
   /**
-   * 
-   * @return type
+   *  Get route object to create an array to build routes for the system.
    */
-  public function routes() {
-    return self::$routeArr;
+  private static function testRouteArray() {
+    $obj = new PhpObject;
+    foreach ($obj->getPhpObject('test_routes', 'cont_test')['array_objects'] as $object) {
+      if (property_exists($object, '@route')) {
+        self::$testRoutesArr[] = $object->{'@route'};
+      }
+    }
   }
 
   /**
@@ -85,17 +100,8 @@ class DynamicRouting extends Loader {
     // Routes collection 
     $collection = new RouteCollection();
 
-    // Test routes
-    foreach ($this->routes() as $route) {
-      $createdRoute = new Route($route . '/{parameter}', [
-        '_controller' => 'App\Controller\DynamicRoutingController::index',
-      ]);
-      $routeName = 'dr_test' . str_replace(['-', '/'], '_', $route);
-      $collection->add($routeName, $createdRoute);
-    }
-
     // Prod routes
-    foreach ($this->routes() as $route) {
+    foreach (self::$prodRoutesArr as $route) {
       $createdRoute = new Route($route . '/', [
         '_controller' => 'App\Controller\DynamicRoutingController::index',
       ]);
@@ -103,8 +109,17 @@ class DynamicRouting extends Loader {
       $collection->add($routeName, $createdRoute);
     }
 
-    // Adds style guides for development reasons
-    if (self::$testEnabled === 'true') {
+    // Adds test routes for development reasons
+    if ($this->testEnabled === 'true') {
+
+      foreach (self::$testRoutesArr as $testroute) {
+        $createdRoute = new Route($testroute . '/{parameter}', [
+          '_controller' => 'App\Controller\DynamicRoutingController::index',
+        ]);
+        $routeName = 'dr_test' . str_replace(['-', '/'], '_', $testroute);
+        $collection->add($routeName, $createdRoute);
+      }
+
       $styleRoute = 'site-style-guide';
       $styleGuideRoute = new Route($styleRoute . '/{parameter}', [
         '_controller' => 'App\Controller\DynamicRoutingController::index',

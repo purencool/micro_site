@@ -26,11 +26,9 @@ class ContentCreation implements ContentCreationInterface {
 
     if ($type == 'prod') {
       $routes = $obj->getPhpObject('prod_routes', 'cont_prod')['array_objects'];
-      print_r($routes); print 'prod'; exit;
     }
     elseif ($type == 'test') {
       $routes = $obj->getPhpObject('test_routes', 'cont_test')['array_objects'];
-      print_r($routes); print 'test'; exit;
     }
 
     foreach ($routes as $object) {
@@ -85,9 +83,12 @@ class ContentCreation implements ContentCreationInterface {
   public static function getData(string $routeName, string $type): array {
     $routeRebuildArr = self::routeRebuild($routeName);
     $schema = self::routeArray($routeRebuildArr, $type);
-    print_r($schema);
-    exit;
     $data = self::routeData($schema);
+    if($type == 'test'){
+      $cacheType = 'cont_test';
+    } else {
+      $cacheType = 'cont_prod';
+    }
     return [
       '@schema' => $schema,
       '@response_type' => $routeRebuildArr['@response_type'],
@@ -98,7 +99,7 @@ class ContentCreation implements ContentCreationInterface {
         '@type' => $data->{'@type'},
         '@data' => DataTree::getDataTree(
           'config',
-          'cont',
+          $cacheType,
           $data->{'@type'},
           $data->{'@data'},
         ),

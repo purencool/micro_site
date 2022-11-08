@@ -22,7 +22,6 @@ class RouteData {
    */
   public static function getData($routeName, $type) {
    $data =  ContentCreation::getData($routeName, $type);
-print_r($data); exit;
    $layouts = (array)LayoutCreation::getData($type);
    $typeToBeUsed = $data['@data_array']['@type'];
 

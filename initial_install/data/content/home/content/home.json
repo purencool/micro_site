@@ -1,7 +1,13 @@
 {
-    "@title": "Welcome to this website",
+    "@title": "Rest Observer",
     "@route": "/",
     "@link_text" : "home",
     "@type": "home",
-    "@data": { "article" : "Welcome to this website" }
+    "@layout": "home",
+    "@summary": {
+        "summary": "This application "
+    },
+    "@data": { 
+        "article": "Welcome to this website" 
+    }
 }

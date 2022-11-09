@@ -7,13 +7,13 @@
     "@summary": {
         "summary": "Writng an summary of the article",
         "media": [
-            "path to media"
+            "html to media"
         ]
     },
     "@data": { 
         "hero_media": [
-            "path to media",
-            "path to media"
+            "html to media",
+            "html to media"
         ],
         "article": "Welcome to this website" 
     }

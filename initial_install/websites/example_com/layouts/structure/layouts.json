@@ -38,9 +38,6 @@
             "content": {
                 "@schema": "content/home/home"
             },
-            "articles": {
-                "@schema": "content/home/home"
-            },
             "footer": {
                 "@schema": "universal/footer"
             }

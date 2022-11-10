@@ -15,24 +15,27 @@ class RouteData {
   /**
    * Gets data array after building the content from the route.
    * 
-   * @param string $routeName
+   * @param string $route
    *    Route name.
+   * @param string $type
+   *    Cache type.
    * @return array
    *    Data connected to the route.
    */
-  public static function getData($routeName, $type) {
-   $data =  ContentCreation::getData($routeName, $type);
-   $layouts = (array)LayoutCreation::getData($type);
-   $typeToBeUsed = $data['@data_array']['@type'];
+  public static function getData($route, $type) : array {
+  
+    $data = ContentCreation::getData($route, $type);
+    $layouts = (array) LayoutCreation::getData($type);
 
-   // Adds a object around the content to reduce code higher 
-   // in the response observer stack.
-   $content = $layouts['@types'][$typeToBeUsed]['content'];
-   $layouts['@types'][$typeToBeUsed]['content'] = (object)[$content];
+    // Adds a object around the content to reduce code higher 
+    // in the response observer stack.
+    $typeUsed = $data['@data_array']['@type'];
+    $content = $layouts['@types'][$typeUsed]['content'];
+    $layouts['@types'][$typeUsed]['content'] = (object) [$content];
 
     return [
       'data' => $data,
-      'layouts' => $layouts['@types'][$typeToBeUsed]
+      'layouts' => $layouts['@types'][$typeUsed]
     ];
   }
 

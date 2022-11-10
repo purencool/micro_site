@@ -29,12 +29,13 @@ class ContentCreation implements ContentCreationInterface {
     }
     elseif ($type == 'test') {
       $routes = $obj->getPhpObject('test_routes', 'cont_test')['array_objects'];
+    } else {
+      return 'no route';
     }
 
     foreach ($routes as $object) {
       if (property_exists($object, '@route')) {
         // Testing route is not the front page(/).
-        //print_r($routeName);
         if (strlen($routeName['@route']) === 1) {
           $routeTestString = $routeName['@route'];
         }
@@ -115,7 +116,7 @@ class ContentCreation implements ContentCreationInterface {
     }
 
     $data = self::routeData($schema);
-    $return = [
+    return [
       '@schema' => $schema,
       '@response_type' => $routeRebuildArr['@response_type'],
       '@data_array' => [
@@ -131,7 +132,6 @@ class ContentCreation implements ContentCreationInterface {
         ),
       ]
     ];
-    return $return;
   }
 
 }

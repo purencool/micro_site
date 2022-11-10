@@ -36,7 +36,7 @@
                 "@schema": "content/home/sections/about"
             },
             "content": {
-                "@schema": "content/home/home"
+                "@schema": "content/home/content/article"
             },
             "footer": {
                 "@schema": "universal/footer"

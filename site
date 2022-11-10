@@ -57,12 +57,13 @@ APP_SECRET="Add 32 characters without spaces"' > .env.local
   ./bin/console si:se install
   ./bin/console si:se update test
   ./bin/console si:se update prod
-  ./bin/console si:se content:deploy
   ./bin/console si:se content:deploy test
   ./bin/console si:se content:deploy prod
-  ./bin/console si:se route:creation
-  ./bin/console debug:router
+  ./bin/console si:se route:creation test
+  ./bin/console si:se route:creation prod
   ./bin/console cache:clear
+  ./bin/console debug:router
+
 
 elif [[ "$REQUEST" = "services" ]]
 then
@@ -102,19 +103,19 @@ else
   echo ""
   echo " Site Commands."
   echo " ================================================================================"
-  echo " Services offered by system                                       'site services'"
   echo " Clear all caches alias                                                 'site cc'"
-  echo " Content deploy alias                                                   'site cd'"
+  echo " Content deploy alias                                       'site cd {test|prod}'"
   echo " Content import alias                                                   'site ci'"
   echo " Create sitemap alias                                                   'site cs'"
   echo " Data object alias                          'site do {data obj} {test|prod|cont}'"
   echo " Data objects list alias                   'site dol {data obj} {test|prod|cont}'"
-  echo " Route creation alias                                                   'site rc'"
-  echo " Debug route alias                                                      'site rd'"
   echo " Install latest core release                                   'site core:update'"
+  echo " Route creation alias                                       'site rc {test|prod}'"
+  echo " Route debug alias                                                      'site rd'"
+  echo " Services offered by system                                       'site services'"
   echo " Site installation                                                 'site install'"
   echo " Start testing web server                                            'site start'"
   echo " Stop testing web server                                    Ctrl C or 'site stop'"
-  echo " Update custom site configuration                                   'site update'"
+  echo " Update custom site configuration                       'site update {test|prod}'"
   echo ""
 fi

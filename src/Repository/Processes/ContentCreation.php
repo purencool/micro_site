@@ -33,7 +33,15 @@ class ContentCreation implements ContentCreationInterface {
 
     foreach ($routes as $object) {
       if (property_exists($object, '@route')) {
-        if ($object->{'@route'} == rtrim($routeName['@route'], '/')) {
+        // Testing route is not the front page(/).
+        //print_r($routeName);
+        if (strlen($routeName['@route']) === 1) {
+          $routeTestString = $routeName['@route'];
+        }
+        else {
+          $routeTestString = rtrim($routeName['@route'], '/');
+        }
+        if ($object->{'@route'} == $routeTestString) {
           return $object->{'@schema'};
         }
       }
@@ -46,7 +54,7 @@ class ContentCreation implements ContentCreationInterface {
    * @param type $routeName
    * @return type
    */
-  private static function routeRebuild($routeName) : array {
+  private static function routeRebuild($routeName): array {
     $routeExplode = explode('/', $routeName);
     $responseType = '';
 
@@ -54,6 +62,9 @@ class ContentCreation implements ContentCreationInterface {
       $responseType = end($routeExplode);
       array_pop($routeExplode);
       $route = implode('/', $routeExplode);
+      if ($route == '') {
+        $route = '/';
+      }
     }
     else {
       $route = $routeName;
@@ -67,14 +78,26 @@ class ContentCreation implements ContentCreationInterface {
 
   /**
    * 
-   * @param type $schema
-   * @return string
+   * @param string $schema
+   * @return mixed
    */
-  private static function routeData($schema) {
+  private static function routeData(string $schema) {
     if ($schema == '') {
       return '';
     }
     return SchemaEncodeDecode::requestObject($schema);
+  }
+
+  /**
+   * 
+   * @param string $type
+   * @return string
+   */
+  private static function contentCacheType(string $type) {
+    if ($type == 'test') {
+      return 'cont_test';
+    }
+    return 'cont_prod';
   }
 
   /**
@@ -83,13 +106,16 @@ class ContentCreation implements ContentCreationInterface {
   public static function getData(string $routeName, string $type): array {
     $routeRebuildArr = self::routeRebuild($routeName);
     $schema = self::routeArray($routeRebuildArr, $type);
-    $data = self::routeData($schema);
-    if($type == 'test'){
-      $cacheType = 'cont_test';
-    } else {
-      $cacheType = 'cont_prod';
+
+    if ($schema == 'no data') {
+      return [
+        'error' => 'true',
+        'message' => 'Route does not exist.'
+      ];
     }
-    return [
+
+    $data = self::routeData($schema);
+    $return = [
       '@schema' => $schema,
       '@response_type' => $routeRebuildArr['@response_type'],
       '@data_array' => [
@@ -99,12 +125,13 @@ class ContentCreation implements ContentCreationInterface {
         '@type' => $data->{'@type'},
         '@data' => DataTree::getDataTree(
           'config',
-          $cacheType,
+          self::contentCacheType($type),
           $data->{'@type'},
           $data->{'@data'},
         ),
       ]
     ];
+    return $return;
   }
 
 }

@@ -139,7 +139,7 @@ class DataLayout {
    *    Data connected to the route.
    */
   public static function getDataLayout(array $data, string $type = 'preprocessor'): array {
-
+    
     self::$dataArray = self::flatten($data['data']['@data_array']['@data']);
 
     if ($type == 'preprocessor') {

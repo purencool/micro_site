@@ -9,6 +9,7 @@
 /public/test/
 /public/sitemap.xml
 /templates/layouts
+/templates/bundles
 /var/
 /vendor/
 ###< symfony/framework-bundle ###

@@ -23,8 +23,13 @@ class HtmlCreation {
       $output = str_replace('_', '-', $key);
       $return .= "<div id=\"id-app-$output\" class=\"app-$output\"  >";
       foreach ($item as $keyList => $itemsList) {
-        if (array_key_exists('@data', $itemsList)) {
-          $return .= implode('', $itemsList['@data']);
+        if (!is_string($itemsList)) {
+          if (array_key_exists('@data', $itemsList)) {
+            $return .= implode('', $itemsList['@data']);
+          }
+        }
+        else {
+          $return .= $itemsList;
         }
       }
       $return .= "</div>";

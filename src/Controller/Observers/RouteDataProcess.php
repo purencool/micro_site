@@ -24,13 +24,13 @@ class RouteDataProcess {
    *    Data connected to the route.
    */
   public static function getRouteTest($route): array {
-
+    $routeDataArrTest = RouteData::getData($route, 'test');
     return [
-      'title' => 'test',
+      'title' => $routeDataArrTest['data']['@data_array']['@title'],
       'body' => HtmlCreation::setChanges(
         DataAlterTest::setChanges(
           DataLayout::getDataLayout(
-            RouteData::getData($route, 'test')
+             $routeDataArrTest
           )
         )
       )
@@ -60,7 +60,7 @@ class RouteDataProcess {
     }
 
     return [
-      'title' => '',
+      'title' => $routeDataArrProd['data']['@data_array']['@title'],
       'body' => $prodData
     ];
   }

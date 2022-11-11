@@ -44,13 +44,12 @@ class DynamicRoutingController extends AbstractController {
     // Check to see if the request has a test parameter and if the 
     // user is allowed to access the testing caching system.
     if ($parameter === 'test' && $appTest === 'true') {
+      $testData = RouteDataProcess::getRouteTest( $request->getRequestUri());
       return $this->render('layouts/test/index.html.twig', [
           'twig_base_html_path' => 'layouts/test/base.html.twig',
-          'header_title' => 'Style Guide',
+          'header_title' => $testData['title'] ,
           'asset_path' => $request->getSchemeAndHttpHost().'/test/',    
-          'body' => RouteDataProcess::getRouteTest(
-            $request->getRequestUri()
-          )['body'],
+          'body' =>$testData['body'],
       ]);
     }
     elseif ($parameter === 'test') {
@@ -61,7 +60,7 @@ class DynamicRoutingController extends AbstractController {
     }
     return $this->render('layouts/prod/index.html.twig', [
         'twig_base_html_path' => 'layouts/prod/base.html.twig',
-        'header_title' => 'Style Guide',
+        'header_title' => $prodData['title'],
         'asset_path' => $request->getSchemeAndHttpHost().'/prod/',  
         'result' => $prodData['body'],
     ]);

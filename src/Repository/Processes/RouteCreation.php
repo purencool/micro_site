@@ -41,6 +41,7 @@ class RouteCreation implements RouteCreationInterface {
           $return[] = (object) [
               '@route' => $storeListItem['object']->{'@route'},
               '@schema' => $storeListItem['schema']->getRealPath(),
+              '@title' => $storeListItem['object']->{'@title'},
           ];
         }
       }

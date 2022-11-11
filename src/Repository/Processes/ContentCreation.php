@@ -120,6 +120,7 @@ class ContentCreation implements ContentCreationInterface {
       '@schema' => $schema,
       '@response_type' => $routeRebuildArr['@response_type'],
       '@data_array' => [
+        '@title' => $data->{'@title'},
         '@route' => $data->{'@route'},
         '@link_text' => $data->{'@link_text'},
         '@layout' => $data->{'@layout'},

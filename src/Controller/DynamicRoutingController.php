@@ -25,7 +25,6 @@ class DynamicRoutingController extends AbstractController {
     // For reference the blocking requests tools are executed 
     // from the following namespace App\EventSubscriber\KernelSubscriber.
     // This allows traffic to be blocked from the kernel.
-
     $appTest = $this->getParameter('app.test');
     $prodData = RouteDataProcess::getRouteProd($request->getRequestUri());
 
@@ -47,20 +46,23 @@ class DynamicRoutingController extends AbstractController {
     if ($parameter === 'test' && $appTest === 'true') {
       return $this->render('layouts/test/index.html.twig', [
           'twig_base_html_path' => 'layouts/test/base.html.twig',
-          'title' => 'Style Guide',
-          'result' => RouteDataProcess::getRouteTest(
+          'header_title' => 'Style Guide',
+          'asset_path' => $request->getSchemeAndHttpHost().'/test/',    
+          'body' => RouteDataProcess::getRouteTest(
             $request->getRequestUri()
           )['body'],
       ]);
     }
     elseif ($parameter === 'test') {
       return new Response(
-        'Page doesn\'t exist return <a href="/" title="Home">home</a>'
+        'Page doesn\'t exist return <a href="/" title="Home">home</a>',
+        404
       );
     }
     return $this->render('layouts/prod/index.html.twig', [
         'twig_base_html_path' => 'layouts/prod/base.html.twig',
-        'title' => 'Style Guide',
+        'header_title' => 'Style Guide',
+        'asset_path' => $request->getSchemeAndHttpHost().'/prod/',  
         'result' => $prodData['body'],
     ]);
   }

@@ -1,4 +1,4 @@
 {% extends twig_base_html_path %}
-{% block body %}
-    {{ result|raw }}
-{% endblock %}
+{% block title %}{{header_title}}{% endblock %}
+{% block asset_path %}{{asset_path}}{% endblock %}
+{% block body %}{{ body|raw }}{% endblock %}

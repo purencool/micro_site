@@ -39,7 +39,7 @@ class DynamicRouting extends Loader {
 
   /**
    * 
-   * @param type $testEnabled
+   * @param type $test
    */
   public function __construct($test) {
     parent::__construct();

@@ -26,7 +26,6 @@ class DynamicRoutingController extends AbstractController {
     // from the following namespace App\EventSubscriber\KernelSubscriber.
     // This allows traffic to be blocked from the kernel.
     $appTest = $this->getParameter('app.test');
-    $prodData = RouteDataProcess::getRouteProd($request->getRequestUri());
 
     // Check to see if the request has a json parameter and if so the 
     // user is allowed to access the content caching system in json.
@@ -58,11 +57,13 @@ class DynamicRoutingController extends AbstractController {
         404
       );
     }
+
+    $prodData = RouteDataProcess::getRouteProd($request->getRequestUri());
     return $this->render('layouts/prod/index.html.twig', [
         'twig_base_html_path' => 'layouts/prod/base.html.twig',
         'header_title' => $prodData['title'],
         'asset_path' => $request->getSchemeAndHttpHost().'/prod/',  
-        'result' => $prodData['body'],
+        'body' => $prodData['body'],
     ]);
   }
 

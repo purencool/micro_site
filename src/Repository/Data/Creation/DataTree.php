@@ -35,31 +35,6 @@ class DataTree {
    */
   private static $data;
 
-  /**
-   * 
-   * @param type $schema
-   * @return type
-   */
-  private static function dataTreeSchema($schema) {
-    $obj = new PhpObject();
-    $return = [];
-
-    $result = SchemaSearch::findSchemas(
-        $obj->getPhpObject(
-          $schema,
-          self::$category
-        )['array_objects']
-    );
-
-    foreach ($result as $resultItem) {
-      $return[] = (array) $obj->getPhpObject(
-          $resultItem->{'@schema'},
-          self::$category
-        )['array_objects'];
-    }
-
-    return $return;
-  }
 
   /**
    *  Get route object to create an array to build routes for the system.
@@ -67,7 +42,7 @@ class DataTree {
   private static function typeArray() {
 
     $obj = new PhpObject();
-    return (array)$obj->getPhpObject(
+    return (array) $obj->getPhpObject(
         self::$schema,
         self::$category
       )['array_objects']
@@ -79,13 +54,32 @@ class DataTree {
    * 
    * @return type
    */
-  private static function dataTree() {
+  private static function dataTree($arr) {
     $return = [];
-    foreach ((array) self::typeArray() as $key => $item) {
+    $obj = new PhpObject();
+
+    foreach ($arr as $key => $item) {
+
       if (property_exists($item, '@schema')) {
-        $return[$key] = (array) self::dataTreeSchema($item->{'@schema'});
-        if ($key == 'content' && self::$data != '') {
-          $return[$key][] = ['@data' => (object)self::$data];
+        $schemaData = $obj->getPhpObject(
+            $item->{'@schema'},
+            self::$category
+          )['array_objects'];
+
+        if (property_exists($schemaData, 'error')) {
+          $return[$key] = [
+            '@schema' => $item->{'@schema'},
+            '@data' => $schemaData
+          ];
+        }
+        else {
+          $return[$key] = [
+            '@schema' => $item->{'@schema'},
+            '@data' => $schemaData->{'@data'}
+          ];
+          if (!property_exists($schemaData, '@data')) {
+            $return[$key] = self::dataTree($schemaData);
+          }
         }
       }
     }
@@ -110,7 +104,7 @@ class DataTree {
     self::$type = $type;
     self::$data = $data;
 
-    return self::dataTree();
+    return self::dataTree((array) self::typeArray());
   }
 
 }

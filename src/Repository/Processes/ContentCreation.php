@@ -29,7 +29,8 @@ class ContentCreation implements ContentCreationInterface {
     }
     elseif ($type == 'test') {
       $routes = $obj->getPhpObject('test_routes', 'cont_test')['array_objects'];
-    } else {
+    }
+    else {
       return 'no route';
     }
 
@@ -116,6 +117,17 @@ class ContentCreation implements ContentCreationInterface {
     }
 
     $data = self::routeData($schema);
+    print '<pre>';
+    print_r(
+      DataTree::getDataTree(
+        'config',
+        self::contentCacheType($type),
+        $data->{'@type'},
+        $data->{'@data'},
+      )
+    );
+    exit;
+
     return [
       '@schema' => $schema,
       '@response_type' => $routeRebuildArr['@response_type'],

@@ -2,6 +2,9 @@
 
 namespace App\Controller\Observers;
 
+
+use App\Repository\Utilities\ObjectsToArray;
+
 /**
  * Gets data array after building the content from the route.
  *
@@ -102,30 +105,7 @@ class DataLayout {
     return $arr;
   }
 
-  /**
-   * Removes all STD objects and turns them into an array.
-   * 
-   * @param mixed $obj
-   *     Can be arrays or objects.
-   * @return mixed
-   *     Ultimately returns an array after recursion is
-   *     resolved.
-   */
-  private static function objectsToArray($obj) {
-    if (is_object($obj)) {
-      $obj = (array) $obj;
-    }
-    if (is_array($obj)) {
-      $new = array();
-      foreach ($obj as $key => $val) {
-        $new[$key] = self::objectsToArray($val);
-      }
-    }
-    else {
-      $new = $obj;
-    }
-    return $new;
-  }
+
 
   /**
    * Returns meshed data with layout array.
@@ -146,7 +126,7 @@ class DataLayout {
       return [
         'preprocessor' =>
         self::findContentPlaceholder(
-          self::objectsToArray(
+          ObjectsToArray::returnObjToArr(
             $data['layouts']
           )
         )

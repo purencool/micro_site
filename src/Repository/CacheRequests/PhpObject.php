@@ -39,8 +39,7 @@ class PhpObject implements PhpObjectInterface {
   /**
    * @inherit
    */
-  public function getPhpObject($typeOfObject, $environment = ''): array {
-
+  public function getPhpObject($typeOfObject, $environment = ''): array { 
     if ($environment === 'prod') {
       $data = $this->getData(Schema::getSiteCacheProd(), $typeOfObject);
     }

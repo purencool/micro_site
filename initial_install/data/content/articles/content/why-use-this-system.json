@@ -1,6 +1,6 @@
 {
     "@title": "Welcome to this website",
-    "@route": "/articles/how-to-write-an-article",
+    "@route": "/articles/why-use-this-system",
     "@link_text": "Writng an article",
     "@type": "article",
     "@layout": "article",

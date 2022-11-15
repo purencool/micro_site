@@ -3,6 +3,8 @@
 namespace App\Repository\Data\Creation;
 
 use App\Repository\CacheRequests\PhpObject;
+use App\Repository\CacheRequests\PhpObjectsList;
+use App\Repository\Utilities\ObjectsToArray;
 
 /**
  * Creates data trees for content and layouts
@@ -10,6 +12,12 @@ use App\Repository\CacheRequests\PhpObject;
  * @author purencool
  */
 class DataTree {
+
+  /**
+   * 
+   * @var type
+   */
+  private static $route;
 
   /**
    * 
@@ -35,7 +43,6 @@ class DataTree {
    */
   private static $data;
 
-
   /**
    *  Get route object to create an array to build routes for the system.
    */
@@ -48,6 +55,45 @@ class DataTree {
       )['array_objects']
       ->{'@types'}
       ->{self::$type};
+  }
+
+ /**
+  * 
+  * @param type $arr
+  * @return string
+  */
+  private static function getContent($arr) {
+    if (isset($arr['@data']['article'])) {
+      return (object) $arr['@data'];
+    }
+    return '';
+  }
+
+  /**
+   * 
+   * @param type $schema
+   * @return string
+   */
+  private static function getContentObj($schema) {
+
+    $objs = new PhpObjectsList();
+    $results = $objs->getPhpObjects(
+        $schema,
+        self::$category
+      )['array_objects'];
+    foreach ($results as $items) {
+      if (property_exists($items['object'], '@route')) {
+        if ($items['object']->{'@route'} === self::$route) {
+          return self::getContent(
+              ObjectsToArray::returnObjToArr(
+                $items['object']
+              )
+          );
+        }
+      }
+    }
+
+    return '';
   }
 
   /**
@@ -67,10 +113,19 @@ class DataTree {
           )['array_objects'];
 
         if (property_exists($schemaData, 'error')) {
-          $return[$key] = [
-            '@schema' => $item->{'@schema'},
-            '@data' => $schemaData
-          ];
+          if ($key === 'content') {
+
+            $return[$key] = [
+              '@schema' => $item->{'@schema'},
+              '@data' => self::getContentObj($item->{'@schema'})
+            ];
+          }
+          else {
+            $return[$key] = [
+              '@schema' => $item->{'@schema'},
+              '@data' => $schemaData
+            ];
+          }
         }
         else {
           $return[$key] = [
@@ -94,11 +149,13 @@ class DataTree {
    * @return array
    */
   public static function getDataTree(
+    $route,
     $schema,
     $category,
     $type = 'multi',
     $data = ''
   ): array {
+    self::$route = $route;
     self::$schema = $schema;
     self::$category = $category;
     self::$type = $type;

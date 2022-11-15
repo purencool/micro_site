@@ -108,7 +108,6 @@ class ContentCreation implements ContentCreationInterface {
   public static function getData(string $routeName, string $type): array {
     $routeRebuildArr = self::routeRebuild($routeName);
     $schema = self::routeArray($routeRebuildArr, $type);
-
     if ($schema == 'no data') {
       return [
         'error' => 'true',
@@ -117,17 +116,6 @@ class ContentCreation implements ContentCreationInterface {
     }
 
     $data = self::routeData($schema);
-    print '<pre>';
-    print_r(
-      DataTree::getDataTree(
-        'config',
-        self::contentCacheType($type),
-        $data->{'@type'},
-        $data->{'@data'},
-      )
-    );
-    exit;
-
     return [
       '@schema' => $schema,
       '@response_type' => $routeRebuildArr['@response_type'],
@@ -138,6 +126,7 @@ class ContentCreation implements ContentCreationInterface {
         '@layout' => $data->{'@layout'},
         '@type' => $data->{'@type'},
         '@data' => DataTree::getDataTree(
+          $routeRebuildArr['@route'],
           'config',
           self::contentCacheType($type),
           $data->{'@type'},

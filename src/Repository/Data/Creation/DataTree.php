@@ -5,6 +5,7 @@ namespace App\Repository\Data\Creation;
 use App\Repository\CacheRequests\PhpObject;
 use App\Repository\CacheRequests\PhpObjectsList;
 use App\Repository\Utilities\ObjectsToArray;
+use App\Repository\Data\Creation\UrlCorrection;
 
 /**
  * Creates data trees for content and layouts
@@ -83,7 +84,8 @@ class DataTree {
       )['array_objects'];
     foreach ($results as $items) {
       if (property_exists($items['object'], '@route')) {
-        if ($items['object']->{'@route'} === self::$route) {
+        $urlTest = UrlCorrection::testRoute(self::$route);
+        if ($items['object']->{'@route'} === $urlTest) {
           return self::getContent(
               ObjectsToArray::returnObjToArr(
                 $items['object']
@@ -105,16 +107,14 @@ class DataTree {
     $obj = new PhpObject();
 
     foreach ($arr as $key => $item) {
-
       if (property_exists($item, '@schema')) {
         $schemaData = $obj->getPhpObject(
             $item->{'@schema'},
             self::$category
           )['array_objects'];
-
+     
         if (property_exists($schemaData, 'error')) {
           if ($key === 'content') {
-
             $return[$key] = [
               '@schema' => $item->{'@schema'},
               '@data' => self::getContentObj($item->{'@schema'})
@@ -160,7 +160,7 @@ class DataTree {
     self::$category = $category;
     self::$type = $type;
     self::$data = $data;
-
+ 
     return self::dataTree((array) self::typeArray());
   }
 

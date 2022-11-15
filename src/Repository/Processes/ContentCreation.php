@@ -5,6 +5,7 @@ namespace App\Repository\Processes;
 use App\Repository\CacheRequests\PhpObject;
 use App\Repository\Utilities\SchemaEncodeDecode;
 use App\Repository\Data\Creation\DataTree;
+use App\Repository\Data\Creation\UrlCorrection;
 
 /**
  * Description of CotentCreation
@@ -36,14 +37,7 @@ class ContentCreation implements ContentCreationInterface {
 
     foreach ($routes as $object) {
       if (property_exists($object, '@route')) {
-        // Testing route is not the front page(/).
-        if (strlen($routeName['@route']) === 1) {
-          $routeTestString = $routeName['@route'];
-        }
-        else {
-          $routeTestString = rtrim($routeName['@route'], '/');
-        }
-        if ($object->{'@route'} == $routeTestString) {
+        if ($object->{'@route'} == UrlCorrection::testRoute($routeName['@route'])) {
           return $object->{'@schema'};
         }
       }

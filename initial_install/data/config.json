@@ -38,10 +38,10 @@
                 "@schema": "content/home/sections/about"
             },
             "content": {
-                "@schema": "content/home/home"
+                "@schema": "content/home/"
             },
             "articles": {
-                "@schema": "content/home/home"
+                "@schema": "content/home/content/home"
             },
             "footer": {
                 "@schema": "universal/footer"

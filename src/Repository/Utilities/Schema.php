@@ -210,7 +210,7 @@ class Schema {
    */
   public static function getSiteTestCacheContent(): string {
     self::globalPath();
-    return self::getSiteCacheContent() . self::$ds .'test'.  self::$ds;
+    return self::getSiteCacheContent() . 'test'.  self::$ds;
   }
 
   /**
@@ -220,7 +220,7 @@ class Schema {
    */
   public static function getSiteProdCacheContent(): string {
     self::globalPath();
-    return self::getSiteCacheContent(). self::$ds .'prod' . self::$ds;
+    return self::getSiteCacheContent() .'prod' . self::$ds;
   }
 
   /**

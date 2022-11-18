@@ -24,7 +24,7 @@ class PhpObject implements PhpObjectInterface {
    *    Return data structures.
    */
   protected function getData(String $schema, String $typeOfObject) {
-
+  
     $schemaResult = FindPhpObject::getObject($schema, $typeOfObject);
     if ($schemaResult === false) {
       return (object) [

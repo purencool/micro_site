@@ -19,18 +19,14 @@ class HtmlCreation {
    */
   public static function setChanges(array $dataArray): string {
     $return = '';
-    foreach ($dataArray['preprocessor'] as $key => $item) {
+    foreach ($dataArray as $key => $item) {
       $output = str_replace('_', '-', $key);
       $return .= "<div id=\"id-app-$output\" class=\"app-$output\"  >";
-      foreach ($item as $keyList => $itemsList) {
-        if (!is_string($itemsList)) {
-          if (array_key_exists('@data', $itemsList)) {
-            $return .= implode('', $itemsList['@data']);
-          }
-        }
-        else {
-          $return .= $itemsList;
-        }
+      if (array_key_exists('@data', $item)) {
+        $return .= implode('', $item['@data']);
+      }
+      else {
+        $return .= self::setChanges($item);
       }
       $return .= "</div>";
     }

@@ -32,10 +32,7 @@ class DynamicRoutingController extends AbstractController {
     if ($parameter === 'json') {
       return new Response(
         json_encode(
-          RouteData::getData(
-            $request->getRequestUri(),
-            'prod'
-          )['data']['@data_array']
+          RouteDataProcess::getRouteJson($request->getRequestUri())
         )
       );
     }

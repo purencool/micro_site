@@ -14,6 +14,34 @@ use App\Controller\Observers\HtmlCreation;
  * @author purencool
  */
 class RouteDataProcess {
+  
+  /**
+   * Removes schema_name from json response
+   * 
+   * @param array $data
+   *   data object.
+   * @return array
+   *   array with schema_name removed.
+   */
+  private static function arrayUnset(&$data) {
+    return $data;
+  }
+
+  /**
+   * Gets data array after building the content from the route.
+   * 
+   * @param string $route
+   *    Route name.
+   * @return array
+   *    Data connected to the route.
+   */
+  public static function getRouteJson($route): array {
+    $routeDataArrTest = RouteData::getData($route, 'prod');
+    return [
+      'title' => $routeDataArrTest['data']['@data_array']['@title'],
+      'body' => self:: arrayUnset($routeDataArrTest['data']['@data_array'])
+    ];
+  }
 
   /**
    * Gets data array after building the content from the route.
@@ -30,9 +58,9 @@ class RouteDataProcess {
       'body' => HtmlCreation::setChanges(
         DataAlterTest::setChanges(
           DataLayout::getDataLayout(
-             $routeDataArrTest
+            $routeDataArrTest
           )
-        )
+        )['preprocessor']
       )
     ];
   }

@@ -13,8 +13,9 @@ use App\Repository\Utilities\ObjectsToArray;
 class DataLayout {
 
   /**
+   * Data Array is the data needed for the theme layout.
    * 
-   * @var type
+   * @var array
    */
   private static $dataArray;
 
@@ -121,7 +122,6 @@ class DataLayout {
   public static function getDataLayout(array $data, string $type = 'preprocessor'): array {
 
     self::$dataArray = self::flatten($data['data']['@data_array']['@data']);
-
     if ($type == 'preprocessor') {
       return [
         'preprocessor' =>

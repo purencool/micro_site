@@ -1,5 +1,4 @@
 {
-    "@schema_name": "navigation",
     "@data": [
         "<div id=\"navigation\">",
         "@content_placeholder",

@@ -1,15 +1,12 @@
 {
-    "@schema_name": "sidebar",
-    "site_bar_top": {
-        "@data": ["<div id=\"sitebar\">"]
+    "@data_sidebar": "<div id=\"sidebar\">",
+    "@child": {
+        "item_one": {
+            "@schema": "content/articles/sections/items/item_one"
+        },
+        "item_two": {
+            "@schema": "content/articles/sections/items/item_two"
+        }
     },
-    "item_one": {
-        "@schema": "content/articles/sections/items/item_one"
-    },
-    "item_two": {
-        "@schema": "content/articles/sections/items/item_two"
-    },
-    "site_bar_bottom": {
-        "@data": ["</div>"]
-    }
+    "@data_sidebar_end": "</div>"
 }

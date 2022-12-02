@@ -1,5 +1,4 @@
 {
-    "@schema_name": "footer_four",
     "@data": [
         "<div id=\"footer-four\">",
         "@content_placeholder",

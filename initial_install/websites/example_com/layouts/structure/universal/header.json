@@ -1,9 +1,16 @@
 {
-    "@schema_name": "header",
-    "branding": {
-        "@schema": "universal/sections/branding"
+    "@data_container": "<div class=\"container\">",
+    "@child": {
+        "@data_child_one": "<div class=\"row\">", 
+        "branding": {
+            "@schema": "universal/sections/branding"
+        },
+        "@data_child_one_end": "</div>",
+        "@data_child_two": "<div class=\"row\">", 
+        "navigation": {
+            "@schema": "universal/sections/navigation"
+        },
+        "@data_child_two_end": "</div>"
     },
-    "navigation": {
-        "@schema": "universal/sections/navigation"
-    }
+    "@data_container_end": "</div>"
 }

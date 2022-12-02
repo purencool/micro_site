@@ -11,48 +11,55 @@ use App\Repository\Processes\DataObjects;
  */
 class SchemaTree {
 
-  private static function schemaObjects($dataResponse, $category) {
-    $return = [];
-    foreach ($dataResponse as $element) {
-      if (property_exists($element, '@schema')) {
-        $object = DataObjects::dataRequest(
-            $element->{'@schema'},
-            $category
-          )['array_objects'];
-        $object->{'@schema'} = $element->{'@schema'};
-        $schemaName = explode('/', $element->{'@schema'});
-        $object->{'@schema_name'} = end($schemaName);
-        $return[] = $object;
+  /**
+   * 
+   * @param object $object
+   * @return bool
+   */
+  private static function testForDataParameter(object $object): bool {
+    foreach (array_keys(get_object_vars($object)) as $item) {
+      if (str_contains($item, '@data')) {
+        return true;
       }
     }
-
-    return (object) $return;
+    return false;
   }
 
   /**
    * 
    * @param type $objectPassed
-   * @param type $in_arr
+   * @param type $inArr
    * @return type
    */
-  private static function schema($objectPassed, $category, $inArr = []) {
+  private static function schema($objectPassed, $inArr = []) {
     foreach ($objectPassed as $key => $element) {
-      if (is_array($element) || is_object($element)) {
+      print_r($element);
+      if (is_object($element)) {
         if (property_exists($element, '@schema')) {
           $dataResponse = DataObjects::dataRequest(
               $element->{'@schema'},
-              $category
+              'layout'
             )['array_objects'];
 
-          if (!property_exists($dataResponse, '@data')) {
-            $inArr[$key] = self::schemaObjects($dataResponse, $category);
-          }
-          else {
-            $dataResponse->{'@schema'} = $element->{'@schema'};
+          $testForDataParam = self::testForDataParameter($dataResponse);
+          if ($testForDataParam === true) {
+
             $inArr[$key] = $dataResponse;
           }
+          else {
+           
+            $inArr[$key] = self::schema($dataResponse);
+          }
+          //   $inArr[$key] = (array)$dataResponse;
+          //   if (!property_exists($dataResponse, '@data')) {
+          //    $inArr[$key] = self::schemaObjects($dataResponse, $category);
+          //    }
+          //   else {
+          //      $dataResponse->{'@schema'} = $element->{'@schema'};
+          //      $inArr[$key] = $dataResponse;
+          //    }
         }
-        self::schema($element, $category, $inArr);
+       // self::schema($dataResponse);
       }
     }
     return $inArr;
@@ -63,9 +70,9 @@ class SchemaTree {
    * @param type $objectPassed
    * @return type
    */
-  public static function create($arrayPassedIn, $category): array {
+  public static function create($arrayPassedIn): array {
     foreach ((array) $arrayPassedIn['@types'] as $key => $item) {
-      $return[$key] = self::schema($item, $category);
+      $return[$key] = self::schema($item);
     }
     return ['@types' => $return];
   }

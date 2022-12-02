@@ -122,6 +122,8 @@ class DataLayout {
   public static function getDataLayout(array $data, string $type = 'preprocessor'): array {
 
     self::$dataArray = self::flatten($data['data']['@data_array']['@data']);
+    print '<pre>'; 
+    print_r( $data); exit;
     if ($type == 'preprocessor') {
       return [
         'preprocessor' =>
@@ -132,7 +134,7 @@ class DataLayout {
         )
       ];
     }
-
+   exit;
     return array_merge(['preprocessor' => $data], $data);
   }
 

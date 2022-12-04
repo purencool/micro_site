@@ -65,7 +65,7 @@ class DataTree {
   */
   private static function getContent($arr) {
     if (isset($arr['@data']['article'])) {
-      return (object) $arr['@data'];
+      return  $arr['@data'];
     }
     return '';
   }

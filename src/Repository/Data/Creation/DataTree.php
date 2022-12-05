@@ -58,14 +58,14 @@ class DataTree {
       ->{self::$type};
   }
 
- /**
-  * 
-  * @param type $arr
-  * @return string
-  */
+  /**
+   * 
+   * @param type $arr
+   * @return string
+   */
   private static function getContent($arr) {
     if (isset($arr['@data']['article'])) {
-      return  $arr['@data'];
+      return (object) $arr['@data'];
     }
     return '';
   }
@@ -112,7 +112,7 @@ class DataTree {
             $item->{'@schema'},
             self::$category
           )['array_objects'];
-     
+
         if (property_exists($schemaData, 'error')) {
           if ($key === 'content') {
             $return[$key] = [
@@ -160,7 +160,7 @@ class DataTree {
     self::$category = $category;
     self::$type = $type;
     self::$data = $data;
- 
+
     return self::dataTree((array) self::typeArray());
   }
 

@@ -53,8 +53,8 @@ class SchemaTree {
 
   /**
    * 
-   * @param type $objectPassed
-   * @return type
+   * @param object $arrayPassedIn
+   * @return array
    */
   public static function create($arrayPassedIn): array {
     foreach ((array) $arrayPassedIn['@types'] as $key => $item) {

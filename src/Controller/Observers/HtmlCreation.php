@@ -20,15 +20,28 @@ class HtmlCreation {
   public static function setChanges(array $dataArray): string {
     $return = '';
     foreach ($dataArray as $key => $item) {
-      $output = str_replace('_', '-', $key);
-      $return .= "<div id=\"id-app-$output\" class=\"app-$output\"  >";
-      if (array_key_exists('@data', $item)) {
-        $return .= implode('', $item['@data']);
+      if (!is_object($item)) {
+        if (!is_string($item)) {
+          $output = str_replace('_', '-', $key);
+          $return .= "<div id=\"id-app-$output\" class=\"app-$output\"  >";
+          if (array_key_exists('@data', $item)) {
+            $return .= implode('', $item['@data']);
+          }
+          else {
+            $return .= self::setChanges($item);
+          }
+          $return .= "</div>";
+        }
+        else {
+           print $key ;
+          $return .= $item;
+        }
       }
       else {
-        $return .= self::setChanges($item);
+        foreach (get_object_vars($item) as $strings) {
+          $return .= "<div>$strings</div>";
+        }
       }
-      $return .= "</div>";
     }
 
     return $return;

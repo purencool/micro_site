@@ -3,6 +3,7 @@
 namespace App\Controller\Observers;
 
 use App\Repository\Utilities\ObjectsToArray;
+use App\Repository\Processes\LayoutCreation;
 
 /**
  * Gets data array after building the content from the route.
@@ -90,6 +91,15 @@ class Layouts {
    *    Data connected to the route.
    */
   public static function getArrays(array $data): array {
+    print_r($data);
+    $layouts = (array) LayoutCreation::getData($type);
+ 
+    // Adds a object around the content to reduce code higher 
+    // in the response observer stack.
+    $typeUsed = $data['@type'];
+    $content = $layouts['@types'][$typeUsed]['content'];
+    $layouts['@types'][$typeUsed]['content'] = (object) [$content];
+  //'layouts' => $layouts['@types'][$typeUsed];
 
     self::$layoutArray = ObjectsToArray::returnObjToArr($data['layouts']);
     return [

@@ -3,7 +3,7 @@
 namespace App\Controller\Observers;
 
 use App\Repository\Processes\ContentCreation;
-use App\Repository\Processes\LayoutCreation;
+
 
 /**
  * Gets data array after building the content from the route.
@@ -43,20 +43,8 @@ class RouteData {
     $data = ContentCreation::getData($route, $type);
     $processedData = self::flatten($data['@data']);
     $data['@content'] = $processedData;
+    return $data;
 
-
- $layouts = (array) LayoutCreation::getData($type);
- 
-    // Adds a object around the content to reduce code higher 
-    // in the response observer stack.
-    $typeUsed = $data['@type'];
-    $content = $layouts['@types'][$typeUsed]['content'];
-    $layouts['@types'][$typeUsed]['content'] = (object) [$content];
-
-    return [
-      'data' => $data,
-      'layouts' => $layouts['@types'][$typeUsed]
-    ];
   }
 
 }

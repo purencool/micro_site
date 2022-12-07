@@ -55,17 +55,19 @@ class RouteDataProcess {
     print '<pre>';
     // Content Array;
     $dataArray = RouteData::getData($route, 'test');
-    print_r($dataArray); exit;
+    //print_r($dataArray); exit;
     // Layout Array;
     $layoutArray = Layouts::getArray($dataArray);
 
     print_r($layoutArray); exit;
     return [
-      'title' => $routeDataArrTest['data']['@data_array']['@title'],
       'body' => HtmlCreation::setChanges(
         DataAlterTest::setChanges(
         )['preprocessor']
-      )
+      ),
+      'meta_description' => '',
+      'meta_tags' => '', 
+      'title' => $routeDataArr['data']['@title'],
     ];
   }
 

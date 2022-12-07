@@ -9,14 +9,8 @@ use App\Repository\Utilities\ObjectsToArray;
  *
  * @author purencool
  */
-class DataLayout {
+class Layouts {
 
-  /**
-   * Data Array is the data needed for the theme layout.
-   * 
-   * @var array
-   */
-  private static $dataArray;
 
   /**
    * Data Array is the data needed for the theme layout.
@@ -25,21 +19,7 @@ class DataLayout {
    */
   private static $layoutArray;
 
-  /**
-   * Flattens array so that in can be used in the layout.
-   * 
-   * @param array $array
-   *    Array that needs to be flattened.
-   * @return array
-   *    Flattened array.
-   */
-  private static function flatten(array $array): array {
-    $return = [];
-    array_walk_recursive($array, function ($a) use (&$return) {
-      $return[] = $a;
-    });
-    return $return;
-  }
+
 
   /**
    * Returns meshed data with layout array.
@@ -91,24 +71,9 @@ class DataLayout {
    */
   private static function findContentPlaceholder(array $arr): array {
     foreach ($arr as $key => $val) {
-
-      //  if (array_key_exists('@schema_name', $arr) &&
-      //    array_key_exists('@data', $arr) &&
-      //   array_key_exists('@schema', $arr)) {
-      //    $keyFind = array_search('@content_placeholder', $arr['@data']);
-      //    if ($keyFind !== false) {
-      //      $arr['@data'][$keyFind] = self::findContentNeeded(
-      //           $arr['@schema_name']
-      //       );
-      //      }
-      //      return $arr;
-      //    }
-      //    else {
       if (is_array($val)) {
-        print_r($val);
         $arr[$key] = self::findContentPlaceholder($val);
       }
-      //    }
     }
     return $arr;
   }
@@ -124,12 +89,10 @@ class DataLayout {
    * @return array
    *    Data connected to the route.
    */
-  public static function getDataLayout(array $data): array {
-    self::$dataArray = self::flatten($data['data']['@data_array']['@data']);
+  public static function getArrays(array $data): array {
+
     self::$layoutArray = ObjectsToArray::returnObjToArr($data['layouts']);
     return [
-      'preprocessor' => self::$layoutArray,
-      'data_array' => self::$dataArray,
       'layout_array' => self::$layoutArray
     ];
   }

@@ -10,19 +10,19 @@ namespace App\Controller\Observers;
 class HtmlCreation {
 
   /**
-   * HtmlCreation is use to access the test cache objects.
+   * HtmlCreation flattens an array into a string.
    * 
    * @param array $dataArray
    *    Data array to be modified.
-   * @return array
-   *    Return array changes.
+   * @return string
+   *    Return strings of flatten array.
    */
   public static function setChanges(array $dataArray): string {
     $return = '';
     foreach ($dataArray as $key => $item) {
       if (!is_object($item)) {
         if (!is_string($item)) {
-           $output = str_replace('_', '-', $key);
+          $output = str_replace('_', '-', $key);
           if (strpos($key, '@') !== false) {
             $outputAt = str_replace('@', '-', $output);
             $return .= "<div class=\"app-$outputAt\"  >";

@@ -113,20 +113,18 @@ class ContentCreation implements ContentCreationInterface {
     return [
       '@schema' => $schema,
       '@response_type' => $routeRebuildArr['@response_type'],
-      '@data_array' => [
-        '@title' => $data->{'@title'},
-        '@route' => $data->{'@route'},
-        '@link_text' => $data->{'@link_text'},
-        '@layout' => $data->{'@layout'},
-        '@type' => $data->{'@type'},
-        '@data' => DataTree::getDataTree(
-          $routeRebuildArr['@route'],
-          'config',
-          self::contentCacheType($type),
-          $data->{'@type'},
-          $data->{'@data'},
-        ),
-      ]
+      '@title' => $data->{'@title'},
+      '@route' => $data->{'@route'},
+      '@link_text' => $data->{'@link_text'},
+      '@layout' => $data->{'@layout'},
+      '@type' => $data->{'@type'},
+      '@data' => DataTree::getDataTree(
+        $routeRebuildArr['@route'],
+        'config',
+        self::contentCacheType($type),
+        $data->{'@type'},
+        $data->{'@data'},
+      ),
     ];
   }
 

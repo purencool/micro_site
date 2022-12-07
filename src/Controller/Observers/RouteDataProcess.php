@@ -5,7 +5,7 @@ namespace App\Controller\Observers;
 use App\Controller\Observers\RouteData;
 use App\Controller\Observers\DataAlterTest;
 use App\Controller\Observers\DataAlterProd;
-use App\Controller\Observers\DataLayout;
+use App\Controller\Observers\Layouts;
 use App\Controller\Observers\HtmlCreation;
 
 /**
@@ -52,14 +52,18 @@ class RouteDataProcess {
    *    Data connected to the route.
    */
   public static function getRouteTest($route): array {
-    $routeDataArrTest = RouteData::getData($route, 'test');
+    print '<pre>';
+    // Content Array;
+    $dataArray = RouteData::getData($route, 'test');
+    print_r($dataArray); exit;
+    // Layout Array;
+    $layoutArray = Layouts::getArray($dataArray);
+
+    print_r($layoutArray); exit;
     return [
       'title' => $routeDataArrTest['data']['@data_array']['@title'],
       'body' => HtmlCreation::setChanges(
         DataAlterTest::setChanges(
-          DataLayout::getDataLayout(
-            $routeDataArrTest
-          )
         )['preprocessor']
       )
     ];

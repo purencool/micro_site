@@ -57,7 +57,7 @@ class RouteDataProcess {
     $dataArray = RouteData::getData($route, 'test');
     //print_r($dataArray); exit;
     // Layout Array;
-    $layoutArray = Layouts::getArray($dataArray);
+    $layoutArray = Layouts::getArray($dataArray['@type']);
 
     print_r($layoutArray); exit;
     return [

@@ -90,15 +90,16 @@ class Layouts {
    * @return array
    *    Data connected to the route.
    */
-  public static function getArrays(array $data): array {
-    print_r($data);
+  public static function getArray(string $type): array {
+   
     $layouts = (array) LayoutCreation::getData($type);
- 
+  print_r($layouts['@types'][$type]); exit;
     // Adds a object around the content to reduce code higher 
     // in the response observer stack.
-    $typeUsed = $data['@type'];
-    $content = $layouts['@types'][$typeUsed]['content'];
-    $layouts['@types'][$typeUsed]['content'] = (object) [$content];
+
+    //$content = $layouts['@types'][$type]['content'];
+    //$layouts['@types'][$typeUsed]['content'] = (object) [$content];
+
   //'layouts' => $layouts['@types'][$typeUsed];
 
     self::$layoutArray = ObjectsToArray::returnObjToArr($data['layouts']);

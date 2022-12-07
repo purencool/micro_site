@@ -53,14 +53,21 @@ class RouteDataProcess {
    */
   public static function getRouteTest($route): array {
     print '<pre>';
-    // Content Array;
-    $dataArray = RouteData::getData($route, 'test');
-    //print_r($dataArray); exit;
-    // Layout Array;
-    $layoutArray = Layouts::getArray($dataArray['@type']);
 
-    print_r($layoutArray); exit;
-    return [
+    $data = RouteData::getData($route, 'test');
+    $data['layout'] = Layouts::getArray($data['@type']);
+    $outPut['response'] = [
+      'body' => '', 
+      'meta_description' => '',
+      'meta_tags' => '', 
+      'title' => $data['@title'],
+    ];
+    $outPut['build_array'] = $data;
+    print_r($outPut); 
+exit;
+
+/*
+ return [
       'body' => HtmlCreation::setChanges(
         DataAlterTest::setChanges(
         )['preprocessor']
@@ -69,6 +76,7 @@ class RouteDataProcess {
       'meta_tags' => '', 
       'title' => $routeDataArr['data']['@title'],
     ];
+ */
   }
 
   /**

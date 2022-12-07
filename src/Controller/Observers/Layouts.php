@@ -92,8 +92,7 @@ class Layouts {
    */
   public static function getArray(string $type): array {
    
-    $layouts = (array) LayoutCreation::getData($type);
-  print_r($layouts['@types'][$type]); exit;
+    return LayoutCreation::getData($type)['@types'][$type];
     // Adds a object around the content to reduce code higher 
     // in the response observer stack.
 
@@ -102,10 +101,7 @@ class Layouts {
 
   //'layouts' => $layouts['@types'][$typeUsed];
 
-    self::$layoutArray = ObjectsToArray::returnObjToArr($data['layouts']);
-    return [
-      'layout_array' => self::$layoutArray
-    ];
+
   }
 
 }

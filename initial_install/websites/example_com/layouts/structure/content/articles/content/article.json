@@ -1,7 +1,3 @@
 {
-    "@data": [
-        "<article>",
-        "@content_placeholder",
-        "</article>"
-    ]     
+   "@content_placeholder": [""]   
 }

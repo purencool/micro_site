@@ -1,7 +1,3 @@
 {
-    "@data": [
-        "<div id=\"branding\">",
-        "@content_placeholder",
-        "</div>"
-    ]
+  "@content_placeholder": [""]
 }

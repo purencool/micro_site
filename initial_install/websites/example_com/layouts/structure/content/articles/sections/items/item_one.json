@@ -1,7 +1,3 @@
 {
-    "@data": [
-        "<div id=\"item-one\">",
-        "@content_placeholder",
-        "</div>"
-    ]
+   "@content_placeholder": [""]
 }

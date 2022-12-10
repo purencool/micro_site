@@ -1,7 +1,3 @@
 {
-    "@data": [
-        "<div id=\"footer_five\">",
-        "@content_placeholder",
-        "</div>"
-    ]
+   "@content_placeholder": [""]
 }

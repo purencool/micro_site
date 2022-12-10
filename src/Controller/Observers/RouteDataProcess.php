@@ -2,11 +2,12 @@
 
 namespace App\Controller\Observers;
 
+use App\Controller\Observers\Mesh;
+use App\Controller\Observers\Layouts;
 use App\Controller\Observers\RouteData;
+use App\Controller\Observers\HtmlCreation;
 use App\Controller\Observers\DataAlterTest;
 use App\Controller\Observers\DataAlterProd;
-use App\Controller\Observers\Layouts;
-use App\Controller\Observers\HtmlCreation;
 
 /**
  * Gets data array after building the content from the route.
@@ -55,15 +56,17 @@ class RouteDataProcess {
     print '<pre>';
 
     $data = RouteData::getData($route, 'test');
-    $data['layout'] = Layouts::getArray($data['@type']);
+    $data['@layout'] = Layouts::getArray($data['@type']);
+       
+     print_r($data['@layout']); exit;     
     $outPut['response'] = [
-      'body' => '', 
+      'body' => Mesh::setMesh($data['@layout'], $data['@content']), 
       'meta_description' => '',
       'meta_tags' => '', 
       'title' => $data['@title'],
     ];
     $outPut['build_array'] = $data;
-    print_r($outPut); 
+   // print_r(Mesh::setMesh($data['@layout'], $data['@content'])); 
 exit;
 
 /*

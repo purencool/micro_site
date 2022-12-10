@@ -21,36 +21,23 @@ class Mesh {
    */
   private static function runMesh(array &$layout, object $content, string $layoutKey) {
 
-    foreach ($layout as $key => $item) {
+    foreach ($layout as $key => $layoutArrayChild) {
       if ($key === $layoutKey) {
-          $lookingForPlaceHolder = '';
-          foreach ($turnIntoArray as $contentKey => $contentValue) {
-            if ($contentValue == '@content_placeholder') {
-              $lookingForPlaceHolder = $contentKey;
-              break;
-            }
+        foreach ($layoutArrayChild as $contentKey => $contentValue) {
+          if ($contentKey == '@content_placeholder') {
+            $layoutArrayChild['@content_placeholder'] = $content->{$layoutKey};
+            break;
           }
-
-          if ($lookingForPlaceHolder == '') {
-            $layout[$key]['@data'][$key] = $content;
-          }
-          else {
-            $layout[$key]['@data'][$lookingForPlaceHolder] = $content->{$layoutKey};
-          }
+         }   
+        $layout[$key] =$layoutArrayChild;    
+      }
+      else {
+        if (is_array($layoutArrayChild)) {
+          $layout[$key] = self::runMesh($layoutArrayChild, $content, $layoutKey);
         }
-        else {
-          // Helps HtmlCreation creation no throw an error 
-          // because HtmlCreation dumps objects as it looks 
-          // for arrays to interate over.
-                if (is_array($item)) {
-        $layout[$key] = self::runMesh($item, $content, $layoutKey);
-      } else {
-          $layout[$key] = $content;
       }
-       
-      }
-
     }
+    return $layout;
   }
 
   /**
@@ -64,18 +51,14 @@ class Mesh {
    *    Return meshed array.
    */
   public static function setMesh(array $layout, array $content): array {
-    $return = [];
-
+ 
     foreach ($content as $item) {
       if (is_object($item)) {
         self::runMesh($layout, $item, array_keys((array) $item)[0]);
       }
     }
 
-    print_r($layout);
-    exit;
-
-    return $return;
+    return $layout;
   }
 
 }

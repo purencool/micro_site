@@ -57,8 +57,7 @@ class RouteDataProcess {
 
     $data = RouteData::getData($route, 'test');
     $data['@layout'] = Layouts::getArray($data['@type']);
-       
-     print_r($data['@layout']); exit;     
+            
     $outPut['response'] = [
       'body' => Mesh::setMesh($data['@layout'], $data['@content']), 
       'meta_description' => '',
@@ -66,7 +65,7 @@ class RouteDataProcess {
       'title' => $data['@title'],
     ];
     $outPut['build_array'] = $data;
-   // print_r(Mesh::setMesh($data['@layout'], $data['@content'])); 
+   print_r($outPut);
 exit;
 
 /*

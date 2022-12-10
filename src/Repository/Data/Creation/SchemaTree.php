@@ -23,6 +23,9 @@ class SchemaTree {
       if (str_contains($item, '@data')) {
         $return[$item] = $object->{$item};
       }
+      if (str_contains($item, '@content_placeholder')) {
+        $return[$item] = $object->{$item};
+      }
       if (str_contains($item, '@child')) {
         $return[$item] = self::schema($object->{$item});
       }
@@ -43,7 +46,7 @@ class SchemaTree {
           $dataResponse = DataObjects::dataRequest(
               $element->{'@schema'},
               'layout'
-            )['array_objects'];
+            )['array_objects'];         
           $inArr[$key] = self::testForDataParameter($dataResponse);
         }
       }

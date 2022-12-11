@@ -15,7 +15,7 @@ use App\Controller\Observers\DataAlterProd;
  * @author purencool
  */
 class RouteDataProcess {
-  
+
   /**
    * Removes schema_name from json response
    * 
@@ -53,32 +53,23 @@ class RouteDataProcess {
    *    Data connected to the route.
    */
   public static function getRouteTest($route): array {
-    print '<pre>';
-
     $data = RouteData::getData($route, 'test');
     $data['@layout'] = Layouts::getArray($data['@type']);
-            
-    $outPut['response'] = [
-      'body' => Mesh::setMesh($data['@layout'], $data['@content']), 
+
+    $responseArr['response'] = [
+      'body' => Mesh::setMesh($data['@layout'], $data['@content']),
       'meta_description' => '',
-      'meta_tags' => '', 
+      'meta_tags' => '',
+      'summary' => '',
       'title' => $data['@title'],
     ];
-    $outPut['build_array'] = $data;
-   print_r($outPut);
-exit;
+    $responseArr['build_array'] = $data;
+    $dataAlterOption = DataAlterTest::setChanges($responseArr);
+    $responseArr['response']['body'] = HtmlCreation::setChanges(
+        $dataAlterOption['response']['body']
+    );
 
-/*
- return [
-      'body' => HtmlCreation::setChanges(
-        DataAlterTest::setChanges(
-        )['preprocessor']
-      ),
-      'meta_description' => '',
-      'meta_tags' => '', 
-      'title' => $routeDataArr['data']['@title'],
-    ];
- */
+    return $responseArr['response'];
   }
 
   /**
@@ -92,21 +83,23 @@ exit;
   public static function getRouteProd($route): array {
     $prodData = 'Page doesn\'t exist return <a href="/" title="Home">home</a>';
 
-    $routeDataArrProd = RouteData::getData($route, 'prod');
-    if ($routeDataArrProd['data']['@schema'] != 'no route') {
-      $prodData = HtmlCreation::setChanges(
-          DataAlterProd::setChanges(
-            DataLayout::getDataLayout(
-              $routeDataArrProd
-            )
-          )
-      );
-    }
+    $data = RouteData::getData($route, 'prod');
+    $data['@layout'] = Layouts::getArray($data['@type']);
 
-    return [
-      'title' => $routeDataArrProd['data']['@data_array']['@title'],
-      'body' => $prodData
+    $responseArr['response'] = [
+      'body' => Mesh::setMesh($data['@layout'], $data['@content']),
+      'meta_description' => '',
+      'meta_tags' => '',
+      'summary' => '',
+      'title' => $data['@title'],
     ];
+    $responseArr['build_array'] = $data;
+    $dataAlterOption = DataAlterTest::setChanges($responseArr);
+    $responseArr['response']['body'] = HtmlCreation::setChanges(
+        $dataAlterOption['response']['body']
+    );
+
+    return $responseArr['response'];
   }
 
 }

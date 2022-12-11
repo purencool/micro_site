@@ -4,7 +4,7 @@
             "header": {
                 "@schema": "universal/header"
             },
-            "content": {
+            "article": {
                 "@schema": "content/pages/article"
             },
             "footer": {
@@ -15,7 +15,7 @@
             "header": {
                 "@schema": "universal/header"
             },
-            "content": {
+            "article": {
                 "@schema": "content/articles/content/article"
             },
             "right_sidebar": {
@@ -35,7 +35,7 @@
             "about": {
                 "@schema": "content/home/sections/about"
             },
-            "content": {
+            "article": {
                 "@schema": "content/home/content/article"
             },
             "footer": {

@@ -4,7 +4,7 @@ namespace App\Repository\Processes;
 
 use App\Repository\CacheRequests\PhpObject;
 use App\Repository\Utilities\SchemaEncodeDecode;
-use App\Repository\Data\Creation\DataTree;
+use App\Repository\Data\Creation\Content;
 use App\Repository\Data\Creation\UrlCorrection;
 
 /**
@@ -118,7 +118,7 @@ class ContentCreation implements ContentCreationInterface {
       '@link_text' => $data->{'@link_text'},
       '@layout' => $data->{'@layout'},
       '@type' => $data->{'@type'},
-      '@data' => DataTree::getDataTree(
+      '@data' => Content::getDataTree(
         $routeRebuildArr['@route'],
         'config',
         self::contentCacheType($type),

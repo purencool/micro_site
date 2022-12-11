@@ -54,7 +54,7 @@ class Mesh {
  
     foreach ($content as $item) {
       if (is_object($item)) {
-        self::runMesh($layout, $item, array_keys((array) $item)[0]);
+        self::runMesh($layout, $item->{'@data'}, array_keys((array) $item->{'@data'})[0]);
       }
     }
 

@@ -1,3 +1,5 @@
 {
-   "@content_placeholder": [""]
+    "@data_container": "<div class=\"container\">",
+    "@content_placeholder": [""],
+    "@data_container_end": "</div>"
 }

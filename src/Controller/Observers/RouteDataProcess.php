@@ -58,6 +58,7 @@ class RouteDataProcess {
 
     $responseArr['response'] = [
       'body' => Mesh::setMesh($data['@layout'], $data['@content']),
+      'language'  => 'en-US',
       'meta_description' => '',
       'meta_keywords' => '',
       'meta_author' => '',
@@ -100,6 +101,7 @@ class RouteDataProcess {
 
     $responseArr['response'] = [
       'body' => Mesh::setMesh($data['@layout'], $data['@content']),
+      'language'  => 'en',
       'meta_description' => '',
       'meta_keywords' => '',
       'meta_author' => '',

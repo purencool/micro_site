@@ -94,7 +94,7 @@ class RouteDataProcess {
       'title' => $data['@title'],
     ];
     $responseArr['build_array'] = $data;
-    $dataAlterOption = DataAlterTest::setChanges($responseArr);
+    $dataAlterOption = DataAlterProd::setChanges($responseArr);
     $responseArr['response']['body'] = HtmlCreation::setChanges(
         $dataAlterOption['response']['body']
     );

@@ -1,4 +1,22 @@
 {% extends twig_base_html_path %}
+
+{% block meta_description %}{{meta_description}}{% endblock %}
+{% block meta_keywords %}{{meta_keywords}}{% endblock %}
+{% block meta_author %}{{meta_author}}{% endblock %}
+
+{% block og_meta_type %}{{og_meta_type}}{% endblock %}
+{% block og_meta_title %}{{og_meta_title}}{% endblock %}
+{% block og_meta_description %}{{og_meta_description}}{% endblock %}
+{% block og_meta_image %}{{og_meta_image}}{% endblock %}
+{% block og_meta_route %}{{og_meta_route}}{% endblock %}
+{% block og_meta_site_name %}{{og_meta_site_name}}{% endblock %}
+
+{% block tw_meta_title %}{{tw_meta_title}}{% endblock %}
+{% block tw_meta_description %}{{tw_meta_description}}{% endblock %}
+{% block tw_meta_image %}{{tw_meta_image}}{% endblock %}
+{% block tw_meta_site %}{{tw_meta_site}}{% endblock %}
+{% block tw_meta_creator %}{{tw_meta_creator}}{% endblock %}
+
 {% block title %}{{header_title}}{% endblock %}
 {% block asset_path %}{{asset_path}}{% endblock %}
 {% block body %}{{ body|raw }}{% endblock %}

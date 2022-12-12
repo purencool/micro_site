@@ -2,7 +2,7 @@
     "@layout_container": "<div id=\"main-content\" class=\"container\">",
     "@layout_article": "<article>",
     "@data": {
-        "@uuid": "article",  
+        "@data_id": "article",  
         "@token": "",
         "@content": ""
     },

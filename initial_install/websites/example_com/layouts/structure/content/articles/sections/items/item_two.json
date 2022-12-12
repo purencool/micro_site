@@ -1,6 +1,6 @@
 {
     "@data": {
-        "@uuid": "item_two",  
+        "@data_id": "item_two",  
         "@token": "",
         "@content": ""
     }

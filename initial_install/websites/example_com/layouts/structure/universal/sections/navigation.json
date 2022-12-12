@@ -1,3 +1,7 @@
 {
-  "@content_placeholder": [""]
+    "@data": {
+        "@uuid": "navigation",  
+        "@token": "",
+        "@content": ""
+    }
 }

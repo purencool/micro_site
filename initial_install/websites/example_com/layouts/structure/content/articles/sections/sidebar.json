@@ -1,9 +1,7 @@
 {
     "@data_sidebar": "<div id=\"sidebar\">",
-    "item_one": {
-        "@schema": "content/articles/sections/items/item_one"
-    },
-    "item_two": {
+    "items" : {
+        "@schema": "content/articles/sections/items/item_one",
         "@schema": "content/articles/sections/items/item_two"
     },
     "@data_sidebar_end": "</div>"

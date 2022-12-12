@@ -1,5 +1,10 @@
 {
     "@layout_container": "<div class=\"container\">",
-    "@content_placeholder": [""],
+
+    "@data": {
+        "@uuid": "hero",  
+        "@token": "",
+        "@content": ""
+    },
     "@layout_container_end": "</div>"
 }

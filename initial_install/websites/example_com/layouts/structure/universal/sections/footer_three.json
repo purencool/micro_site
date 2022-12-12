@@ -1,4 +1,7 @@
 {
-   "@content_placeholder": [""]
+    "@data": {
+        "@uuid": "footer_three",  
+        "@token": "",
+        "@content": ""
+    }
 }
-

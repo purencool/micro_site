@@ -1,7 +1,11 @@
 {
     "@layout_container": "<div id=\"main-content\" class=\"container\">",
     "@layout_article": "<article>",
-    "@content_placeholder": [""], 
+    "@data": {
+      "@uuid":"article",  
+      "@token":"",
+      "@content": ""
+    }, 
     "@layout_article_end": "</article>",  
     "@layout_container_end": "</div>"  
 }

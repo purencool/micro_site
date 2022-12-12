@@ -9,6 +9,11 @@ namespace App\Controller\Observers;
  */
 class Mesh {
 
+ // private static function findContentPlaceholder($array, $content){
+  //   foreach
+
+ // }
+
   /**
    * runMesh combines the layout with the content.
    * 
@@ -25,6 +30,7 @@ class Mesh {
       if ($key === $layoutKey) {
         foreach ($layoutArrayChild as $contentKey => $contentValue) {
           if ($contentKey == '@content_placeholder') {
+            print_r($content); exit;
             $layoutArrayChild['@content_placeholder'] = $content->{$layoutKey};
             break;
           }
@@ -57,9 +63,9 @@ class Mesh {
         self::runMesh($layout, $item->{'@data'}, array_keys((array) $item->{'@data'})[0]);
       }
     }
-    //print '<pre>';
-   // print_r($layout);
-   // exit;
+    print '<pre>';
+    print_r($layout);
+    exit;
     return $layout;
   }
 

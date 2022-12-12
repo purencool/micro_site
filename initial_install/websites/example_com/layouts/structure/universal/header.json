@@ -1,16 +1,16 @@
 {
-    "@data_container": "<div class=\"container\">",
-    "@data_container_row": "<div class=\"row align-items-start\">",
-    "@data_child_one": "<div class=\"col\">", 
+    "@layout_container": "<div class=\"container\">",
+    "@layout_container_row": "<div class=\"row align-items-start\">",
+    "@layout_child_one": "<div class=\"col\">", 
     "branding": {
         "@schema": "universal/sections/branding"
     },
-    "@data_child_one_end": "</div>",
-    "@data_child_two": "<div class=\"col\">", 
+    "@layout_child_one_end": "</div>",
+    "@layout_child_two": "<div class=\"col\">", 
     "navigation": {
         "@schema": "universal/sections/navigation"
     },
-    "@data_child_two_end": "</div>",
-    "@data_container_row_end": "</div>",
-    "@data_container_end": "</div>"
+    "@layout_child_two_end": "</div>",
+    "@layout_container_row_end": "</div>",
+    "@layout_container_end": "</div>"
 }

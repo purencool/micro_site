@@ -1,15 +1,15 @@
 {
-    "@title": "Rest Observer",
-    "@route": "/",
-    "@link_text": "home",
-    "@type": "home",
-    "@layout": "home",
-    "@summary": {
-        "summary": "This application "
-    },
-    "@meta_description": "This is a description",
-    "@meta_tags": "Tags, Tags", 
     "@data": { 
-        "article": "Welcome to this website" 
+        "@title": "Rest Observer",
+        "@route": "/",
+        "@link_text": "home",
+        "@type": "home",
+        "@layout": "home",
+        "@summary": {
+            "summary": "This application "
+        },
+        "@meta_description": "This is a description",
+        "@meta_tags": "Tags, Tags", 
+        "@body": "Welcome to this website" 
     }
 }

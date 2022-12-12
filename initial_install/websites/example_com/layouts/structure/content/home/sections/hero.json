@@ -1,5 +1,5 @@
 {
-    "@data_container": "<div class=\"container\">",
+    "@layout_container": "<div class=\"container\">",
     "@content_placeholder": [""],
-    "@data_container_end": "</div>"
+    "@layout_container_end": "</div>"
 }

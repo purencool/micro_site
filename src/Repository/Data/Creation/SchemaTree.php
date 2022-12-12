@@ -51,7 +51,8 @@ class SchemaTree {
    * @return array
    */
   public static function create($arrayPassedIn): array {
-    return self::layoutBuilder($arrayPassedIn);
+    $return = self::layoutBuilder($arrayPassedIn);
+    print_r($return); exit;
   }
 
 }

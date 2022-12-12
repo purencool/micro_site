@@ -1,5 +1,5 @@
 {
-    "@data_container": "<div class=\"container\">",
+    "@layout_container": "<div class=\"container\">",
     "footer_one": {
         "@schema": "universal/sections/footer_one"
     },
@@ -15,5 +15,5 @@
     "footer_five": {
         "@schema": "universal/sections/footer_five"
     },
-    "@data_container_end": "</div>"
+    "@layout_container_end": "</div>"
 }

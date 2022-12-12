@@ -1,57 +1,55 @@
 {
-    "@types": {
-        "default": {
-            "header": {
-                "@schema": "universal/header"
-            },
-            "article": {
-                "@schema": "content/pages/article"
-            },
-            "footer": {
-                "@schema": "universal/footer"
-            }
+    "@type_default": {
+        "header": {
+            "@schema": "universal/header"
         },
         "article": {
-            "header": {
-                "@schema": "universal/header"
-            },
-            "article": {
-                "@schema": "content/articles/content/article"
-            },
-            "right_sidebar": {
-                "@schema": "content/articles/sections/sidebar"
-            },
-            "footer": {
-                "@schema": "universal/footer"
-            }
+            "@schema": "content/pages/article"
         },
-        "home": {
-            "header": {
-                "@schema": "universal/header"
-            },
-            "hero": {
-                "@schema": "content/home/sections/hero"
-            },
+        "footer": {
+            "@schema": "universal/footer"
+        }
+    },
+    "@type_article": {
+        "header": {
+            "@schema": "universal/header"
+        },
+        "article": {
+            "@schema": "content/articles/content/article"
+        },
+        "right_sidebar": {
+            "@schema": "content/articles/sections/sidebar"
+        },
+        "footer": {
+            "@schema": "universal/footer"
+        }
+    },
+    "@type_home": {
+        "header": {
+            "@schema": "universal/header"
+        },
+        "hero": {
+            "@schema": "content/home/sections/hero"
+        },
             "about": {
-                "@schema": "content/home/sections/about"
-            },
-            "article": {
-                "@schema": "content/home/content/article"
-            },
-            "footer": {
-                "@schema": "universal/footer"
-            }
+            "@schema": "content/home/sections/about"
         },
-        "page": {
-            "header": {
-                "@schema": "universal/header"
-            },
+            "article": {
+            "@schema": "content/home/content/article"
+        },
+        "@layout_footer": {
+            "@schema": "universal/footer"
+        }
+    },
+    "@type_page": {
+        "@header": {
+            "@schema": "universal/header"
+        },
             "content": {
-                "@schema": "content/pages/article"
-            },
+            "@schema": "content/pages/article"
+        },
             "footer": {
-                "@schema": "universal/footer"
-            }
+            "@schema": "universal/footer"
         }
     }
 }

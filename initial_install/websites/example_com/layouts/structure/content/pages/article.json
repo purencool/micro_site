@@ -1,7 +1,7 @@
 {
-    "@data_container": "<div id=\"main-content\" class=\"container\">",
-    "@data_article": "<article>",
+    "@layout_container": "<div id=\"main-content\" class=\"container\">",
+    "@layout_article": "<article>",
     "@content_placeholder": [""], 
-    "@data_article_end": "</article>",  
-    "@data_container_end": "</div>"  
+    "@layout_article_end": "</article>",  
+    "@layout_container_end": "</div>"  
 }

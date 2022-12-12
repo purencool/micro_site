@@ -11,47 +11,38 @@ use App\Repository\Processes\DataObjects;
  */
 class SchemaTree {
 
-
   /**
    * 
-   * @param object $object
-   * @return array
+   * @param type $items
+   * @return type
    */
-  private static function testForDataParameter($object) : array {
-    $return = [];
-    foreach (array_keys(get_object_vars($object)) as $item) {
-      if (str_contains($item, '@data')) {
-        $return[$item] = $object->{$item};
-      }
-      if (str_contains($item, '@content_placeholder')) {
-        $return[$item] = $object->{$item};
-      }
-      if (str_contains($item, '@child')) {
-        $return[$item] = self::schema($object->{$item});
-      }
+  private static function arrayConversion($items) {
+    if (is_object($items)) {
+      return (array) $items;
     }
-    return $return;
+    return $items;
   }
 
   /**
    * 
-   * @param type $objectPassed
-   * @param type $inArr
+   * @param type $arrayPassedIn
    * @return type
    */
-  private static function schema($objectPassed, $inArr = []) {
-    foreach ($objectPassed as $key => $element) {
-      if (is_object($element)) {
-        if (property_exists($element, '@schema')) {
-          $dataResponse = DataObjects::dataRequest(
-              $element->{'@schema'},
-              'layout'
-            )['array_objects'];         
-          $inArr[$key] = self::testForDataParameter($dataResponse);
-        }
+  private static function layoutBuilder($arrayPassedIn) {
+    $itemsReturn = [];
+    foreach ($arrayPassedIn as $key => $items) {
+      if ($key == '@schema') {
+        $data = DataObjects::dataRequest($items, 'layout')['array_objects'];
+        $itemsReturn[$key] = self::layoutBuilder(self::arrayConversion($data));
+      }
+      elseif (is_string($items)) {
+        $itemsReturn[$key] = $items;
+      }
+      else {
+        $itemsReturn[$key] = self::layoutBuilder(self::arrayConversion($items));
       }
     }
-    return $inArr;
+    return $itemsReturn;
   }
 
   /**
@@ -60,10 +51,7 @@ class SchemaTree {
    * @return array
    */
   public static function create($arrayPassedIn): array {
-    foreach ((array) $arrayPassedIn['@types'] as $key => $item) {
-      $return[$key] = self::schema($item);
-    }
-    return ['@types' => $return];
+    return self::layoutBuilder($arrayPassedIn);
   }
 
 }

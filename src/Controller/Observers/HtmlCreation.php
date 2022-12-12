@@ -19,16 +19,28 @@ class HtmlCreation {
    */
   public static function setChanges(array $dataArray): string {
     $return = '';
+    $setSchemaDiv = false;
+    $setPlaceHolderDiv = false;
     foreach ($dataArray as $key => $item) {
       if (!is_object($item)) {
         if (!is_string($item)) {
           $output = str_replace('_', '-', $key);
-          if (strpos($key, '@') !== false) {
-            $outputAt = str_replace('@', '-', $output);
-            $return .= "<div class=\"app-$outputAt\"  >";
+          if (strpos($key, '@schema') !== false) {
+            $setSchemaDiv = true;
+            $return .= "";
+          }
+          elseif (strpos($key, '@content_placeholder') !== false) {
+            $setPlaceHolderDiv = true;
+            $return .= "";
           }
           else {
-            $return .= "<div id=\"id-app-$output\" class=\"app-$output\"  >";
+            if (strpos($key, '@') !== false) {
+              $outputAt = str_replace('@', '-', $output);
+              $return .= "<div class=\"app-$outputAt\"  >";
+            }
+            else {
+              $return .= "<div id=\"id-app-$output\" class=\"app-$output\"  >";
+            }
           }
 
           if (array_key_exists('@data', $item)) {
@@ -37,7 +49,18 @@ class HtmlCreation {
           else {
             $return .= self::setChanges($item);
           }
-          $return .= "</div>";
+
+          if ($setSchemaDiv == true) {
+            $setSchemaDiv == false;
+            $return .= "";
+          }
+          elseif ($setPlaceHolderDiv == true) {
+            $setPlaceHolderDiv = false;
+            $return .= "";
+          }
+          else {
+            $return .= "</div>";
+          }
         }
         else {
 

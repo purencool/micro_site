@@ -1,21 +1,19 @@
 {
     "@data_container": "<div class=\"container\">",
-    "@child": {
-        "footer_one": {
-            "@schema": "universal/sections/footer_one"
-        },
-        "footer_two": {
-            "@schema": "universal/sections/footer_two"
-        },
-        "footer_three": {
-            "@schema": "universal/sections/footer_three"
-        },
-        "footer_four": {
-            "@schema": "universal/sections/footer_four"
-        },
-        "footer_five": {
-            "@schema": "universal/sections/footer_five"
-        }
+    "footer_one": {
+        "@schema": "universal/sections/footer_one"
+    },
+    "footer_two": {
+        "@schema": "universal/sections/footer_two"
+    },
+    "footer_three": {
+        "@schema": "universal/sections/footer_three"
+    },
+    "footer_four": {
+        "@schema": "universal/sections/footer_four"
+    },
+    "footer_five": {
+        "@schema": "universal/sections/footer_five"
     },
     "@data_container_end": "</div>"
 }

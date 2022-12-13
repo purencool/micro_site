@@ -1,7 +1,7 @@
 {
-    "@data": {
-        "@data_id": "item_one",  
-        "@token": "",
-        "@content": ""
+    "@data": { 
+        "@content": {
+            "item_one": "" 
+        } 
     }
 }

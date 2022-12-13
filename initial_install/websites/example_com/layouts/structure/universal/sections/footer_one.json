@@ -1,7 +1,7 @@
 {
     "@data": {
-        "@uuid": "footer_one",  
-        "@token": "",
-        "@content": ""
+        "@content": {
+            "footer_one": "" 
+        } 
     }
 }

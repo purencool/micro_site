@@ -1,3 +1,8 @@
 {
-   "@data": {"footer_three" : "Footer three" }
+    "@data": {  
+        "@token": "",
+        "@content": {
+            "footer_three": "Footer three" 
+        }    
+    }
 }

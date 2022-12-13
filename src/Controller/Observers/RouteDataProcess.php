@@ -53,9 +53,13 @@ class RouteDataProcess {
    *    Data connected to the route.
    */
   public static function getRouteTest($route): array {
+    print '<pre>';
+ print_r($route);exit;
     $data = RouteData::getData($route, 'test');
+  
     $data['@layout'] = Layouts::getArray($data['@type']);
-
+ print_r($data);
+   exit;
     $responseArr['response'] = [
       'body' => Mesh::setMesh($data['@layout'], $data['@content']),
       'language'  => 'en-US',

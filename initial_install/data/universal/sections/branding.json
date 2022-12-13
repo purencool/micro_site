@@ -1,3 +1,8 @@
 {
-    "@data": {"branding" : "This is the branding section" }
+    "@data": {  
+        "@token": "",
+        "@content": {
+            "branding": "Branding" 
+        }    
+    }
 }

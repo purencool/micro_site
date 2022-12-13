@@ -1,7 +1,15 @@
 {
-    "@title": "Welcome to this website",
-    "@route": "/using-the-json-api",
-    "@link_text" : "Json api",
-    "@type": "page",
-    "@data": { "article" : "Welcome to this website" }
+    "@data": {
+        "@title": "Welcome to this website",
+        "@route": "/using-the-json-api",
+        "@link_text": "Json api",
+        "@type": "page",
+        "@content": {
+            "hero_media": [
+                "html to media",
+                "html to media"
+            ],
+            "article": "Welcome to this website" 
+        }
+    }
 }

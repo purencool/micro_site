@@ -1,9 +1,9 @@
 {
     "@layout_container": "<div class=\"container\">",
     "@data": {
-        "@data_id": "item_one",  
-        "@token": "",
-        "@content": ""
+        "@content": {
+            "about": "" 
+        } 
     },
     "@layout_container_end": "</div>"
 }

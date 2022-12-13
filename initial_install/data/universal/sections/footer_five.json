@@ -1,3 +1,8 @@
 {
-     "@data": {"footer_five" : "Footer five" }
+    "@data": {  
+        "@token": "",
+        "@content": {
+            "footer_five": "footer five" 
+        }    
+    }
 }

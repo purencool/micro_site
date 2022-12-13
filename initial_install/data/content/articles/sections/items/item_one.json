@@ -1,5 +1,8 @@
 {
-    "@data": {
-        "item_one" : "Item one" 
+    "@data": {  
+        "@token": "[type:section]",
+        "@content": {
+            "item_one": "Item one" 
+        }    
     }
 }

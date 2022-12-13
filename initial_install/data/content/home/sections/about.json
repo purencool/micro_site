@@ -1,3 +1,8 @@
 {
-    "@data": { "about" : "This is the about section" }
+    "@data": {  
+        "@token": "",
+        "@content": {
+            "about": "This is the about section." 
+        }    
+    }
 }

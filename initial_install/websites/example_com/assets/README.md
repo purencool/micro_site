@@ -1,1 +1,0 @@
-Assets used in the theming

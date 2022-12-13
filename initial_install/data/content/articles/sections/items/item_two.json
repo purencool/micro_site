@@ -1,3 +1,8 @@
 {
-     "@data": {"item_two" : "Item two" }
+    "@data": {  
+        "@token": "",
+        "@content": {
+            "item_two": "Item two" 
+        }    
+    }
 }

@@ -70,7 +70,10 @@ class Install implements InstallInterface {
       Schema::getSiteCacheTestSrc(),
       Schema::getSiteCacheTestSrcProd(),
       Schema::getSiteCacheTestLayoutStructure(),
-      Schema::getSiteCacheProd()
+      Schema::getSiteCacheProd(),
+      Schema::getSiteCacheRoute(),
+      Schema::getSiteProdCacheRoute(),
+      Schema::getSiteTestCacheRoute()
     ];
 
     foreach ($directorySchema as $item) {

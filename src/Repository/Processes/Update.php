@@ -84,10 +84,10 @@ class Update implements UpdateInterface {
 
       case 'test':
 
-        copy(
-          Schema::getWebsiteEnvironment($layoutEnvVariable) . "config.json",
-          Schema::getSiteCacheTest() . "config.json"
-        );
+       // copy(
+       //   Schema::getWebsiteEnvironment($layoutEnvVariable) . "config.json",
+      //    Schema::getSiteCacheTest() . "config.json"
+       // );
 
         MoveDirectoryAndFiles::copySD(
           Schema::getWebsiteTwigTemplates($layoutEnvVariable),

@@ -338,4 +338,35 @@ class Schema {
       self::$ds . $environment . self::$ds . 'structure' . self::$ds;
   }
 
+  /**
+   * Allows the system to return the websites default data
+   * 
+   * @return string
+   */
+  public static function getSiteCacheRoute(): string {
+    self::globalPath();
+    return self::getCacheDir() . 'route'. self::$ds;
+  }
+
+  /**
+   * Allows the system to return the websites default data
+   * 
+   * @return string
+   */
+  public static function getSiteProdCacheRoute(): string {
+    self::globalPath();
+    return self::getSiteCacheRoute()  . 'prod'.  self::$ds;
+  }
+
+
+  /**
+   * Allows the system to return the websites default data
+   * 
+   * @return string
+   */
+  public static function getSiteTestCacheRoute(): string {
+    self::globalPath();
+    return self::getSiteCacheRoute() . 'test'.  self::$ds;
+  }
+
 }

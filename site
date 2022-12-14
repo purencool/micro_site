@@ -53,16 +53,16 @@ APP_STORAGE=file
 APP_SECRET="Add 32 characters without spaces"' > .env.local
   fi
 
-  composer update;
+ # composer update;
   ./bin/console si:se install
   ./bin/console si:se update test
-  ./bin/console si:se update prod
+ # ./bin/console si:se update prod
   ./bin/console si:se content:deploy test
-  ./bin/console si:se content:deploy prod
+  #./bin/console si:se content:deploy prod
   ./bin/console si:se route:creation test
   ./bin/console si:se route:creation prod
-  ./bin/console cache:clear
-  ./bin/console debug:router
+ # ./bin/console cache:clear
+ # ./bin/console debug:router
 
 
 elif [[ "$REQUEST" = "services" ]]
